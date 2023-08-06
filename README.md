@@ -5,6 +5,14 @@
 
 > Single Page Application for ordering burgers, authenticated back-office for admin management, data stored with firebase
 > >   
+
+
+## Web Application
+
+Application deployed with Netlify
+https://crazee-burger.netlify.app/
+
+
 ## Install
 
 ```sh

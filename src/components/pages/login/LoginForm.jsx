@@ -1,14 +1,21 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useUserContext from '../../../hooks/useUserContext';
 
 export default function LoginForm() {
+  const { logInUser } = useUserContext();
   const [inputValue, setInputValue] = useState('');
+  const navigate = useNavigate();
 
-  const handleChange = (e) => setInputValue(e.target.value);
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Welcome ${inputValue}!`);
+    logInUser(inputValue);
     setInputValue('');
+    navigate('/order');
   };
 
   return (
@@ -23,7 +30,7 @@ export default function LoginForm() {
         value={inputValue}
         onChange={handleChange}
       />
-      <button type="submit">Log in to my account</button>
+      <button type="submit">Log in</button>
     </form>
   );
 }

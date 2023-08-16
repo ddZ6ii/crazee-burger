@@ -1,0 +1,36 @@
+/* ______________________________________________________________________ *\
+   Import Local Fonts
+\* ______________________________________________________________________ */
+@font-face {
+  font-family: 'Amatic SC';
+  font-weight: 400;
+  src:
+    local('AmaticSC-Regular'),
+    url('../public/assets/fonts/AmaticSC-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Amatic SC';
+  font-weight: 700;
+  src:
+    local('AmaticSC-Bold'),
+    url('../public/assets/fonts/AmaticSC-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 500;
+  src:
+    local('Gilroy-OpenSans_Condensed-Medium'),
+    url('../public/assets/fonts/OpenSans_Condensed-Medium.ttf')
+      format('truetype');
+}
+
+/* h1 {
+  font-family: 'Amatic SC', curisve;
+  font-weight: 400;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+} */

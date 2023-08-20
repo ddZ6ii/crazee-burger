@@ -26,11 +26,31 @@
       format('truetype');
 }
 
-/* h1 {
-  font-family: 'Amatic SC', curisve;
-  font-weight: 400;
+/* ______________________________________________________________________ *\
+  Reset CSS
+\* ______________________________________________________________________ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  font-family: 'Open Sans', sans-serif;
-} */
+a {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+  border: none;
+}

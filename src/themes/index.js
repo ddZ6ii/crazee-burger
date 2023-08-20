@@ -1,6 +1,8 @@
 /* ______________________________________________________________________ *\
   Design Guide
 \* ______________________________________________________________________ */
+const blur = 'blur(14px)';
+
 const borderRadius = {
   rounded_sm: '1px',
   rounded: '4px',
@@ -28,7 +30,7 @@ const colors = {
 const fontFamily = {
   headings: '"Amatic SC", cursive',
   body: "'Open Sans', sans-serif",
-  inputs: 'Arial',
+  cta: 'Arial',
 };
 
 const fontSize = {
@@ -84,6 +86,7 @@ const spacing = {
 };
 
 export const theme = {
+  blur,
   borderRadius,
   breakpoints,
   colors,

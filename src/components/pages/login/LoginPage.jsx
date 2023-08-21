@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-
 import Logo from '../../utilities/Logo';
 import LoginForm from './LoginForm';
-
+import background from '../../../assets/images/background-burger.jpg';
 import { theme } from '../../../themes';
 
 export default function LoginPage() {
@@ -31,8 +30,7 @@ const Section = styled.section`
     content: '';
     position: absolute;
     inset: 0;
-    background: center / cover no-repeat
-      url('./src/assets/images/background-burger.jpg') ${overlay.dark};
+    background: center / cover no-repeat url(${background}) ${overlay.dark};
     background-blend-mode: darken;
     z-index: -1;
   }

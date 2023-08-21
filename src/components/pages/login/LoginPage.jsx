@@ -16,11 +16,11 @@ export default function LoginPage() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { spacing } = theme;
+const { overlay, spacing } = theme;
 
 const Section = styled.section`
   min-height: 100dvh;
-  padding: 0 20px 80px 20px;
+  padding: 0 ${spacing.md} ${spacing['5xl']} ${spacing.md};
 
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ const Section = styled.section`
     position: absolute;
     inset: 0;
     background: center / cover no-repeat
-      url('./src/assets/images/background-burger.jpg') rgba(0, 0, 0, 0.5);
+      url('./src/assets/images/background-burger.jpg') ${overlay.dark};
     background-blend-mode: darken;
     z-index: -1;
   }

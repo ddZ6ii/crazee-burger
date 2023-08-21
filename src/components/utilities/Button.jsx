@@ -14,7 +14,7 @@ export default function Button({ type = 'button', label, Icon }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { blur, borderRadius, colors, fontFamily, fontSize, spacing } = theme;
+const { blur, borderRadius, colors, fonts, spacing } = theme;
 
 const ButtonStyled = styled.button`
   padding: clamp(${spacing.xs}, 3vw, ${spacing.md});
@@ -26,7 +26,6 @@ const ButtonStyled = styled.button`
   gap: ${spacing['2xs']};
 
   background-color: rgba(255, 160, 27, 0.6);
-
   backdrop-filter: ${blur};
   border: 1px solid transparent;
   border-radius: ${borderRadius.rounded};
@@ -34,8 +33,8 @@ const ButtonStyled = styled.button`
   color: ${colors.white};
   cursor: pointer;
   line-height: 1;
-  font-family: ${fontFamily.cta};
-  font-size: clamp(${fontSize.sm}, 3vw, ${fontSize.base});
+  font-family: ${fonts.family.cta};
+  font-size: clamp(${fonts.size.sm}, 3vw, ${fonts.size.base});
   transition-duration: 0.2s;
   transition-timing-function: ease;
   transition-property: background-color, background-color, border-color;

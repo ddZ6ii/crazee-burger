@@ -33,15 +33,7 @@ export default function Input({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const {
-  blur,
-  borderRadius,
-  colors,
-  fontFamily,
-  fontSize,
-  fontWeight,
-  spacing,
-} = theme;
+const { blur, borderRadius, colors, fonts, spacing } = theme;
 
 const InputStyled = styled.div`
   width: 100%;
@@ -83,9 +75,9 @@ const InputStyled = styled.div`
 
     color: ${colors.white};
     line-height: 1;
-    font-size: clamp(${fontSize.sm}, 3vw, ${fontSize.base});
-    font-family: ${fontFamily.cta};
-    font-weight: ${fontWeight.regular};
+    font-size: clamp(${fonts.size.sm}, 3vw, ${fonts.size.base});
+    font-family: ${fonts.family.cta};
+    font-weight: ${fonts.weight.regular};
 
     &:focus {
       outline-color: ${colors.neutral_light};

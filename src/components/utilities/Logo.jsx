@@ -15,7 +15,7 @@ export default function Logo() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { colors, fontFamily, fontWeight, spacing } = theme;
+const { colors, fonts, spacing } = theme;
 
 const LogoStyled = styled.div`
   display: flex;
@@ -25,15 +25,15 @@ const LogoStyled = styled.div`
 
   & h1 {
     color: ${colors.accent};
-    font-family: ${fontFamily.headings};
-    font-size: clamp(3rem, 13vw, 6.875rem);
-    font-weight: ${fontWeight.bold};
+    font-family: ${fonts.family.headings};
+    font-size: clamp(${fonts.size['3xl']}, 13vw, ${fonts.size['6xl']});
+    font-weight: ${fonts.weight.bold};
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
   & img {
-    max-height: clamp(60px, 17vw, 150px);
+    max-height: clamp(60px, 17vw, 136px);
     width: auto;
     aspect-ratio: 1.333;
   }

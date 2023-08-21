@@ -1,0 +1,57 @@
+/* ______________________________________________________________________ *\
+   Import Local Fonts
+\* ______________________________________________________________________ */
+@font-face {
+  font-family: 'Amatic SC';
+  font-weight: 400;
+  src:
+    local('AmaticSC-Regular'),
+    url('../public/assets/fonts/AmaticSC-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Amatic SC';
+  font-weight: 700;
+  src:
+    local('AmaticSC-Bold'),
+    url('../public/assets/fonts/AmaticSC-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 500;
+  src:
+    local('Gilroy-OpenSans_Condensed-Medium'),
+    url('../public/assets/fonts/OpenSans_Condensed-Medium.ttf')
+      format('truetype');
+}
+
+/* ______________________________________________________________________ *\
+  Reset CSS
+\* ______________________________________________________________________ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea {
+  color: inherit;
+  font: inherit;
+  border: none;
+}

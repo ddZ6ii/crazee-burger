@@ -27,36 +27,43 @@ const colors = {
   black: '#000000',
 };
 
-const fontFamily = {
-  headings: '"Amatic SC", cursive',
-  body: "'Open Sans', sans-serif",
-  cta: 'Arial',
-};
-
-const fontSize = {
-  '3xs': '8px',
-  '2xs': '10px',
-  xs: '12px',
-  sm: '14px',
-  base: '16px',
-  md: '18px',
-  lg: '20px',
-  xl: '24px',
-  '2xl': '32px',
-  '3xl': '48px',
-  '4xl': '60px',
-};
-
-const fontWeight = {
-  light: 300,
-  regular: 400,
-  medium: 500,
-  semiBold: 600,
-  bold: 700,
-  extrabold: 800,
+const fonts = {
+  family: {
+    headings: '"Amatic SC", cursive',
+    body: "'Open Sans', sans-serif",
+    cta: 'Arial',
+  },
+  size: {
+    '3xs': '8px',
+    '2xs': '10px',
+    xs: '12px',
+    sm: '14px',
+    base: '16px',
+    md: '18px',
+    lg: '20px',
+    xl: '24px',
+    '2xl': '32px',
+    '3xl': '48px',
+    '4xl': '60px',
+    '5xl': '72px',
+    '6xl': '96px',
+    '7xl': '128px',
+  },
+  weight: {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
+    extrabold: 800,
+  },
 };
 
 const gridUnit = 8;
+
+const overlay = {
+  dark: 'rgba(0, 0, 0, 0.5)',
+};
 
 const shadows = {
   sm: '0px -2px 8px -2px rgba(0 0 0 / 10%)',
@@ -90,10 +97,9 @@ export const theme = {
   borderRadius,
   breakpoints,
   colors,
-  fontFamily,
-  fontSize,
-  fontWeight,
+  fonts,
   gridUnit,
+  overlay,
   shadows,
   spacing,
 };

@@ -11,7 +11,7 @@ export default function Input({
   ...restProps
 }) {
   return (
-    <InputStyled>
+    <StyledInput>
       <label htmlFor={label}>
         <span>{labelValue}</span>
         <div className="wrapper">
@@ -26,7 +26,7 @@ export default function Input({
           />
         </div>
       </label>
-    </InputStyled>
+    </StyledInput>
   );
 }
 
@@ -35,7 +35,7 @@ export default function Input({
 /* __________________________________________________________________________ */
 const { blur, borderRadius, colors, fonts, spacing } = theme;
 
-const InputStyled = styled.div`
+const StyledInput = styled.div`
   width: 100%;
 
   & label {

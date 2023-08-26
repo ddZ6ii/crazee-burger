@@ -37,10 +37,23 @@
   padding: 0;
 }
 
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2 {
+  font-family: 'Amatic SC', cursive;
+}
+
 a {
   display: inline-block;
   cursor: pointer;
   text-decoration: none;
+}
+
+button {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 img {

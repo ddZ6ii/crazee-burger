@@ -2,9 +2,15 @@ import styled from 'styled-components';
 
 import { theme } from '../../themes';
 
-export default function Button({ type = 'button', label, Icon }) {
+export default function Button({
+  type = 'button',
+  label,
+  Icon,
+  className = '',
+  onClick = null,
+}) {
   return (
-    <ButtonStyled type={type}>
+    <ButtonStyled type={type} className={className} onClick={onClick}>
       <span>{label}</span>
       {Icon && Icon}
     </ButtonStyled>

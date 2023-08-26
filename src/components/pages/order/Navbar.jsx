@@ -12,7 +12,7 @@ export default function Navbar() {
   const { userName, logOutUser } = useUserContext();
 
   const handleRefreshPage = () => {
-    location.reload();
+    window.location.reload();
   };
 
   const handleLogOut = () => {

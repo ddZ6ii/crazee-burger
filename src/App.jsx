@@ -9,14 +9,12 @@ import './App.css';
 
 export default function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<RootLayout />}>
-          <Route index element={<LoginPage />} />
-          <Route path="order" element={<OrderPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route index element={<LoginPage />} />
+      <Route path="/" element={<RootLayout />}>
+        <Route path="order" element={<OrderPage />} />
+      </Route>
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
   );
 }

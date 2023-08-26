@@ -1,5 +1,5 @@
 // import { useMemo, useState } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { UserContext } from './UserContext';
 
@@ -16,6 +16,11 @@ export default function UserContextProvider({ children }) {
   const logOutUser = useCallback(() => {
     sessionStorage.removeItem(SESSION_STORAGE_KEY);
     setUserName(null);
+  }, []);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY));
+    if (userInfo) setUserName(userInfo);
   }, []);
 
   const contextValue = {

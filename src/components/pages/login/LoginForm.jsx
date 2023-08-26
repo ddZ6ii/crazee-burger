@@ -13,7 +13,6 @@ import { theme } from '../../../themes';
 export default function LoginForm() {
   const navigate = useNavigate();
   const { logInUser } = useUserContext();
-
   const [inputValue, setInputValue] = useState('');
 
   const handleChange = (e) => setInputValue(e.target.value);
@@ -26,7 +25,7 @@ export default function LoginForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <FormStyled onSubmit={handleSubmit}>
       <h1>Welcome to the app !</h1>
       <hr />
       <div className="container">
@@ -43,7 +42,7 @@ export default function LoginForm() {
           Icon={<VscChevronRight className="btn__icon" />}
         />
       </div>
-    </Form>
+    </FormStyled>
   );
 }
 
@@ -52,14 +51,13 @@ export default function LoginForm() {
 /* __________________________________________________________________________ */
 const { colors, fonts, spacing } = theme;
 
-const Form = styled.form`
+const FormStyled = styled.form`
   width: 100%;
   max-width: 400px;
   margin-inline: auto;
 
   color: ${colors.white};
   line-height: 1.271;
-  font-family: ${fonts.family.headings};
   font-weight: ${fonts.weight.bold};
   text-align: center;
   text-transform: uppercase;

@@ -21,6 +21,7 @@ const breakpoints = {
 const colors = {
   accent: '#ffa01b',
   white: '#ffffff',
+  neutral_lightest: '#F5F5F7',
   neutral_light: '#D3D3D3',
   neutral: '#747B91',
   neutral_darkest: '#17161A',
@@ -30,8 +31,8 @@ const colors = {
 const fonts = {
   family: {
     headings: '"Amatic SC", cursive',
-    body: "'Open Sans', sans-serif",
-    cta: 'Arial',
+    body: '"Open Sans", sans-serif',
+    cta: 'Arial, Helvetica, sans-serif',
   },
   size: {
     '3xs': '8px',
@@ -75,7 +76,7 @@ const spacing = {
   '3xs': '4px',
   '2xs': '8px',
   xs: '12px',
-  sm: '18px',
+  sm: '20px',
   md: '24px',
   lg: '32px',
   xl: '40px',

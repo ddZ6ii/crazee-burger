@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserName, useLogout } from '../../../hooks/useStore';
 import { theme } from '../../../themes';
 
-import Logo from '../../utilities/Logo';
+import Logo from '../../reusable/Logo';
 import UserInfo from './UserInfo';
 
 export default function Navbar() {

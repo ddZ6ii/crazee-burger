@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { BsPersonCircle } from 'react-icons/bs';
 import { TbLogout2 } from 'react-icons/tb';
 
-import Button from '../../reusable/Button';
+import Button from '../../common/Button';
 import { theme } from '../../../themes';
 
 export default function NavbarUserInfo({ userName, onLogOut }) {

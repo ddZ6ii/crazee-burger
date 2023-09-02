@@ -4,9 +4,9 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { VscChevronRight } from 'react-icons/vsc';
 import styled from 'styled-components';
 
-import Input from '../../reusable/Input';
+import Input from '../../common/Input';
 
-import Button from '../../reusable/Button';
+import Button from '../../common/Button';
 import { useLogin } from '../../../hooks/useStore';
 import { theme } from '../../../themes';
 

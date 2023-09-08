@@ -21,8 +21,17 @@
   font-family: 'Open Sans';
   font-weight: 500;
   src:
-    local('Gilroy-OpenSans_Condensed-Medium'),
+    local('OpenSans_Condensed-Medium'),
     url('../public/assets/fonts/OpenSans_Condensed-Medium.ttf')
+      format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  src:
+    local('OpenSans_Condensed-Regular'),
+    url('../public/assets/fonts/OpenSans_Condensed-Regular.ttf')
       format('truetype');
 }
 

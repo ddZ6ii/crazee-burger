@@ -12,8 +12,14 @@ export default function MenuItemThumbnail({ src, title }) {
  ** Style
 /* __________________________________________________________________________ */
 const MenuItemThumbnailStyled = styled.div`
-  min-height: 145px;
+  height: 145px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;

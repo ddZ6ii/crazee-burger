@@ -1,11 +1,11 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { useUserName, useLogout } from '../../../hooks/useStore';
 import { theme } from '../../../themes';
 
 import Logo from '../../common/Logo';
-import UserInfo from './UserInfo';
+import UserInfo from '../order/UserInfo';
 
 export default function Navbar() {
   const navigate = useNavigate();

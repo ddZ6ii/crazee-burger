@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Product from './Product';
@@ -6,12 +7,20 @@ import { theme } from '../../../themes';
 import { fakeMenu2 as products } from '../../../data/fakeMenus';
 
 export default function OrderPage() {
+  const [menus, setMenus] = useState([]);
+
+  useEffect(() => {
+    setMenus(products);
+  }, []);
+
   return (
-    <SectionStyled>
-      {products.map((product) => (
-        <Product key={product.id} product={product} />
-      ))}
-    </SectionStyled>
+    <MenuStyled>
+      {menus.length ? (
+        menus.map((product) => <Product key={product.id} product={product} />)
+      ) : (
+        <p>Loading menus...</p>
+      )}
+    </MenuStyled>
   );
 }
 
@@ -22,7 +31,7 @@ const NAVBAR_HEIGHT_MOBILE = '95px';
 const NAVBAR_HEIGHT_DESKTOP = '148px';
 const { breakpoints, borderRadius, colors, spacing } = theme;
 
-const SectionStyled = styled.section`
+const MenuStyled = styled.section`
   padding: ${spacing.md};
   min-height: calc(100dvh - ${NAVBAR_HEIGHT_MOBILE});
 

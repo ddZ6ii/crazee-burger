@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-import MenuItemInfo from './MenuItemInfo';
-import MenuItemThumbnail from './MenuItemThumbnail';
+import ProductInfo from './ProductInfo';
+import ProductThumbnail from './ProductThumbnail';
 
 import { theme } from '../../../themes';
 
-export default function MenuItem({ menu }) {
+export default function Product({ product }) {
   return (
-    <MenuItemStyled>
-      <MenuItemThumbnail src={menu.imageSource} title={menu.price} />
-      <MenuItemInfo price={menu.price} title={menu.title} />
-    </MenuItemStyled>
+    <ProductStyled>
+      <ProductThumbnail src={product.imageSource} title={product.price} />
+      <ProductInfo price={product.price} title={product.title} />
+    </ProductStyled>
   );
 }
 
@@ -19,7 +19,7 @@ export default function MenuItem({ menu }) {
 /* __________________________________________________________________________ */
 const { borderRadius, colors, spacing } = theme;
 
-const MenuItemStyled = styled.div`
+const ProductStyled = styled.div`
   padding: ${spacing.sm};
   width: 240px;
   min-height: 310px;

@@ -5,18 +5,18 @@ import Button from '../../common/Button';
 import { formatPrice } from '../../../utilities/maths';
 import { theme } from '../../../themes';
 
-export default function MenuItemInfo({ title, price }) {
+export default function ProductInfo({ title, price }) {
   const formattedPrice = formatPrice(price);
 
   return (
-    <MenuItemInfoStyled>
+    <ProductInfoStyled>
       <h2>{title}</h2>
 
       <div className="menuItem__container">
         <span className="menuItem__price">{formattedPrice}</span>
         <Button label="Add" className="menuItem__btn" />
       </div>
-    </MenuItemInfoStyled>
+    </ProductInfoStyled>
   );
 }
 
@@ -25,7 +25,7 @@ export default function MenuItemInfo({ title, price }) {
 /* __________________________________________________________________________ */
 const { colors, fonts, spacing } = theme;
 
-const MenuItemInfoStyled = styled.div`
+const ProductInfoStyled = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${spacing.sm};

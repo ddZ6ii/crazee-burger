@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-import MenuItem from './MenuItem';
+import Product from './Product';
 
 import { theme } from '../../../themes';
-import { fakeMenu2 } from '../../../data/fakeMenus';
+import { fakeMenu2 as products } from '../../../data/fakeMenus';
 
 export default function OrderPage() {
   return (
     <SectionStyled>
-      {fakeMenu2.map((menuItem) => (
-        <MenuItem key={menuItem.id} menu={menuItem} />
+      {products.map((product) => (
+        <Product key={product.id} product={product} />
       ))}
     </SectionStyled>
   );

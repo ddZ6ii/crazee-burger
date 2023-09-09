@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-export default function MenuItemThumbnail({ src, title }) {
+export default function ProductThumbnail({ src, title }) {
   return (
-    <MenuItemThumbnailStyled>
+    <ProductThumbnailStyled>
       <img src={src} alt={title} />
-    </MenuItemThumbnailStyled>
+    </ProductThumbnailStyled>
   );
 }
 
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const MenuItemThumbnailStyled = styled.div`
+const ProductThumbnailStyled = styled.div`
   height: 145px;
   display: flex;
   align-items: center;

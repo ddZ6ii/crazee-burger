@@ -41,7 +41,7 @@ export const fakeMenu2 = [
   {
     id: 3,
     imageSource: './src/assets/images/menus/burger3.png',
-    title: 'Burger poulet',
+    title: 'Chicken Burger',
     price: 5.367,
     quantity: 0,
     isAvailable: true,
@@ -77,7 +77,7 @@ export const fakeMenu2 = [
   {
     id: 7,
     imageSource: './src/assets/images/menus/frites1.png',
-    title: 'Frites Paprika',
+    title: 'Paprika Fries',
     price: 2.567,
     quantity: 0,
     isAvailable: true,
@@ -95,7 +95,7 @@ export const fakeMenu2 = [
   {
     id: 9,
     imageSource: './src/assets/images/menus/wedges1.png',
-    title: 'Crispy Potatoes',
+    title: 'Crispy Wedges',
     price: 3.7,
     quantity: 0,
     isAvailable: true,
@@ -104,7 +104,7 @@ export const fakeMenu2 = [
   {
     id: 10,
     imageSource: './src/assets/images/menus/ice-cream.png',
-    title: 'Glaces artisanales',
+    title: 'Ice Cream Cones',
     price: 4.678,
     quantity: 0,
     isAvailable: true,

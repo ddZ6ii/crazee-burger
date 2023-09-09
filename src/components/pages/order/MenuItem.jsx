@@ -31,4 +31,5 @@ const MenuItemStyled = styled.div`
 
   background-color: ${colors.white};
   border-radius: ${borderRadius.rounded_2xl};
+  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.1);
 `;

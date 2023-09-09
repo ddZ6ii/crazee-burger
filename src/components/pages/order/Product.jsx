@@ -22,7 +22,7 @@ const { borderRadius, colors, spacing } = theme;
 const ProductStyled = styled.div`
   padding: ${spacing.sm};
   width: 240px;
-  min-height: 310px;
+  min-height: 330px;
 
   display: flex;
   flex-direction: column;

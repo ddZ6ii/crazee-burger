@@ -20,7 +20,7 @@ export default function OrderPage() {
 /* __________________________________________________________________________ */
 const NAVBAR_HEIGHT_MOBILE = '95px';
 const NAVBAR_HEIGHT_DESKTOP = '148px';
-const { breakpoints, borderRadius, colors, fonts, spacing } = theme;
+const { breakpoints, borderRadius, colors, spacing } = theme;
 
 const SectionStyled = styled.section`
   padding: ${spacing.md};
@@ -54,8 +54,4 @@ const SectionStyled = styled.section`
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
-
-  /* & h1 {
-    font-size: clamp(${fonts.size.xl}, 6vw, ${fonts.size['2xl']});
-  } */
 `;

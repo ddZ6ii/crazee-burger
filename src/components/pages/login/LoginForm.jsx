@@ -4,23 +4,23 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { VscChevronRight } from 'react-icons/vsc';
 import styled from 'styled-components';
 
-import Input from '../../utilities/Input';
+import Input from '../../common/Input';
 
-import Button from '../../utilities/Button';
-import useUserContext from '../../../hooks/useUserContext';
+import Button from '../../common/Button';
+import { useLogin } from '../../../hooks/useStore';
 import { theme } from '../../../themes';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const { logInUser } = useUserContext();
-  const [inputValue, setInputValue] = useState('');
+  const login = useLogin();
+  const [userName, setUserName] = useState('');
 
-  const handleChange = (e) => setInputValue(e.target.value);
+  const handleChange = (e) => setUserName(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    logInUser(inputValue);
-    setInputValue('');
+    login(userName);
+    setUserName('');
     navigate('/order');
   };
 
@@ -31,7 +31,7 @@ export default function LoginForm() {
       <div className="container">
         <h2>Log In</h2>
         <Input
-          value={inputValue}
+          value={userName}
           onChange={handleChange}
           placeholder="Enter your name"
           Icon={<BsPersonCircle className="input__icon" />}

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Logo from '../../utilities/Logo';
 import LoginForm from './LoginForm';
-import background from '../../../assets/images/background-burger.jpg';
+import Logo from '../../common/Logo';
+import background from '/assets/images/background-burger.jpg';
 import { theme } from '../../../themes';
 
 export default function LoginPage() {

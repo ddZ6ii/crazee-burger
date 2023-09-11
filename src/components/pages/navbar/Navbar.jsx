@@ -1,22 +1,21 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-import Logo from '../../utilities/Logo';
-import UserInfo from './UserInfo';
-
-import useUserContext from '../../../hooks/useUserContext';
+import { useUserName, useLogout } from '../../../hooks/useStore';
 import { theme } from '../../../themes';
+
+import Logo from '../../common/Logo';
+import UserInfo from '../order/UserInfo';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { userName, logOutUser } = useUserContext();
+  const userName = useUserName();
+  const logout = useLogout();
 
-  const handleRefreshPage = () => {
-    window.location.reload();
-  };
+  const handleRefreshPage = () => window.location.reload();
 
   const handleLogOut = () => {
-    logOutUser();
+    logout();
     navigate('/');
   };
 

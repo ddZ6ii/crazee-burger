@@ -17,7 +17,7 @@ export default function Product({ product }) {
       <div className="product__thumbnailContainer">
         <img
           src={product.imageSource}
-          title={product.price}
+          alt={product.title}
           className="product__thumbnail"
         />
       </div>

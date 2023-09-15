@@ -29,13 +29,24 @@ export default function ToggleButton({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, colors, fonts, spacing } = theme;
-
-const sliderSize = '30px';
+const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
+const SLIDER_SIZE = {
+  width: '200px',
+  height: '40px',
+};
+const SWITCH_SIZE = {
+  width: '28px',
+  height: '28px',
+};
 
 const ToggleButtonStyled = styled.div`
-  height: 40px;
-  width: 200px;
+  height: ${SLIDER_SIZE.height};
+  width: ${SLIDER_SIZE.width};
+
+  display: none;
+  @media screen and (min-width: ${breakpoints.md}) {
+    display: block;
+  }
 
   // hides the square box but keeps the core "toggle functionality"
   .toggle {
@@ -63,8 +74,8 @@ const ToggleButtonStyled = styled.div`
   .rounded:before {
     content: '';
 
-    width: ${sliderSize};
-    height: ${sliderSize};
+    width: ${SWITCH_SIZE.width};
+    height: ${SWITCH_SIZE.height};
 
     position: absolute;
 
@@ -77,12 +88,12 @@ const ToggleButtonStyled = styled.div`
 
   // text inside the switch button (for checked and unchecked)
   .rounded:after {
-    max-width: 70%;
+    max-width: 75%;
 
     position: absolute;
 
-    font-family: ${fonts.family.cta};
-    font-size: ${fonts.size['2xs']};
+    font-family: ${fonts.family.body};
+    font-size: ${fonts.size['sm']};
     font-weight: ${fonts.weight.regular};
     letter-spacing: 0.8px;
     text-transform: uppercase;
@@ -94,7 +105,7 @@ const ToggleButtonStyled = styled.div`
   // toggle animations (unchecked state)
   .toggle:not(:checked) {
     & + .rounded {
-      background-color: ${colors.neutral_darkest};
+      background-color: rgba(0, 0, 0, 0.85);
     }
 
     // small circle
@@ -106,9 +117,11 @@ const ToggleButtonStyled = styled.div`
     // text inside the switch button
     & + .rounded:after {
       content: attr(data-unchecked);
+
       left: 0;
-      transform: translateX(calc(${sliderSize} + ${spacing.sm}));
       color: ${colors.accent};
+
+      transform: translateX(calc(${SWITCH_SIZE.width} + ${spacing.sm}));
     }
   }
 
@@ -128,8 +141,11 @@ const ToggleButtonStyled = styled.div`
     // text inside the switch button
     & + .rounded:after {
       content: attr(data-checked);
+
       left: 100%;
-      transform: translateX(calc(-100% - ${sliderSize} - ${spacing.sm}));
+      color: ${colors.neutral};
+
+      transform: translateX(calc(-100% - ${SWITCH_SIZE.width} - ${spacing.sm}));
     }
   }
 `;

@@ -30,6 +30,7 @@ export default function NavbarUserInfo({ userName, onLogOut }) {
 const { breakpoints, colors, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

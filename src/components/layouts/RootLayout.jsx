@@ -20,11 +20,10 @@ export default function RootLayout() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, spacing } = theme;
+const { borderRadius, breakpoints, colors, spacing } = theme;
 
 const ContainerStyled = styled.div`
   height: 100dvh;
-  padding: ${spacing.xs} ${spacing.sm};
   @media screen and (min-width: ${breakpoints.sm}) {
     padding: ${spacing.md} ${spacing['3xl']};
   }
@@ -49,6 +48,8 @@ const MainStyled = styled.main`
   margin-inline: auto;
 
   background-color: ${colors.accent};
+  border-bottom-left-radius: ${borderRadius.rounded_2xl};
+  border-bottom-right-radius: ${borderRadius.rounded_2xl};
 
   overflow-y: auto;
 `;

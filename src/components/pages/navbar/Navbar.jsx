@@ -1,47 +1,45 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useUserName, useLogout } from '../../../hooks/useStore';
-import { theme } from '../../../themes';
-
 import Logo from '../../common/Logo';
-import ToggleButton from './ToggleButton';
+import ToggleButton from '../../common/ToggleButton';
 import UserInfo from '../order/UserInfo';
 
-export default function Navbar() {
-  const navigate = useNavigate();
-  const userName = useUserName();
-  const logout = useLogout();
+import { theme } from '../../../themes';
 
+export default function Navbar() {
   const [isAdminMode, setIsAdminMode] = useState(false);
 
-  const handleRefreshPage = () => window.location.reload();
+  const displayToastNotification = (message) => {
+    const toastOptions = {
+      autoClose: 3000,
+      pauseOnHover: true,
+      position: 'bottom-right',
+      theme: 'dark',
+    };
 
-  const handleLogOut = () => {
-    logout();
-    navigate('/');
+    if (!isAdminMode) toast.info(message, toastOptions);
   };
 
   const handleToggle = () => {
-    const enableAdminMode = !isAdminMode;
-    setIsAdminMode(enableAdminMode);
-    if (enableAdminMode) toast.info('Admin mode enabled');
+    setIsAdminMode((prev) => !prev);
+    displayToastNotification('Admin mode enabled');
   };
 
   return (
     <NavStyled>
-      <Logo className="navbar__logo" onClick={handleRefreshPage} />
-      <div className="navbar__rightSide">
+      <Logo className="navbar__logo" onClick={() => window.location.reload()} />
+
+      <div className="navbar__info">
         <ToggleButton
           isChecked={isAdminMode}
           onToggle={handleToggle}
           labelIfChecked="Disable Admin Mode"
           labelIfUnchecked="Enable Admin Mode"
         />
-        <UserInfo userName={userName} onLogOut={handleLogOut} />
+        <UserInfo />
       </div>
     </NavStyled>
   );
@@ -95,7 +93,7 @@ const NavStyled = styled.nav`
     }
   }
 
-  .navbar__rightSide {
+  .navbar__info {
     display: flex;
     align-items: center;
     gap: clamp(${spacing.xs}, 4vw, ${spacing['4xl']});

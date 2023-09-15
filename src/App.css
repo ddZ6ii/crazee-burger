@@ -6,7 +6,7 @@
   font-weight: 400;
   src:
     local('AmaticSC-Regular'),
-    url('../public/assets/fonts/AmaticSC-Regular.ttf') format('truetype');
+    url('/assets/fonts/AmaticSC-Regular.ttf') format('truetype');
 }
 
 @font-face {
@@ -14,7 +14,7 @@
   font-weight: 700;
   src:
     local('AmaticSC-Bold'),
-    url('../public/assets/fonts/AmaticSC-Bold.ttf') format('truetype');
+    url('/assets/fonts/AmaticSC-Bold.ttf') format('truetype');
 }
 
 @font-face {
@@ -22,8 +22,7 @@
   font-weight: 500;
   src:
     local('OpenSans_Condensed-Medium'),
-    url('../public/assets/fonts/OpenSans_Condensed-Medium.ttf')
-      format('truetype');
+    url('/assets/fonts/OpenSans_Condensed-Medium.ttf') format('truetype');
 }
 
 @font-face {
@@ -31,8 +30,7 @@
   font-weight: 400;
   src:
     local('OpenSans_Condensed-Regular'),
-    url('../public/assets/fonts/OpenSans_Condensed-Regular.ttf')
-      format('truetype');
+    url('/assets/fonts/OpenSans_Condensed-Regular.ttf') format('truetype');
 }
 
 /* ______________________________________________________________________ *\

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useUserName, useLogout } from '../../../hooks/useStore';
 import { theme } from '../../../themes';
@@ -24,7 +26,9 @@ export default function Navbar() {
   };
 
   const handleToggle = () => {
-    setIsAdminMode((prev) => !prev);
+    const enableAdminMode = !isAdminMode;
+    setIsAdminMode(enableAdminMode);
+    if (enableAdminMode) toast.info('Admin mode enabled');
   };
 
   return (

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme } from '../../../themes';
+import { theme } from '../../themes';
 
 export default function ToggleButton({
   isChecked = false,
@@ -21,7 +21,7 @@ export default function ToggleButton({
         className="rounded"
         data-checked={labelIfChecked}
         data-unchecked={labelIfUnchecked}
-      ></label>
+      />
     </ToggleButtonStyled>
   );
 }

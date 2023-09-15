@@ -66,11 +66,6 @@ const NavStyled = styled.nav`
     0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-  .navbar__rightSide {
-    display: flex;
-    align-items: center;
-    gap: ${spacing['4xl']};
-  }
   .navbar__logo {
     gap: ${spacing['3xs']};
     cursor: pointer;
@@ -94,5 +89,11 @@ const NavStyled = styled.nav`
         width: 80px;
       }
     }
+  }
+
+  .navbar__rightSide {
+    display: flex;
+    align-items: center;
+    gap: clamp(${spacing.xs}, 4vw, ${spacing['4xl']});
   }
 `;

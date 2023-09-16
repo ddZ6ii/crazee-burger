@@ -33,7 +33,7 @@ export default function Input({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { blur, borderRadius, colors, fonts, spacing } = theme;
+const { blur, borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const StyledInput = styled.div`
   width: 100%;
@@ -56,6 +56,10 @@ const StyledInput = styled.div`
     gap: ${spacing.xs};
 
     padding: clamp(${spacing.xs}, 3vw, ${spacing.md});
+    @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+      padding: ${spacing.xs};
+    }
+
     width: 100%;
 
     border-radius: ${borderRadius.rounded};

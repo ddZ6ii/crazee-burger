@@ -20,10 +20,14 @@ export default function Button({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { blur, borderRadius, colors, fonts, spacing } = theme;
+const { blur, borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const ButtonStyled = styled.button`
   padding: clamp(${spacing.xs}, 3vw, ${spacing.md});
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    padding: ${spacing.xs};
+  }
+
   width: 100%;
 
   display: flex;

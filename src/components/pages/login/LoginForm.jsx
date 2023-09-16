@@ -49,7 +49,7 @@ export default function LoginForm() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { colors, fonts, spacing } = theme;
+const { breakpoints, colors, fonts, spacing } = theme;
 
 const FormStyled = styled.form`
   width: 100%;
@@ -97,5 +97,23 @@ const FormStyled = styled.form`
 
   & .btn__icon {
     stroke-width: 2px;
+  }
+
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    width: fit-content;
+    margin-inline: initial;
+
+    & h1 {
+      font-size: ${fonts.size['3xl']};
+    }
+
+    & hr {
+      margin: ${spacing.md} auto;
+    }
+
+    & .container {
+      max-width: 250px;
+      gap: ${spacing.xs};
+    }
   }
 `;

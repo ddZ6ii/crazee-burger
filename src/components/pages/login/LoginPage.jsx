@@ -7,7 +7,7 @@ import { theme } from '../../../themes';
 export default function LoginPage() {
   return (
     <SectionStyled>
-      <Logo />
+      <Logo className="logo" />
       <LoginForm />
     </SectionStyled>
   );
@@ -15,7 +15,7 @@ export default function LoginPage() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { overlay, spacing } = theme;
+const { breakpoints, fonts, overlay, spacing } = theme;
 
 const SectionStyled = styled.section`
   min-height: 100dvh;
@@ -33,5 +33,27 @@ const SectionStyled = styled.section`
     background: center / cover no-repeat url(${background}) ${overlay.dark};
     background-blend-mode: darken;
     z-index: -1;
+  }
+
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    padding: ${spacing.sm} ${spacing.lg};
+    height: 100dvh;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .logo {
+      flex-direction: column;
+      align-items: center;
+      & span {
+        font-size: ${fonts.size['4xl']};
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+      }
+      & img {
+        height: 75px;
+        width: 100px;
+      }
+    }
   }
 `;

@@ -20,20 +20,22 @@ export default function RootLayout() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, spacing } = theme;
+const { borderRadius, breakpoints, colors, spacing } = theme;
 
 const ContainerStyled = styled.div`
   height: 100dvh;
-  padding: ${spacing.xs} ${spacing.sm};
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  background-color: ${colors.accent};
+
   @media screen and (min-width: ${breakpoints.sm}) {
     padding: ${spacing.md} ${spacing['3xl']};
   }
 
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
-
-  background-color: ${colors.accent};
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    padding: 0;
+  }
 `;
 
 const HeaderStyled = styled.header`
@@ -49,6 +51,8 @@ const MainStyled = styled.main`
   margin-inline: auto;
 
   background-color: ${colors.accent};
+  border-bottom-left-radius: ${borderRadius.rounded_2xl};
+  border-bottom-right-radius: ${borderRadius.rounded_2xl};
 
   overflow-y: auto;
 `;

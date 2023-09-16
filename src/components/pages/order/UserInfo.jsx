@@ -1,11 +1,23 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { BsPersonCircle } from 'react-icons/bs';
 import { TbLogout2 } from 'react-icons/tb';
 
+import { useUserName, useLogout } from '../../../hooks/useStore';
+
 import Button from '../../common/Button';
 import { theme } from '../../../themes';
 
-export default function NavbarUserInfo({ userName, onLogOut }) {
+export default function NavbarUserInfo() {
+  const navigate = useNavigate();
+  const userName = useUserName();
+  const logout = useLogout();
+
+  const handleLogOut = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
     <ContainerStyled>
       <div className="container">
@@ -16,7 +28,7 @@ export default function NavbarUserInfo({ userName, onLogOut }) {
           label="Log Out"
           className="logout__btn"
           Icon={<TbLogout2 className="logout__btnIcon" />}
-          onClick={onLogOut}
+          onClick={handleLogOut}
         />
       </div>
       <BsPersonCircle className="userIcon" />
@@ -30,6 +42,7 @@ export default function NavbarUserInfo({ userName, onLogOut }) {
 const { breakpoints, colors, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;

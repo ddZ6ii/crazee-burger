@@ -40,11 +40,6 @@ const MenuStyled = styled.section`
   padding: ${spacing.md};
   min-height: calc(100dvh - ${NAVBAR_HEIGHT_MOBILE});
 
-  @media screen and (min-width: ${breakpoints.sm}) {
-    padding: ${spacing['2xl']} ${spacing['xl']};
-    min-height: calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP});
-  }
-
   position: relative;
 
   display: grid;
@@ -53,21 +48,29 @@ const MenuStyled = styled.section`
   column-gap: 60px;
   row-gap: 32px;
 
+  background-color: ${colors.neutral_lightest};
+  border-bottom-left-radius: ${borderRadius['rounded_2xl']};
+  border-bottom-right-radius: ${borderRadius['rounded_2xl']};
+  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
+
   @media screen and (min-width: ${breakpoints.sm}) {
+    padding: ${spacing['2xl']} ${spacing['xl']};
+    min-height: calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP});
+
     grid-template-columns: repeat(auto-fill, 240px);
     justify-content: center;
     column-gap: clamp(20px, 6vw, 85px);
     row-gap: clamp(20px, 6vw, 85px);
   }
+
   @media screen and (min-width: ${breakpoints.lg}) {
     column-gap: 85px;
     row-gap: 60px;
   }
 
-  background-color: ${colors.neutral_lightest};
-  border-bottom-left-radius: ${borderRadius['rounded_2xl']};
-  border-bottom-right-radius: ${borderRadius['rounded_2xl']};
-  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    padding: ${spacing.sm};
+  }
 
   .spinnerContainer {
     display: flex;

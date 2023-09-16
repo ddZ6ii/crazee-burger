@@ -6,9 +6,10 @@ export default function ToggleButton({
   onToggle,
   labelIfChecked = 'Disable',
   labelIfUnchecked = 'Enable',
+  className,
 }) {
   return (
-    <ToggleButtonStyled>
+    <ToggleButtonStyled className={className}>
       <input
         type="checkbox"
         className="toggle"
@@ -29,7 +30,7 @@ export default function ToggleButton({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
+const { borderRadius, colors, fonts, spacing } = theme;
 const SLIDER_SIZE = {
   width: '200px',
   height: '40px',
@@ -42,11 +43,6 @@ const SWITCH_SIZE = {
 const ToggleButtonStyled = styled.div`
   height: ${SLIDER_SIZE.height};
   width: ${SLIDER_SIZE.width};
-
-  display: none;
-  @media screen and (min-width: ${breakpoints.md}) {
-    display: block;
-  }
 
   // hides the square box but keeps the core "toggle functionality"
   .toggle {

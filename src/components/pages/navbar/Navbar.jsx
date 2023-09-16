@@ -38,6 +38,7 @@ export default function Navbar() {
           onToggle={handleToggle}
           labelIfChecked="Disable Admin Mode"
           labelIfUnchecked="Enable Admin Mode"
+          className={'navbar__adminMode'}
         />
         <UserInfo />
       </div>
@@ -52,9 +53,6 @@ const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const NavStyled = styled.nav`
   padding: ${spacing.xs} ${spacing.sm};
-  @media screen and (min-width: ${breakpoints.sm}) {
-    padding: ${spacing.sm};
-  }
 
   display: flex;
   align-items: center;
@@ -63,10 +61,17 @@ const NavStyled = styled.nav`
   background-color: ${colors.white};
   border-top-left-radius: ${borderRadius.rounded_2xl};
   border-top-right-radius: ${borderRadius.rounded_2xl};
-
   box-shadow:
     0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  @media screen and (min-width: ${breakpoints.sm}) {
+    padding: ${spacing.sm};
+  }
+
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    padding: ${spacing['3xs']} ${spacing.sm};
+  }
 
   .navbar__logo {
     gap: ${spacing['3xs']};
@@ -91,11 +96,30 @@ const NavStyled = styled.nav`
         width: 80px;
       }
     }
+
+    @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+      & img {
+        height: 45px;
+        width: 60px;
+      }
+    }
   }
 
   .navbar__info {
     display: flex;
     align-items: center;
     gap: clamp(${spacing.xs}, 4vw, ${spacing['4xl']});
+  }
+
+  .navbar__adminMode {
+    display: none;
+
+    @media screen and (min-width: ${breakpoints.md}) {
+      display: block;
+    }
+
+    @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+      display: none;
+    }
   }
 `;

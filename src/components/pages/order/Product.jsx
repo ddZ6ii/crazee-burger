@@ -36,7 +36,7 @@ export default function Product({ product }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, colors, fonts, spacing } = theme;
+const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const ProductStyled = styled.div`
   padding: ${spacing.sm};
@@ -51,6 +51,11 @@ const ProductStyled = styled.div`
   background-color: ${colors.white};
   border-radius: ${borderRadius.rounded_2xl};
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.1);
+
+  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+    min-height: 300px;
+    padding: ${spacing.xs} ${spacing.sm};
+  }
 
   .product__thumbnailContainer {
     height: 145px;

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useShowPanel } from '../../../hooks/usePanelStore';
+
 import Logo from '../../common/Logo';
 import ToggleButton from '../../common/ToggleButton';
 import UserInfo from '../order/UserInfo';
@@ -11,6 +13,7 @@ import { theme } from '../../../themes';
 
 export default function Navbar() {
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [isAdminPanelVisible, showAdminPanel] = useShowPanel();
 
   const displayToastNotification = (message) => {
     const toastOptions = {
@@ -26,6 +29,7 @@ export default function Navbar() {
   const handleToggle = () => {
     setIsAdminMode((prev) => !prev);
     displayToastNotification('Admin mode enabled');
+    showAdminPanel(!isAdminPanelVisible);
   };
 
   return (

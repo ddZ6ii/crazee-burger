@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { useShowPanel, useExpandPanel } from '../../../hooks/usePanelStore';
+
 import Product from './Product';
 import LoadingSpinner from '../../common/LoadingSpinner';
 
@@ -9,23 +11,46 @@ import { fakeMenu2 as products } from '../../../data/fakeMenus';
 
 export default function OrderPage() {
   const [menus, setMenus] = useState([]);
+  const [isAdminPanelVisible, showAdminPanel] = useShowPanel();
+  const [isAdminPanelExpanded, expandAdminPanel] = useExpandPanel();
 
-  useEffect(() => {
-    setMenus(products);
-  }, []);
+  // console.log('OrderPage - isAdminPanelVisible', isAdminPanelVisible);
+  // console.log('OrderPage - isAdminPanelExpanded', isAdminPanelExpanded);
+
+  // useEffect(() => {
+  //   setMenus(products);
+  // }, []);
 
   return (
-    <MenuStyled>
-      {menus.length ? (
-        menus.map((product) => <Product key={product.id} product={product} />)
-      ) : (
-        <LoadingSpinner
-          message="Loading menus..."
-          className="spinnerContainer"
-          spinnerSize={40}
-        />
+    <SectionStyled>
+      {/* <MenuStyled>
+        {menus.length ? (
+          menus.map((product) => <Product key={product.id} product={product} />)
+        ) : (
+          <LoadingSpinner
+            message="Loading menus..."
+            className="spinnerContainer"
+            spinnerSize={40}
+          />
+        )}
+      </MenuStyled> */}
+      <div className="menu">Menu</div>
+      {isAdminPanelVisible && (
+        <div className="adminPanel__container">
+          <button
+            type="button"
+            onClick={() => expandAdminPanel(!isAdminPanelExpanded)}
+          >
+            Expand/Collapse
+          </button>
+          {isAdminPanelExpanded && (
+            <div className="adminPanel">
+              <p>Admin Panel</p>
+            </div>
+          )}
+        </div>
       )}
-    </MenuStyled>
+    </SectionStyled>
   );
 }
 
@@ -36,9 +61,36 @@ const NAVBAR_HEIGHT_MOBILE = '95px';
 const NAVBAR_HEIGHT_DESKTOP = '148px';
 const { breakpoints, borderRadius, colors, spacing } = theme;
 
-const MenuStyled = styled.section`
+const SectionStyled = styled.section`
+  // IN PROGRESS
+  border: 1px solid red;
+  height: calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP});
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+
+  .menu {
+    border: 1px solid blue;
+    background-color: lightcoral;
+  }
+
+  .adminPanel__container {
+    border: 1px solid black;
+    background-color: white;
+  }
+
+  .adminPanel {
+    border: 1px solid black;
+    background-color: lightcyan;
+    // do not use magic number
+    height: calc(3 / 10 * calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP}));
+  }
+`;
+
+const MenuStyled = styled.div`
   padding: ${spacing.md};
-  min-height: calc(100dvh - ${NAVBAR_HEIGHT_MOBILE});
+  // IN PROGRESS
+  /* min-height: calc(100dvh - ${NAVBAR_HEIGHT_MOBILE}); */
 
   position: relative;
 
@@ -53,9 +105,13 @@ const MenuStyled = styled.section`
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
 
+  // IN PROGRESS
+  overflow: hidden;
+
   @media screen and (min-width: ${breakpoints.sm}) {
     padding: ${spacing['2xl']} ${spacing['xl']};
-    min-height: calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP});
+    // IN PROGRESS
+    /* min-height: calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP}); */
 
     grid-template-columns: repeat(auto-fill, 240px);
     justify-content: center;

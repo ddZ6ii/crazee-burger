@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Product from './Product';
+import LoadingSpinner from '../../common/LoadingSpinner';
 
 import { theme } from '../../../themes';
 import { fakeMenu2 as products } from '../../../data/fakeMenus';
@@ -18,7 +19,11 @@ export default function OrderPage() {
       {menus.length ? (
         menus.map((product) => <Product key={product.id} product={product} />)
       ) : (
-        <p>Loading menus...</p>
+        <LoadingSpinner
+          message="Loading menus..."
+          className="spinnerContainer"
+          spinnerSize={40}
+        />
       )}
     </MenuStyled>
   );
@@ -63,4 +68,10 @@ const MenuStyled = styled.section`
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
+
+  .spinnerContainer {
+    display: flex;
+    align-items: center;
+    gap: ${spacing['2xs']};
+  }
 `;

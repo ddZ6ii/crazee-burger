@@ -10,9 +10,9 @@ import { theme } from '../../../themes';
 export default function ProductList() {
   const [menus, setMenus] = useState([]);
 
-  // useEffect(() => {
-  //   setMenus(products);
-  // }, []);
+  useEffect(() => {
+    setMenus(products);
+  }, []);
 
   return (
     <ProductListStyled>
@@ -42,8 +42,7 @@ const ProductListStyled = styled.div`
   display: grid;
   grid-template-columns: minmax(240px, 1fr);
   justify-items: center;
-  column-gap: 60px;
-  row-gap: 32px;
+  row-gap: ${spacing.md};
   overflow-y: scroll;
 
   @media screen and (min-width: ${breakpoints.sm}) {

@@ -32,39 +32,36 @@ export default function ProductList() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const NAVBAR_HEIGHT_MOBILE = '95px';
 const { breakpoints, spacing } = theme;
 
 const ProductListStyled = styled.div`
-  padding: ${spacing.md};
-  min-height: calc(100dvh - ${NAVBAR_HEIGHT_MOBILE});
+  padding: ${spacing.sm};
 
   display: grid;
   grid-template-columns: minmax(240px, 1fr);
   justify-items: center;
-  row-gap: ${spacing.md};
-  overflow-y: scroll;
-
-  @media screen and (min-width: ${breakpoints.sm}) {
-    padding: ${spacing['2xl']} ${spacing['xl']};
-    min-height: auto;
-
-    grid-template-columns: repeat(auto-fill, 240px);
-    justify-content: center;
-    column-gap: clamp(20px, 6vw, 85px);
-    row-gap: clamp(20px, 6vw, 85px);
-  }
-  @media screen and (min-width: ${breakpoints.lg}) {
-    column-gap: 85px;
-    row-gap: 60px;
-  }
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-    padding: ${spacing.sm};
-  }
+  row-gap: ${spacing.sm};
+  overflow: auto;
 
   .spinnerContainer {
     display: flex;
     align-items: center;
     gap: ${spacing['2xs']};
+  }
+
+  @media screen and (min-width: ${breakpoints.sm}) {
+    min-height: auto;
+
+    grid-template-columns: repeat(auto-fill, 240px);
+    justify-content: center;
+    place-items: center;
+    column-gap: ${spacing.sm};
+    row-gap: ${spacing.xl};
+  }
+
+  @media screen and (min-width: ${breakpoints['xl']}) {
+    padding: ${spacing['2xl']} ${spacing.xl};
+    column-gap: 85px;
+    row-gap: 60px;
   }
 `;

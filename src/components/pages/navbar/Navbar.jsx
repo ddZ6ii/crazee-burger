@@ -64,8 +64,6 @@ const NavStyled = styled.nav`
 
   background-color: ${colors.white};
   background-color: ${colors.neutral_darkest};
-  border-top-left-radius: ${borderRadius.rounded_2xl};
-  border-top-right-radius: ${borderRadius.rounded_2xl};
   box-shadow:
     0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
@@ -93,13 +91,27 @@ const NavStyled = styled.nav`
 
   .navbar__toggleBtn {
     display: none;
+  }
 
-    @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.md}) {
+    border-top-left-radius: ${borderRadius.rounded_lg};
+    border-top-right-radius: ${borderRadius.rounded_lg};
+
+    .navbar__toggleBtn {
       display: block;
     }
+  }
 
-    /* @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+  @media screen and (min-width: ${breakpoints.lg}) {
+    border-top-left-radius: ${borderRadius.rounded_2xl};
+    border-top-right-radius: ${borderRadius.rounded_2xl};
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    border-radius: 0;
+
+    .navbar__toggleBtn {
       display: none;
-    } */
+    }
   }
 `;

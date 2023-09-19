@@ -22,22 +22,31 @@ export default function OrderPage() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const NAVBAR_HEIGHT_DESKTOP = '148px';
 const { breakpoints, borderRadius, colors } = theme;
 
 const SectionStyled = styled.section`
   background-color: ${colors.neutral_lightest};
-  border-bottom-left-radius: ${borderRadius['rounded_2xl']};
-  border-bottom-right-radius: ${borderRadius['rounded_2xl']};
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
 
-  @media screen and (min-width: ${breakpoints.sm}) {
-    height: calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP});
+  @media screen and (min-width: ${breakpoints.md}) {
+    height: 100%;
     display: grid;
     grid-template-rows: 1fr auto;
+    border-bottom-left-radius: ${borderRadius.rounded_lg};
+    border-bottom-right-radius: ${borderRadius.rounded_lg};
   }
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+
+  @media screen and (min-width: ${breakpoints.lg}) {
+    border-bottom-left-radius: ${borderRadius.rounded_2xl};
+    border-bottom-right-radius: ${borderRadius.rounded_2xl};
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    border-radius: 0;
+  }
+
+  /* @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     height: auto;
     display: block;
-  }
+  } */
 `;

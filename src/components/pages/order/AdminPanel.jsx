@@ -19,6 +19,7 @@ export default function AdminPanel() {
           Expand/Collapse
         </button>
       </div>
+
       {isAdminPanelExpanded && (
         <div className="adminPanel">
           <p>Admin Panel</p>
@@ -32,7 +33,6 @@ export default function AdminPanel() {
  ** Style
 /* __________________________________________________________________________ */
 const { breakpoints, borderRadius, colors, spacing } = theme;
-const NAVBAR_HEIGHT_DESKTOP = '148px';
 
 const ContainerStyled = styled.div`
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
@@ -50,7 +50,6 @@ const ContainerStyled = styled.div`
 
   .adminPanel {
     background-color: lightcyan;
-    // do not use magic number
-    height: calc(3 / 10 * calc(100dvh - ${NAVBAR_HEIGHT_DESKTOP}));
+    min-height: 25vh;
   }
 `;

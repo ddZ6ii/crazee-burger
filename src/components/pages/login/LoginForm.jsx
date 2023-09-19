@@ -35,7 +35,7 @@ export default function LoginForm() {
           placeholder="Enter your name"
           Icon={<BsPersonCircle className="input__icon" />}
         />
-        <Button type="submit" label="Sign in" />
+        <Button type="submit" label="Sign In" />
       </div>
     </LoginFormStyled>
   );

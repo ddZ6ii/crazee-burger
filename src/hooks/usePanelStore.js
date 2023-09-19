@@ -9,7 +9,7 @@ export const usePanelStore = () => {
   const showAdminPanel = useCallback((bool) => setIsPanelVisible(bool), []);
   const expandAdminPanel = useCallback((bool) => setIsPanelExpanded(bool), []);
 
-  console.log('context re-rendered');
+  // console.log('context re-rendered');
 
   return {
     isAdminPanelVisible,

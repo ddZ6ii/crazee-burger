@@ -6,6 +6,7 @@ const blur = 'blur(14px)';
 const borderRadius = {
   rounded_sm: '1px',
   rounded: '4px',
+  rounded_lg: '8px',
   rounded_2xl: '16px',
   rounded_full: '9999px',
 };

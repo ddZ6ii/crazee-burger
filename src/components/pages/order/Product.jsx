@@ -22,11 +22,12 @@ export default function Product({ product }) {
         />
       </div>
 
-      <div className="product__info">
-        <h2 className="info__title">{product.title}</h2>
-        <div className="info__container">
-          <span className="info__price">{formattedPrice}</span>
-          <Button label="Add" className="info__cta" />
+      <div className="productContainer">
+        <h2 className="product__title">{product.title}</h2>
+
+        <div className="product__info">
+          <span className="product__price">{formattedPrice}</span>
+          <Button label="Add" className="product__cta" />
         </div>
       </div>
     </ProductStyled>
@@ -40,69 +41,61 @@ const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const ProductStyled = styled.div`
   padding: ${spacing.sm};
-  width: 240px;
-  min-height: 330px;
+  width: 220px;
+  height: 265px;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: ${spacing.xs};
+  display: grid;
+  grid-template-rows: 55% 1fr;
+  row-gap: ${spacing['2xs']};
 
   background-color: ${colors.white};
-  border-radius: ${borderRadius.rounded_2xl};
+  border-radius: ${borderRadius.rounded_lg};
   box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.1);
 
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-    min-height: 300px;
-    padding: ${spacing.xs} ${spacing.sm};
-  }
-
   .product__thumbnailContainer {
-    height: 145px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .product__thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
   }
 
-  .product__info {
+  .productContainer {
     display: flex;
     flex-direction: column;
-    gap: ${spacing.sm};
+    justify-content: space-between;
   }
 
-  .info__title {
-    font-size: 36px;
+  .product__title {
+    font-size: ${fonts.size['2xl']};
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
   }
 
-  .info__container {
+  .product__info {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .info__price {
+  .product__price {
     color: ${colors.accent};
-    font-size: ${fonts.size.xl};
+    font-size: ${fonts.size.lg};
     font-weight: ${fonts.weight.regular};
   }
 
-  .info__cta {
+  .product__cta {
     padding: ${spacing.xs} ${spacing.md};
     width: fit-content;
 
     background-color: ${colors.accent};
 
-    font-size: ${fonts.size.sm};
+    font-size: ${fonts.size.xs};
     font-weight: ${fonts.weight.bold};
     transition: 0.3s ease;
 
@@ -117,4 +110,32 @@ const ProductStyled = styled.div`
       color: ${colors.white};
     }
   }
+
+  @media screen and (min-width: ${breakpoints.xl}) {
+    width: 240px;
+    min-height: 330px;
+    gap: ${spacing.xs};
+    border-radius: ${borderRadius.rounded_2xl};
+
+    .product__thumbnailContainer {
+      height: 145px;
+    }
+
+    .product__title {
+      font-size: 36px;
+    }
+
+    .product__price {
+      font-size: ${fonts.size.xl};
+    }
+
+    .product__cta {
+      font-size: ${fonts.size.sm};
+    }
+  }
+
+  /* @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    min-height: 300px;
+    padding: ${spacing.xs} ${spacing.sm};
+  } */
 `;

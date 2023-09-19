@@ -20,39 +20,45 @@ export default function RootLayout() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints, colors, spacing } = theme;
+const { breakpoints, colors, spacing } = theme;
 
 const ContainerStyled = styled.div`
   height: 100dvh;
+
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   background-color: ${colors.accent};
 
-  @media screen and (min-width: ${breakpoints.sm}) {
+  @media screen and (min-width: ${breakpoints.md}) {
+    padding: ${spacing.xs} ${spacing.sm};
+  }
+
+  @media screen and (min-width: ${breakpoints.lg}) {
     padding: ${spacing.md} ${spacing['3xl']};
   }
 
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     padding: 0;
+  }
+
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.lg}) and (max-width: ${breakpoints.xl}) {
+    padding: ${spacing.xs} ${spacing.sm};
   }
 `;
 
 const HeaderStyled = styled.header`
+  margin-inline: auto;
   width: 100%;
   max-width: ${breakpoints['2xl']};
-  margin-inline: auto;
 `;
 
 const MainStyled = styled.main`
+  margin-inline: auto;
   height: 100%;
   width: 100%;
   max-width: ${breakpoints['2xl']};
-  margin-inline: auto;
 
   background-color: ${colors.accent};
-  border-bottom-left-radius: ${borderRadius.rounded_2xl};
-  border-bottom-right-radius: ${borderRadius.rounded_2xl};
-
   overflow-y: auto;
 `;

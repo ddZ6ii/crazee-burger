@@ -39,7 +39,6 @@ const StyledInput = styled.div`
   width: 100%;
 
   & label {
-    width: 100%;
     display: flex;
     flex-direction: column;
     gap: ${spacing['2xs']};
@@ -51,16 +50,12 @@ const StyledInput = styled.div`
   }
 
   & .wrapper {
+    padding: ${spacing.xs};
+    width: 100%;
+
     display: flex;
     align-items: center;
     gap: ${spacing.xs};
-
-    padding: clamp(${spacing.xs}, 3vw, ${spacing.md});
-    @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-      padding: ${spacing.xs};
-    }
-
-    width: 100%;
 
     border-radius: ${borderRadius.rounded};
     background-color: rgba(255, 255, 255, 0.1);
@@ -73,26 +68,39 @@ const StyledInput = styled.div`
   }
 
   & input {
-    width: 100%;
-
     background: none;
-
     color: ${colors.white};
     line-height: 1;
-    font-size: clamp(${fonts.size.sm}, 3vw, ${fonts.size.base});
+    font-size: ${fonts.size.sm};
     font-family: ${fonts.family.cta};
     font-weight: ${fonts.weight.regular};
 
     &:focus {
       outline-color: ${colors.neutral_light};
     }
-
     &::placeholder {
       color: ${colors.neutral_light};
     }
-
     &:focus {
       outline: none;
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    & .wrapper {
+      padding: ${spacing.md};
+    }
+    & input {
+      font-size: ${fonts.size.base};
+    }
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    & .wrapper {
+      padding: ${spacing.xs};
+    }
+    & input {
+      font-size: ${fonts.size.sm};
     }
   }
 `;

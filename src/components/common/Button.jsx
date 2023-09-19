@@ -23,11 +23,7 @@ export default function Button({
 const { blur, borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const ButtonStyled = styled.button`
-  padding: clamp(${spacing.xs}, 3vw, ${spacing.md});
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-    padding: ${spacing.xs};
-  }
-
+  padding: ${spacing.xs};
   width: 100%;
 
   display: flex;
@@ -44,7 +40,7 @@ const ButtonStyled = styled.button`
   cursor: pointer;
   line-height: 1;
   font-family: ${fonts.family.cta};
-  font-size: clamp(${fonts.size.sm}, 3vw, ${fonts.size.base});
+  font-size: ${fonts.size.sm};
   transition-duration: 0.2s;
   transition-timing-function: ease;
   transition-property: background-color, background-color, border-color;
@@ -55,5 +51,15 @@ const ButtonStyled = styled.button`
 
   &:hover {
     background-color: rgba(255, 160, 27, 0.8);
+  }
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    padding: ${spacing.md};
+    font-size: ${fonts.size.base};
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    padding: ${spacing.xs};
+    font-size: ${fonts.size.sm};
   }
 `;

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from 'react-icons/bs';
-import { VscChevronRight } from 'react-icons/vsc';
 import styled from 'styled-components';
 
 import Input from '../../common/Input';
@@ -25,7 +24,7 @@ export default function LoginForm() {
   };
 
   return (
-    <FormStyled onSubmit={handleSubmit}>
+    <LoginFormStyled onSubmit={handleSubmit}>
       <h1>Welcome to the app !</h1>
       <hr />
       <div className="container">
@@ -36,13 +35,9 @@ export default function LoginForm() {
           placeholder="Enter your name"
           Icon={<BsPersonCircle className="input__icon" />}
         />
-        <Button
-          type="submit"
-          label="Log in to my account"
-          Icon={<VscChevronRight className="btn__icon" />}
-        />
+        <Button type="submit" label="Sign in" />
       </div>
-    </FormStyled>
+    </LoginFormStyled>
   );
 }
 
@@ -51,11 +46,10 @@ export default function LoginForm() {
 /* __________________________________________________________________________ */
 const { breakpoints, colors, fonts, spacing } = theme;
 
-const FormStyled = styled.form`
+const LoginFormStyled = styled.form`
   width: 100%;
-  max-width: 400px;
+  max-width: 250px;
   margin-inline: auto;
-
   color: ${colors.white};
   line-height: 1.271;
   font-weight: ${fonts.weight.bold};
@@ -63,26 +57,21 @@ const FormStyled = styled.form`
   text-transform: uppercase;
 
   & h1 {
-    font-size: clamp(${spacing.lg}, 6vw, ${spacing['2xl']});
+    font-size: ${fonts.size['2xl']};
   }
 
   & hr {
-    width: clamp(200px, 55vw, 400px);
-    margin-top: clamp(${spacing.md}, 5vw, ${spacing.lg});
-    margin-bottom: clamp(${spacing['lg']}, 5vw, ${spacing['xl']});
-    margin-inline: auto;
-
+    width: 100%;
+    margin: ${spacing.md} auto ${spacing['2xl']};
     border: 1px solid ${colors.accent};
   }
 
   & h2 {
-    font-size: clamp(${fonts.size.xl}, 4.2vw, ${fonts.size['2xl']});
+    font-size: ${fonts.size.xl};
   }
 
   & .container {
-    width: clamp(200px, 55vw, 400px);
     margin-inline: auto;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,27 +81,50 @@ const FormStyled = styled.form`
 
   & .input__icon {
     color: ${colors.neutral_light};
-    font-size: clamp(${fonts.size.base}, 3vw, ${fonts.size.lg});
+    font-size: ${fonts.size.base};
   }
 
   & .btn__icon {
     stroke-width: 2px;
   }
 
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-    width: fit-content;
-    margin-inline: initial;
+  @media screen and (min-width: ${breakpoints.md}) {
+    max-width: 400px;
 
     & h1 {
       font-size: ${fonts.size['3xl']};
     }
 
+    & h2 {
+      font-size: ${fonts.size['2xl']};
+    }
+
     & hr {
-      margin: ${spacing.md} auto;
+      margin-top: ${spacing.lg};
+      margin-bottom: ${spacing.xl};
+    }
+
+    & .input__icon {
+      font-size: ${fonts.size.lg};
+    }
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    max-width: 250px;
+
+    & h1 {
+      font-size: ${fonts.size['2xl']};
+    }
+
+    & hr {
+      margin: ${spacing.xs} auto ${spacing.md};
+    }
+
+    & h2 {
+      font-size: ${fonts.size.xl};
     }
 
     & .container {
-      max-width: 250px;
       gap: ${spacing.xs};
     }
   }

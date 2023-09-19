@@ -15,28 +15,40 @@ export default function Logo({ className = '', onClick = null }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { colors, fonts, spacing } = theme;
+const { breakpoints, colors, fonts, spacing } = theme;
 
 const LogoStyled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(${spacing['2xs']}, 3vw, ${spacing.md});
-
+  gap: ${spacing['2xs']};
   background: none;
 
   & span {
     color: ${colors.accent};
     font-family: ${fonts.family.headings};
-    font-size: clamp(${fonts.size['3xl']}, 13vw, ${fonts.size['6xl']});
+    font-size: ${fonts.size['3xl']};
     font-weight: ${fonts.weight.bold};
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
 
   & img {
-    max-height: clamp(60px, 17vw, 136px);
+    max-height: 60px;
     width: auto;
     aspect-ratio: 1.333;
+  }
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    gap: ${spacing.md};
+    font-size: ${fonts.size['6xl']};
+
+    & span {
+      font-size: ${fonts.size['6xl']};
+    }
+
+    & img {
+      max-height: 136px;
+    }
   }
 `;

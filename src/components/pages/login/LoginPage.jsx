@@ -35,24 +35,23 @@ const SectionStyled = styled.section`
     z-index: -1;
   }
 
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+  @media screen and (min-width: ${breakpoints.md}) {
+    gap: ${spacing['6xl']};
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     padding: ${spacing.sm} ${spacing.lg};
-    height: 100dvh;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    gap: ${spacing.sm};
 
     .logo {
-      flex-direction: column;
-      align-items: center;
       & span {
-        font-size: ${fonts.size['4xl']};
+        font-size: ${fonts.size['3xl']};
         letter-spacing: 1.5px;
         text-transform: uppercase;
       }
       & img {
-        height: 75px;
-        width: 100px;
+        height: 60px;
+        width: 80px;
       }
     }
   }

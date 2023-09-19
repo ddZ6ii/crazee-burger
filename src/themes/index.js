@@ -35,6 +35,7 @@ const fonts = {
     cta: 'Arial, Helvetica, sans-serif',
   },
   size: {
+    '4xs': '2px',
     '3xs': '8px',
     '2xs': '10px',
     xs: '12px',

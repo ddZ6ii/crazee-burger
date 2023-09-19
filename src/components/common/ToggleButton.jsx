@@ -33,16 +33,22 @@ export default function ToggleButton({
 const { borderRadius, colors, fonts, spacing } = theme;
 const SLIDER_SIZE = {
   width: '200px',
-  height: '40px',
+  height: '34px',
 };
 const SWITCH_SIZE = {
-  width: '28px',
-  height: '28px',
+  width: '24px',
+  height: '24px',
 };
 
 const ToggleButtonStyled = styled.div`
   height: ${SLIDER_SIZE.height};
   width: ${SLIDER_SIZE.width};
+
+  transition: 0.5s ease;
+
+  &:hover .toggle:not(:checked) + .rounded:before {
+    background-color: ${colors.accent};
+  }
 
   // hides the square box but keeps the core "toggle functionality"
   .toggle {
@@ -88,43 +94,44 @@ const ToggleButtonStyled = styled.div`
 
     position: absolute;
 
-    font-family: ${fonts.family.body};
-    font-size: ${fonts.size['sm']};
-    font-weight: ${fonts.weight.regular};
-    letter-spacing: 0.8px;
+    font-size: ${fonts.size.xs};
+    font-weight: 500;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+
+    transition: 0.5s ease;
   }
 
-  // toggle animations (unchecked state)
+  // toggle transitions (unchecked state)
   .toggle:not(:checked) {
     & + .rounded {
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: ${colors.neutral_darkest};
+      border-color: ${colors.neutral_light};
     }
 
     // small circle
     & + .rounded:before {
       left: ${spacing['3xs']};
       transform: translateX(0%);
+      background-color: ${colors.neutral_light};
     }
 
     // text inside the switch button
     & + .rounded:after {
       content: attr(data-unchecked);
-
       left: 0;
-      color: ${colors.accent};
-
+      color: ${colors.neutral_light};
       transform: translateX(calc(${SWITCH_SIZE.width} + ${spacing.sm}));
     }
   }
 
-  // toggle animations (checked state)
+  // toggle transitions (checked state)
   .toggle:checked {
     & + .rounded {
-      background-color: ${colors.white};
+      background-color: ${colors.neutral_light};
       border-color: ${colors.accent};
     }
 
@@ -137,10 +144,8 @@ const ToggleButtonStyled = styled.div`
     // text inside the switch button
     & + .rounded:after {
       content: attr(data-checked);
-
       left: 100%;
-      color: ${colors.neutral};
-
+      color: ${colors.neutral_darkest};
       transform: translateX(calc(-100% - ${SWITCH_SIZE.width} - ${spacing.sm}));
     }
   }

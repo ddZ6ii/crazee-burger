@@ -13,7 +13,7 @@ import { theme } from '../../../themes';
 
 export default function Navbar() {
   const [isAdminMode, setIsAdminMode] = useState(false);
-  const [isAdminPanelVisible, showAdminPanel] = useShowPanel();
+  const [isPanelVisible, showPanel] = useShowPanel();
 
   const displayToastNotification = (message) => {
     const toastOptions = {
@@ -29,7 +29,7 @@ export default function Navbar() {
   const handleToggle = () => {
     setIsAdminMode((prev) => !prev);
     displayToastNotification('Admin mode enabled');
-    showAdminPanel(!isAdminPanelVisible);
+    showPanel(!isPanelVisible);
   };
 
   return (

@@ -1,30 +1,38 @@
 import { useCallback, useContext, useState } from 'react';
 import { AdminPanelContext } from '../contexts/AdminPanelContext';
 
+//!TODO: replace useState by useReducer...
 //!TODO: handle page refresh...
 export const usePanelStore = () => {
-  const [isAdminPanelVisible, setIsPanelVisible] = useState(false);
-  const [isAdminPanelExpanded, setIsPanelExpanded] = useState(false);
+  const [isPanelVisible, setIsPanelVisible] = useState(false);
+  const [isPanelExpanded, setIsPanelExpanded] = useState(true);
+  const [activeTab, setActiveTab] = useState(1);
 
-  const showAdminPanel = useCallback((bool) => setIsPanelVisible(bool), []);
-  const expandAdminPanel = useCallback((bool) => setIsPanelExpanded(bool), []);
-
-  // console.log('context re-rendered');
+  const showPanel = useCallback((bool) => setIsPanelVisible(bool), []);
+  const expandPanel = useCallback((bool) => setIsPanelExpanded(bool), []);
+  const selectActiveTab = useCallback((tabId) => setActiveTab(tabId), []);
 
   return {
-    isAdminPanelVisible,
-    showAdminPanel,
-    isAdminPanelExpanded,
-    expandAdminPanel,
+    isPanelVisible,
+    showPanel,
+    isPanelExpanded,
+    expandPanel,
+    activeTab,
+    selectActiveTab,
   };
 };
 
 export const useShowPanel = () => [
-  useContext(AdminPanelContext).isAdminPanelVisible,
-  useContext(AdminPanelContext).showAdminPanel,
+  useContext(AdminPanelContext).isPanelVisible,
+  useContext(AdminPanelContext).showPanel,
 ];
 
 export const useExpandPanel = () => [
-  useContext(AdminPanelContext).isAdminPanelExpanded,
-  useContext(AdminPanelContext).expandAdminPanel,
+  useContext(AdminPanelContext).isPanelExpanded,
+  useContext(AdminPanelContext).expandPanel,
+];
+
+export const usePanelTab = () => [
+  useContext(AdminPanelContext).activeTab,
+  useContext(AdminPanelContext).selectActiveTab,
 ];

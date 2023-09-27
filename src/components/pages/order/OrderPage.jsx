@@ -9,12 +9,12 @@ import ProductList from './ProductList';
 import { theme } from '../../../themes';
 
 export default function OrderPage() {
-  const [isAdminPanelVisible] = useShowPanel();
+  const [isPanelVisible] = useShowPanel();
 
   return (
     <SectionStyled>
       <ProductList />
-      {isAdminPanelVisible && <AdminPanel />}
+      {isPanelVisible && <AdminPanel />}
     </SectionStyled>
   );
 }
@@ -44,9 +44,4 @@ const SectionStyled = styled.section`
   @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     border-radius: 0;
   }
-
-  /* @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
-    height: auto;
-    display: block;
-  } */
 `;

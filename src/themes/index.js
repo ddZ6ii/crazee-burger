@@ -75,6 +75,7 @@ const shadows = {
 };
 
 const spacing = {
+  '4xs': '2px',
   '3xs': '4px',
   '2xs': '8px',
   xs: '12px',

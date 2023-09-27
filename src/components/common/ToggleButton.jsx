@@ -56,9 +56,9 @@ const ToggleButtonStyled = styled.div`
   }
 
   .rounded {
-    height: 100%;
-
     position: relative;
+
+    height: 100%;
 
     display: flex;
     align-items: center;
@@ -76,10 +76,10 @@ const ToggleButtonStyled = styled.div`
   .rounded:before {
     content: '';
 
+    position: absolute;
+
     width: ${SWITCH_SIZE.width};
     height: ${SWITCH_SIZE.height};
-
-    position: absolute;
 
     background-color: ${colors.accent};
     border-radius: ${borderRadius.rounded_full};
@@ -90,9 +90,9 @@ const ToggleButtonStyled = styled.div`
 
   // text inside the switch button (for checked and unchecked)
   .rounded:after {
-    max-width: 75%;
-
     position: absolute;
+
+    max-width: 75%;
 
     font-size: ${fonts.size.xs};
     font-weight: 500;

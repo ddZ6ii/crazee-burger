@@ -8,6 +8,7 @@ const initUser = () => {
   return userInfo ?? null;
 };
 
+// to be passed as the value for the context provider
 export const useUserStore = () => {
   const [userName, setUserName] = useState(initUser);
 
@@ -28,6 +29,7 @@ export const useUserStore = () => {
   };
 };
 
+// custom hooks to be used by context consumers
 export const useUserName = () => useContext(UserContext).userName;
 export const useLogin = () => useContext(UserContext).login;
 export const useLogout = () => useContext(UserContext).logout;

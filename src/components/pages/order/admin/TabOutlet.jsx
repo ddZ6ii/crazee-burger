@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 
-import { useExpandPanel, usePanelTab } from '../../../../hooks/useAdmin';
+import { useAdmin } from '../../../../hooks/useAdmin';
 import { theme } from '../../../../themes';
 
 export default function TabOutlet({ tabItems }) {
-  const [isPanelExpanded] = useExpandPanel();
-  const [activeTab] = usePanelTab();
+  const { activeTab, isAdminPanelExpanded } = useAdmin();
 
   const tabContent = tabItems.find(
     (tabItem) => tabItem.id === activeTab
   ).tabContent;
 
   return (
-    isPanelExpanded && (
+    isAdminPanelExpanded && (
       <TabContentStyled>
         <p>{tabContent}</p>
       </TabContentStyled>

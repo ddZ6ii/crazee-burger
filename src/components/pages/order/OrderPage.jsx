@@ -1,21 +1,19 @@
-// import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { useShowPanel } from '../../../hooks/useAdmin';
-
+import { useAdmin } from '../../../hooks/useAdmin';
 import AdminPanel from './admin/AdminPanel';
 import ProductList from './ProductList';
 
 import { theme } from '../../../themes';
 
 export default function OrderPage() {
-  const [isPanelVisible] = useShowPanel();
+  const { isAdminMode } = useAdmin();
 
   return (
     <OrderPageStyled>
       {/* <aside className="cart">Shopping Cart</aside> */}
       <ProductList />
-      {isPanelVisible && <AdminPanel />}
+      {isAdminMode && <AdminPanel />}
     </OrderPageStyled>
   );
 }

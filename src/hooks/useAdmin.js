@@ -1,38 +1,53 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useReducer } from 'react';
+
+import * as Actions from '../store/actions/adminActions';
 import { AdminContext } from '../contexts/AdminContext';
+import {
+  initialAdminState,
+  adminReducer,
+} from '../store/reducers/AdminReducer';
 
-//!TODO: replace useState by useReducer...
-//!TODO: handle page refresh...
+const STORAGE_KEY = 'admin';
+
+const initAdmin = (initialState) => {
+  const adminInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+  return adminInfo ?? initialState;
+};
+
+// to be passed as the value for the context provider
 export const useAdminStore = () => {
-  const [isPanelVisible, setIsPanelVisible] = useState(false);
-  const [isPanelExpanded, setIsPanelExpanded] = useState(true);
-  const [activeTab, setActiveTab] = useState(1);
+  const [state, dispatch] = useReducer(
+    adminReducer,
+    initialAdminState,
+    initAdmin
+  );
 
-  const showPanel = useCallback((bool) => setIsPanelVisible(bool), []);
-  const expandPanel = useCallback((bool) => setIsPanelExpanded(bool), []);
-  const selectActiveTab = useCallback((tabId) => setActiveTab(tabId), []);
+  const handleShowPanel = useCallback((isAdmin) => {
+    dispatch(Actions.showPanel(isAdmin));
+  }, []);
+
+  const handleExpandPanel = useCallback(
+    (isExpanded) => dispatch(Actions.expandPanel(isExpanded)),
+    []
+  );
+  const handleActiveTab = useCallback(
+    (tabId) => dispatch(Actions.selectActiveTab(tabId)),
+    []
+  );
+
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }, [state]);
 
   return {
-    isPanelVisible,
-    showPanel,
-    isPanelExpanded,
-    expandPanel,
-    activeTab,
-    selectActiveTab,
+    isAdminMode: state.isAdminMode,
+    isAdminPanelExpanded: state.isPanelExpanded,
+    activeTab: state.activeTabId,
+    handleShowPanel,
+    handleExpandPanel,
+    handleActiveTab,
   };
 };
 
-export const useShowPanel = () => [
-  useContext(AdminContext).isPanelVisible,
-  useContext(AdminContext).showPanel,
-];
-
-export const useExpandPanel = () => [
-  useContext(AdminContext).isPanelExpanded,
-  useContext(AdminContext).expandPanel,
-];
-
-export const usePanelTab = () => [
-  useContext(AdminContext).activeTab,
-  useContext(AdminContext).selectActiveTab,
-];
+// custom hook to be used by context consumers
+export const useAdmin = () => useContext(AdminContext);

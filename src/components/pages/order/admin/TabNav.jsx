@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-import { useExpandPanel, usePanelTab } from '../../../../hooks/useAdmin';
+import { useAdmin } from '../../../../hooks/useAdmin';
 import Button from '../../../common/Button';
 import { theme } from '../../../../themes';
 
 export default function TabNav({ tabItems }) {
-  const [isPanelExpanded, expandPanel] = useExpandPanel();
-  const [activeTab, selectActiveTab] = usePanelTab();
+  const {
+    isAdminPanelExpanded,
+    handleExpandPanel,
+    activeTab,
+    handleActiveTab,
+  } = useAdmin();
 
   const toggleMenuStyle = `navitem__btn btn-expandPanel ${
-    !isPanelExpanded ? 'is-active' : ''
+    !isAdminPanelExpanded ? 'is-active' : ''
   }`;
 
   const styleNavItem = (tabID) => {
@@ -18,17 +22,17 @@ export default function TabNav({ tabItems }) {
     return `navitem__btn ${isTabActive ? 'is-active' : ''}`;
   };
 
-  const handleClick = (id) => {
-    selectActiveTab(id);
-    if (!isPanelExpanded) expandPanel(!isPanelExpanded);
+  const handleClickItem = (tabId) => {
+    handleActiveTab(tabId);
+    if (!isAdminPanelExpanded) handleExpandPanel(!isAdminPanelExpanded);
   };
 
   return (
     <TabNavStyled>
       <Button
-        Icon={isPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
+        Icon={isAdminPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
         className={toggleMenuStyle}
-        onClick={() => expandPanel(!isPanelExpanded)}
+        onClick={() => handleExpandPanel(!isAdminPanelExpanded)}
       />
 
       {tabItems.map((tabItem) => (
@@ -37,7 +41,7 @@ export default function TabNav({ tabItems }) {
           Icon={tabItem.navIcon}
           label={tabItem.navTitle}
           className={styleNavItem(tabItem.id)}
-          onClick={() => handleClick(tabItem.id)}
+          onClick={() => handleClickItem(tabItem.id)}
         />
       ))}
     </TabNavStyled>
@@ -61,8 +65,6 @@ const TabNavStyled = styled.nav`
   display: flex;
   align-items: center;
   gap: ${spacing['4xs']};
-
-  /* list-style-type: none; */
 
   .navitem__btn {
     padding: ${spacing['2xs']} ${spacing.sm};

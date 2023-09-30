@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useShowPanel } from '../../../hooks/usePanelStore';
+import { useShowPanel } from '../../../hooks/useAdmin';
 import Logo from '../../common/Logo';
 import ToggleButton from '../../common/ToggleButton';
 import UserInfo from '../order/UserInfo';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-import { useExpandPanel, usePanelTab } from '../../../../hooks/usePanelStore';
+import { useExpandPanel, usePanelTab } from '../../../../hooks/useAdmin';
 import Button from '../../../common/Button';
 import { theme } from '../../../../themes';
 

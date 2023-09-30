@@ -1,9 +1,9 @@
 import { useCallback, useContext, useState } from 'react';
-import { AdminPanelContext } from '../contexts/AdminPanelContext';
+import { AdminContext } from '../contexts/AdminContext';
 
 //!TODO: replace useState by useReducer...
 //!TODO: handle page refresh...
-export const usePanelStore = () => {
+export const useAdminStore = () => {
   const [isPanelVisible, setIsPanelVisible] = useState(false);
   const [isPanelExpanded, setIsPanelExpanded] = useState(true);
   const [activeTab, setActiveTab] = useState(1);
@@ -23,16 +23,16 @@ export const usePanelStore = () => {
 };
 
 export const useShowPanel = () => [
-  useContext(AdminPanelContext).isPanelVisible,
-  useContext(AdminPanelContext).showPanel,
+  useContext(AdminContext).isPanelVisible,
+  useContext(AdminContext).showPanel,
 ];
 
 export const useExpandPanel = () => [
-  useContext(AdminPanelContext).isPanelExpanded,
-  useContext(AdminPanelContext).expandPanel,
+  useContext(AdminContext).isPanelExpanded,
+  useContext(AdminContext).expandPanel,
 ];
 
 export const usePanelTab = () => [
-  useContext(AdminPanelContext).activeTab,
-  useContext(AdminPanelContext).selectActiveTab,
+  useContext(AdminContext).activeTab,
+  useContext(AdminContext).selectActiveTab,
 ];

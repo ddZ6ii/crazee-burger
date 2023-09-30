@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { useExpandPanel, usePanelTab } from '../../../../hooks/usePanelStore';
+import { useExpandPanel, usePanelTab } from '../../../../hooks/useAdmin';
 import { theme } from '../../../../themes';
 
 export default function TabOutlet({ tabItems }) {

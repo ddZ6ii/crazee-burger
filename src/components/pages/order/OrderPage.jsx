@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { useShowPanel } from '../../../hooks/usePanelStore';
+import { useShowPanel } from '../../../hooks/useAdmin';
 
 import AdminPanel from './admin/AdminPanel';
 import ProductList from './ProductList';

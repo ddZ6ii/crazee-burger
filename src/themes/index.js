@@ -69,8 +69,8 @@ const overlay = {
 };
 
 const shadows = {
-  sm: '0px -2px 8px -2px rgba(0 0 0 / 10%)',
-  md: '0px -2px 8px -2px rgba(0 0 0 / 20%)',
+  sm: '0px -6px 8px -2px rgba(0, 0, 0, 0.1)',
+  md: '-8px 8px 20px 0px rgba(0, 0, 0, 0.2)',
   lg: '0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset',
 };
 

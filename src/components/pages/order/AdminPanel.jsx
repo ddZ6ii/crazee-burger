@@ -36,7 +36,9 @@ export default function AdminPanel() {
 
   return (
     <ContainerStyled>
+      {/* Tabs */}
       <ul className="tab__nav">
+        {/* Tab */}
         <li className="tab__navitem">
           <Button
             Icon={isPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
@@ -46,6 +48,8 @@ export default function AdminPanel() {
             onClick={() => expandPanel(!isPanelExpanded)}
           />
         </li>
+
+        {/* Tab */}
         {tabItems.map((tabItem) => (
           <li key={tabItem.id} className="tab__navitem">
             <Button
@@ -60,6 +64,7 @@ export default function AdminPanel() {
         ))}
       </ul>
 
+      {/* TabContent */}
       {isPanelExpanded && (
         <div className="tab__content">
           <p>

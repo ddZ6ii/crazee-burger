@@ -37,7 +37,7 @@ export default function Product({ product }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
+const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const ProductStyled = styled.div`
   padding: ${spacing.sm};
@@ -50,7 +50,7 @@ const ProductStyled = styled.div`
 
   background-color: ${colors.white};
   border-radius: ${borderRadius.rounded_lg};
-  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: ${shadows.md};
 
   .product__thumbnailContainer {
     display: flex;

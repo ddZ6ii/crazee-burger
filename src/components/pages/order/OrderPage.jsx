@@ -22,11 +22,11 @@ export default function OrderPage() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, borderRadius, colors } = theme;
+const { breakpoints, borderRadius, colors, shadows } = theme;
 
 const SectionStyled = styled.section`
   background-color: ${colors.neutral_lightest};
-  box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
+  box-shadow: ${shadows.lg};
 
   @media screen and (min-width: ${breakpoints.md}) {
     height: 100%;

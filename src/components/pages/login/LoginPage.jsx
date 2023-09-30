@@ -6,10 +6,10 @@ import { theme } from '../../../themes';
 
 export default function LoginPage() {
   return (
-    <SectionStyled>
+    <LoginPageStyled>
       <Logo className="logo" />
       <LoginForm />
-    </SectionStyled>
+    </LoginPageStyled>
   );
 }
 /* __________________________________________________________________________ *\
@@ -17,7 +17,7 @@ export default function LoginPage() {
 /* __________________________________________________________________________ */
 const { breakpoints, fonts, overlay, spacing } = theme;
 
-const SectionStyled = styled.section`
+const LoginPageStyled = styled.section`
   min-height: 100dvh;
   padding: 0 ${spacing.md} ${spacing['5xl']} ${spacing.md};
 

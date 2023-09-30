@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { useShowPanel } from '../../../hooks/usePanelStore';
 
-import AdminPanel from './AdminPanel';
+import AdminPanel from './admin/AdminPanel';
 import ProductList from './ProductList';
 
 import { theme } from '../../../themes';
@@ -12,11 +12,11 @@ export default function OrderPage() {
   const [isPanelVisible] = useShowPanel();
 
   return (
-    <SectionStyled>
+    <OrderPageStyled>
       {/* <aside className="cart">Shopping Cart</aside> */}
       <ProductList />
       {isPanelVisible && <AdminPanel />}
-    </SectionStyled>
+    </OrderPageStyled>
   );
 }
 
@@ -25,7 +25,7 @@ export default function OrderPage() {
 /* __________________________________________________________________________ */
 const { breakpoints, borderRadius, colors, shadows } = theme;
 
-const SectionStyled = styled.section`
+const OrderPageStyled = styled.div`
   background-color: ${colors.neutral_lightest};
   box-shadow: ${shadows.lg};
 

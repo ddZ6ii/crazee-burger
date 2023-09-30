@@ -34,7 +34,7 @@ export default function ProductList() {
 /* __________________________________________________________________________ */
 const { breakpoints, spacing } = theme;
 
-const ProductListStyled = styled.div`
+const ProductListStyled = styled.section`
   padding: ${spacing.sm};
 
   display: grid;

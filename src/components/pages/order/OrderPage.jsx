@@ -13,6 +13,7 @@ export default function OrderPage() {
 
   return (
     <SectionStyled>
+      {/* <aside className="cart">Shopping Cart</aside> */}
       <ProductList />
       {isPanelVisible && <AdminPanel />}
     </SectionStyled>
@@ -28,9 +29,21 @@ const SectionStyled = styled.section`
   background-color: ${colors.neutral_lightest};
   box-shadow: ${shadows.lg};
 
+  /* .cart {
+    background-color: lightblue;
+    display: none;
+
+    @media screen and (min-width: ${breakpoints.md}) {
+      display: block;
+      grid-row: 1 / -1;
+    }
+  } */
+
   @media screen and (min-width: ${breakpoints.md}) {
     height: 100%;
     display: grid;
+    /* grid-template-columns: 1fr 3fr; */
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
     border-bottom-left-radius: ${borderRadius.rounded_lg};
     border-bottom-right-radius: ${borderRadius.rounded_lg};

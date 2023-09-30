@@ -83,6 +83,9 @@ const { borderRadius, colors, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
   position: relative;
+
+  /* grid-column: 2 / -1; */
+
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
 

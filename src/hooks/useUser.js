@@ -1,10 +1,15 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
-export const useStore = () => {
-  const STORAGE_KEY = 'user';
+const STORAGE_KEY = 'user';
 
-  const [userName, setUserName] = useState(null);
+const initUser = () => {
+  const userInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+  return userInfo ?? null;
+};
+
+export const useUserStore = () => {
+  const [userName, setUserName] = useState(initUser);
 
   const login = useCallback((userInfo) => {
     setUserName(userInfo);
@@ -14,11 +19,6 @@ export const useStore = () => {
   const logout = useCallback(() => {
     setUserName(null);
     sessionStorage.removeItem(STORAGE_KEY);
-  }, []);
-
-  useEffect(() => {
-    const userInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
-    if (userInfo) setUserName(userInfo);
   }, []);
 
   return {

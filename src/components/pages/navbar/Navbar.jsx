@@ -4,25 +4,23 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useShowPanel } from '../../../hooks/usePanelStore';
-
 import Logo from '../../common/Logo';
 import ToggleButton from '../../common/ToggleButton';
 import UserInfo from '../order/UserInfo';
-
 import { theme } from '../../../themes';
+
+const toastOptions = {
+  autoClose: 3000,
+  pauseOnHover: true,
+  position: 'bottom-right',
+  theme: 'dark',
+};
 
 export default function Navbar() {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [isPanelVisible, showPanel] = useShowPanel();
 
   const displayToastNotification = (message) => {
-    const toastOptions = {
-      autoClose: 3000,
-      pauseOnHover: true,
-      position: 'bottom-right',
-      theme: 'dark',
-    };
-
     if (!isAdminMode) toast.info(message, toastOptions);
   };
 

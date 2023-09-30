@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import UserContextProvider from './contexts/UserContextProvider.jsx';
+import UserContextProvider from './providers/UserContextProvider.jsx';
 import AdminPanelContextProvider from './contexts/AdminPanelContextProvider.jsx';
 import App from './App.jsx';
 

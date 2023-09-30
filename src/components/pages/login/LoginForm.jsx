@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Input from '../../common/Input';
 
 import Button from '../../common/Button';
-import { useLogin } from '../../../hooks/useStore';
+import { useLogin } from '../../../hooks/useUser';
 import { theme } from '../../../themes';
 
 export default function LoginForm() {

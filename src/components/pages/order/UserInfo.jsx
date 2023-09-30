@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BsPersonCircle } from 'react-icons/bs';
 import { TbLogout2 } from 'react-icons/tb';
 
-import { useUserName, useLogout } from '../../../hooks/useStore';
+import { useUserName, useLogout } from '../../../hooks/useUser';
 
 import Button from '../../common/Button';
 import { theme } from '../../../themes';

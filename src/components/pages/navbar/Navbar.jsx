@@ -1,30 +1,30 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useAdmin } from '../../../hooks/useAdmin';
 import Logo from '../../common/Logo';
-import ToggleButton from '../../common/ToggleButton';
 import UserInfo from '../order/UserInfo';
-
+import ToggleButton from '../../common/ToggleButton';
 import { theme } from '../../../themes';
 
+const toastOptions = {
+  autoClose: 3000,
+  pauseOnHover: true,
+  position: 'bottom-right',
+  theme: 'dark',
+};
+
 export default function Navbar() {
-  const [isAdminMode, setIsAdminMode] = useState(false);
+  const { isAdminMode, showPanel } = useAdmin();
 
   const displayToastNotification = (message) => {
-    const toastOptions = {
-      autoClose: 3000,
-      pauseOnHover: true,
-      position: 'bottom-right',
-      theme: 'dark',
-    };
-
     if (!isAdminMode) toast.info(message, toastOptions);
   };
 
   const handleToggle = () => {
-    setIsAdminMode((prev) => !prev);
+    showPanel(!isAdminMode);
     displayToastNotification('Admin mode enabled');
   };
 
@@ -38,7 +38,7 @@ export default function Navbar() {
           onToggle={handleToggle}
           labelIfChecked="Disable Admin Mode"
           labelIfUnchecked="Enable Admin Mode"
-          className={'navbar__adminMode'}
+          className={'navbar__toggleBtn'}
         />
         <UserInfo />
       </div>
@@ -52,26 +52,17 @@ export default function Navbar() {
 const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
 
 const NavStyled = styled.nav`
-  padding: ${spacing.xs} ${spacing.sm};
+  padding: ${spacing['2xs']} ${spacing.sm};
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   background-color: ${colors.white};
-  border-top-left-radius: ${borderRadius.rounded_2xl};
-  border-top-right-radius: ${borderRadius.rounded_2xl};
+  background-color: ${colors.neutral_darkest};
   box-shadow:
     0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
-
-  @media screen and (min-width: ${breakpoints.sm}) {
-    padding: ${spacing.sm};
-  }
-
-  @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-    padding: ${spacing['3xs']} ${spacing.sm};
-  }
 
   .navbar__logo {
     gap: ${spacing['3xs']};
@@ -79,29 +70,12 @@ const NavStyled = styled.nav`
 
     & span {
       font-size: ${fonts.size['xl']};
-      letter-spacing: 1.5px;
       text-transform: uppercase;
     }
+
     & img {
-      height: 33px;
-      width: 44px;
-    }
-
-    @media screen and (min-width: ${breakpoints.sm}) {
-      & span {
-        font-size: ${fonts.size['2xl']};
-      }
-      & img {
-        height: 60px;
-        width: 80px;
-      }
-    }
-
-    @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
-      & img {
-        height: 45px;
-        width: 60px;
-      }
+      height: 32px;
+      width: auto;
     }
   }
 
@@ -111,14 +85,28 @@ const NavStyled = styled.nav`
     gap: clamp(${spacing.xs}, 4vw, ${spacing['4xl']});
   }
 
-  .navbar__adminMode {
+  .navbar__toggleBtn {
     display: none;
+  }
 
-    @media screen and (min-width: ${breakpoints.md}) {
+  @media screen and (min-width: ${breakpoints.md}) {
+    border-top-left-radius: ${borderRadius.rounded_lg};
+    border-top-right-radius: ${borderRadius.rounded_lg};
+
+    .navbar__toggleBtn {
       display: block;
     }
+  }
 
-    @media screen and (max-width: ${breakpoints.lg}) and (orientation: landscape) {
+  @media screen and (min-width: ${breakpoints.lg}) {
+    border-top-left-radius: ${borderRadius.rounded_2xl};
+    border-top-right-radius: ${borderRadius.rounded_2xl};
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    border-radius: 0;
+
+    .navbar__toggleBtn {
       display: none;
     }
   }

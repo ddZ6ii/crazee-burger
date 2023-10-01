@@ -1,10 +1,16 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 
-export const useStore = () => {
-  const STORAGE_KEY = 'user';
+const STORAGE_KEY = 'user';
 
-  const [userName, setUserName] = useState(null);
+const initUser = () => {
+  const userInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+  return userInfo ?? null;
+};
+
+// to be passed as the value for the context provider
+export const useUserStore = () => {
+  const [userName, setUserName] = useState(initUser);
 
   const login = useCallback((userInfo) => {
     setUserName(userInfo);
@@ -16,11 +22,6 @@ export const useStore = () => {
     sessionStorage.removeItem(STORAGE_KEY);
   }, []);
 
-  useEffect(() => {
-    const userInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
-    if (userInfo) setUserName(userInfo);
-  }, []);
-
   return {
     userName,
     login,
@@ -28,6 +29,7 @@ export const useStore = () => {
   };
 };
 
+// custom hooks to be used by context consumers
 export const useUserName = () => useContext(UserContext).userName;
 export const useLogin = () => useContext(UserContext).login;
 export const useLogout = () => useContext(UserContext).logout;

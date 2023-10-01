@@ -6,6 +6,7 @@ const blur = 'blur(14px)';
 const borderRadius = {
   rounded_sm: '1px',
   rounded: '4px',
+  rounded_lg: '8px',
   rounded_2xl: '16px',
   rounded_full: '9999px',
 };
@@ -35,6 +36,7 @@ const fonts = {
     cta: 'Arial, Helvetica, sans-serif',
   },
   size: {
+    '4xs': '2px',
     '3xs': '8px',
     '2xs': '10px',
     xs: '12px',
@@ -67,12 +69,13 @@ const overlay = {
 };
 
 const shadows = {
-  sm: '0px -2px 8px -2px rgba(0 0 0 / 10%)',
-  md: '0px -2px 8px -2px rgba(0 0 0 / 20%)',
+  sm: '0px -6px 8px -2px rgba(0, 0, 0, 0.1)',
+  md: '-8px 8px 20px 0px rgba(0, 0, 0, 0.2)',
   lg: '0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset',
 };
 
 const spacing = {
+  '4xs': '2px',
   '3xs': '4px',
   '2xs': '8px',
   xs: '12px',

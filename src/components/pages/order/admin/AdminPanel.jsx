@@ -16,13 +16,22 @@ export default function AdminPanel() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius } = theme;
+const { borderRadius, breakpoints } = theme;
 
 const AdminPanelStyled = styled.aside`
   position: relative;
+
+  display: none;
 
   /* grid-column: 2 / -1; */
 
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    display: block;
+  }
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    display: none;
+  }
 `;

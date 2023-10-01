@@ -2,8 +2,8 @@ import * as Actions from '../actions/adminActionTypes';
 
 export const initialAdminState = {
   isAdminMode: false,
-  isPanelExpanded: false,
-  activeTabId: 1,
+  isPanelExpanded: true,
+  activeTabId: 0,
 };
 
 export const adminReducer = (state = initialAdminState, action) => {
@@ -16,6 +16,9 @@ export const adminReducer = (state = initialAdminState, action) => {
     }
     case Actions.CHANGE_TAB: {
       return { ...state, activeTabId: action.tabId };
+    }
+    case Actions.RESET: {
+      return { ...initialAdminState };
     }
     default: {
       throw new Error(`Unknown action: ${action.type}`);

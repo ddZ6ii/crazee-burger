@@ -14,3 +14,7 @@ export const selectActiveTab = (tabId) => ({
   type: Actions.CHANGE_TAB,
   tabId,
 });
+
+export const resetPanelInfo = () => ({
+  type: Actions.RESET,
+});

@@ -17,14 +17,14 @@ const toastOptions = {
 };
 
 export default function Navbar() {
-  const { isAdminMode, handleShowPanel } = useAdmin();
+  const { isAdminMode, showPanel } = useAdmin();
 
   const displayToastNotification = (message) => {
     if (!isAdminMode) toast.info(message, toastOptions);
   };
 
   const handleToggle = () => {
-    handleShowPanel(!isAdminMode);
+    showPanel(!isAdminMode);
     displayToastNotification('Admin mode enabled');
   };
 

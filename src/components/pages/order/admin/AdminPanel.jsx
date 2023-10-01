@@ -1,31 +1,14 @@
 import styled from 'styled-components';
-import { HiPlus } from 'react-icons/hi';
-import { MdModeEditOutline } from 'react-icons/md';
 
 import TabNav from './TabNav';
 import TabOutlet from './TabOutlet';
 import { theme } from '../../../../themes';
 
-const tabItems = [
-  {
-    id: 1,
-    navTitle: 'Add a product',
-    navIcon: <HiPlus />,
-    tabContent: 'Add a product',
-  },
-  {
-    id: 2,
-    navTitle: 'Update a product',
-    navIcon: <MdModeEditOutline />,
-    tabContent: 'Update a product',
-  },
-];
-
 export default function AdminPanel() {
   return (
     <AdminPanelStyled>
-      <TabNav tabItems={tabItems} />
-      <TabOutlet tabItems={tabItems} />
+      <TabNav />
+      <TabOutlet />
     </AdminPanelStyled>
   );
 }

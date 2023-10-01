@@ -22,16 +22,20 @@ export const useAdminStore = () => {
     initAdmin
   );
 
-  const handleShowPanel = useCallback((isAdmin) => {
+  const showPanel = useCallback((isAdmin) => {
     dispatch(Actions.showPanel(isAdmin));
   }, []);
 
-  const handleExpandPanel = useCallback(
+  const expandPanel = useCallback(
     (isExpanded) => dispatch(Actions.expandPanel(isExpanded)),
     []
   );
-  const handleActiveTab = useCallback(
+  const selectActiveTab = useCallback(
     (tabId) => dispatch(Actions.selectActiveTab(tabId)),
+    []
+  );
+  const resetPanelInfo = useCallback(
+    () => dispatch(Actions.resetPanelInfo()),
     []
   );
 
@@ -41,11 +45,12 @@ export const useAdminStore = () => {
 
   return {
     isAdminMode: state.isAdminMode,
-    isAdminPanelExpanded: state.isPanelExpanded,
+    isPanelExpanded: state.isPanelExpanded,
     activeTab: state.activeTabId,
-    handleShowPanel,
-    handleExpandPanel,
-    handleActiveTab,
+    showPanel,
+    expandPanel,
+    selectActiveTab,
+    resetPanelInfo,
   };
 };
 

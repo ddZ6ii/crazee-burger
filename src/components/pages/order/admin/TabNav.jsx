@@ -2,46 +2,43 @@ import styled from 'styled-components';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 import { useAdmin } from '../../../../hooks/useAdmin';
-import Button from '../../../common/Button';
+import Tab from '../../../common/Button';
+import { adminTabs as tabs } from './helpers/adminTabs';
 import { theme } from '../../../../themes';
 
-export default function TabNav({ tabItems }) {
-  const {
-    isAdminPanelExpanded,
-    handleExpandPanel,
-    activeTab,
-    handleActiveTab,
-  } = useAdmin();
+export default function TabNav() {
+  const { isPanelExpanded, expandPanel, activeTab, selectActiveTab } =
+    useAdmin();
 
-  const toggleMenuStyle = `navitem__btn btn-expandPanel ${
-    !isAdminPanelExpanded ? 'is-active' : ''
+  const togglePanelStyle = `navitem__btn btn-expandPanel ${
+    !isPanelExpanded ? 'is-active' : ''
   }`;
 
-  const styleNavItem = (tabID) => {
+  const styleTab = (tabID) => {
     const isTabActive = tabID === activeTab;
     return `navitem__btn ${isTabActive ? 'is-active' : ''}`;
   };
 
-  const handleClickItem = (tabId) => {
-    handleActiveTab(tabId);
-    if (!isAdminPanelExpanded) handleExpandPanel(!isAdminPanelExpanded);
+  const handleClickTab = (tabId) => {
+    selectActiveTab(tabId);
+    if (!isPanelExpanded) expandPanel(!isPanelExpanded);
   };
 
   return (
     <TabNavStyled>
-      <Button
-        Icon={isAdminPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
-        className={toggleMenuStyle}
-        onClick={() => handleExpandPanel(!isAdminPanelExpanded)}
+      <Tab
+        Icon={isPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
+        className={togglePanelStyle}
+        onClick={() => expandPanel(!isPanelExpanded)}
       />
 
-      {tabItems.map((tabItem) => (
-        <Button
-          key={tabItem.id}
-          Icon={tabItem.navIcon}
-          label={tabItem.navTitle}
-          className={styleNavItem(tabItem.id)}
-          onClick={() => handleClickItem(tabItem.id)}
+      {tabs.map((tab) => (
+        <Tab
+          key={tab.id}
+          Icon={tab.navIcon}
+          label={tab.navTitle}
+          className={styleTab(tab.id)}
+          onClick={() => handleClickTab(tab.id)}
         />
       ))}
     </TabNavStyled>
@@ -51,7 +48,7 @@ export default function TabNav({ tabItems }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { colors, spacing } = theme;
+const { colors, shadows, spacing } = theme;
 
 const TabNavStyled = styled.nav`
   position: absolute;
@@ -77,8 +74,10 @@ const TabNavStyled = styled.nav`
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    box-shadow: ${shadows.sm};
 
     color: ${colors.neutral};
+    transition: none;
 
     &:hover {
       text-decoration: underline;

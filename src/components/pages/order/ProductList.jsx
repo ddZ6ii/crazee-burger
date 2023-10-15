@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import LoadingSpinner from '../../common/LoadingSpinner';
 import Product from './Product';
 
-import { fakeMenu2 as products } from '../../../data/fakeMenus';
+import { LARGE as products } from '../../../data/fakeMenus';
 import { theme } from '../../../themes';
 
 export default function ProductList() {

@@ -24,6 +24,11 @@ export default function OrderPage() {
 const { breakpoints, borderRadius, colors, shadows } = theme;
 
 const OrderPageStyled = styled.div`
+  min-height: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr;
+
   background-color: ${colors.neutral_lightest};
   box-shadow: ${shadows.lg};
 
@@ -39,9 +44,6 @@ const OrderPageStyled = styled.div`
 
   @media screen and (min-width: ${breakpoints.md}) {
     height: 100%;
-    display: grid;
-    /* grid-template-columns: 1fr 3fr; */
-    grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
     border-bottom-left-radius: ${borderRadius.rounded_lg};
     border-bottom-right-radius: ${borderRadius.rounded_lg};

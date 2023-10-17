@@ -1,16 +1,29 @@
-import { useMemo } from 'react';
 import styled from 'styled-components';
+import { TiDelete } from 'react-icons/ti';
+
+import { useAdmin } from '../../../hooks/useAdmin';
+import { useProducts } from '../../../hooks/useProducts';
 
 import Button from '../../common/Button';
 
 import { formatPrice } from '../../../utilities/maths';
+import {
+  displayToastNotification,
+  TOAST_SUCCESS_SETTINGS,
+} from '../../../utilities/notifications';
+
 import { theme } from '../../../themes';
 
 export default function Product({ product }) {
-  const formattedPrice = useMemo(
-    () => formatPrice(product.price),
-    [product.price]
-  );
+  const { isAdminMode } = useAdmin();
+  const { deleteProduct } = useProducts();
+
+  const formattedPrice = formatPrice(product.price);
+
+  const handleDelete = (productId) => {
+    deleteProduct(productId);
+    displayToastNotification('Product deleted!', TOAST_SUCCESS_SETTINGS);
+  };
 
   return (
     <ProductStyled>
@@ -27,9 +40,16 @@ export default function Product({ product }) {
 
         <div className="product__info">
           <span className="product__price">{formattedPrice}</span>
-          <Button label="Add" className="product__cta" />
+          <Button label="Add" className="product__btn-add" />
         </div>
       </div>
+
+      {isAdminMode && (
+        <TiDelete
+          onClick={() => handleDelete(product.id)}
+          className="product__btn-delete"
+        />
+      )}
     </ProductStyled>
   );
 }
@@ -44,13 +64,51 @@ const ProductStyled = styled.div`
   width: 220px;
   height: 265px;
 
+  position: relative;
+
   display: grid;
   grid-template-rows: 55% 1fr;
   row-gap: ${spacing['2xs']};
 
   background-color: ${colors.white};
   border-radius: ${borderRadius.rounded_lg};
-  box-shadow: ${shadows.md};
+  box-shadow: ${shadows.base};
+  outline: 2px solid transparent;
+
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-property: outline-color, box-shadow;
+  &:hover {
+    box-shadow: ${shadows.md};
+  }
+
+  &:has(.product__btn-delete:hover) {
+    outline-color: ${colors.info_danger};
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
 
   .product__thumbnailContainer {
     display: flex;
@@ -89,7 +147,7 @@ const ProductStyled = styled.div`
     font-weight: ${fonts.weight.regular};
   }
 
-  .product__cta {
+  .product__btn-add {
     padding: ${spacing.xs} ${spacing.md};
     width: fit-content;
 
@@ -111,6 +169,22 @@ const ProductStyled = styled.div`
     }
   }
 
+  .product__btn-delete {
+    position: absolute;
+    top: ${spacing['2xs']};
+    right: ${spacing['2xs']};
+
+    color: ${colors.neutral_darkest};
+    cursor: pointer;
+    font-size: ${fonts.size['xl']};
+
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: ${colors.info_danger};
+    }
+  }
+
   @media screen and (min-width: ${breakpoints.xl}) {
     width: 240px;
     min-height: 330px;
@@ -129,13 +203,8 @@ const ProductStyled = styled.div`
       font-size: ${fonts.size.xl};
     }
 
-    .product__cta {
+    .product__btn-add {
       font-size: ${fonts.size.sm};
     }
   }
-
-  /* @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
-    min-height: 300px;
-    padding: ${spacing.xs} ${spacing.sm};
-  } */
 `;

@@ -1,29 +1,25 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import LoadingSpinner from '../../common/LoadingSpinner';
+import { useProducts } from '../../../hooks/useProducts';
 import Product from './Product';
-
-import { LARGE as products } from '../../../data/fakeMenus';
 import { theme } from '../../../themes';
+import EmptyList from './EmptyList';
 
 export default function ProductList() {
-  const [menus, setMenus] = useState([]);
+  const { products } = useProducts();
 
-  useEffect(() => {
-    setMenus(products);
-  }, []);
+  const isListEmpty = products.length === 0;
 
   return (
     <ProductListStyled>
-      {menus.length ? (
-        menus.map((product) => <Product key={product.id} product={product} />)
+      {!isListEmpty ? (
+        <div className="container">
+          {products.map((p) => (
+            <Product key={p.id} product={p} />
+          ))}
+        </div>
       ) : (
-        <LoadingSpinner
-          message="Loading menus..."
-          className="spinnerContainer"
-          spinnerSize={40}
-        />
+        <EmptyList />
       )}
     </ProductListStyled>
   );
@@ -35,33 +31,35 @@ export default function ProductList() {
 const { breakpoints, spacing } = theme;
 
 const ProductListStyled = styled.section`
+  height: 100%;
   padding: ${spacing.sm};
-
-  display: grid;
-  grid-template-columns: minmax(240px, 1fr);
-  justify-items: center;
-  row-gap: ${spacing.sm};
   overflow: auto;
 
-  .spinnerContainer {
-    display: flex;
-    align-items: center;
-    gap: ${spacing['2xs']};
+  .container {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr);
+    justify-items: center;
+    row-gap: ${spacing.sm};
   }
 
   @media screen and (min-width: ${breakpoints.sm}) {
     min-height: auto;
 
-    grid-template-columns: repeat(auto-fill, 240px);
-    justify-content: center;
-    place-items: center;
-    column-gap: ${spacing.sm};
-    row-gap: ${spacing.xl};
+    .container {
+      grid-template-columns: repeat(auto-fill, 240px);
+      justify-content: center;
+      place-items: center;
+      column-gap: ${spacing.sm};
+      row-gap: ${spacing.xl};
+    }
   }
 
   @media screen and (min-width: ${breakpoints['xl']}) {
     padding: ${spacing['2xl']} ${spacing.xl};
-    column-gap: 85px;
-    row-gap: 60px;
+
+    .container {
+      column-gap: 85px;
+      row-gap: 60px;
+    }
   }
 `;

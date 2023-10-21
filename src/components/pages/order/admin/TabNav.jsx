@@ -48,7 +48,7 @@ export default function TabNav() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { colors, shadows, spacing } = theme;
+const { breakpoints, colors, shadows, spacing } = theme;
 
 const TabNavStyled = styled.nav`
   position: absolute;
@@ -57,8 +57,7 @@ const TabNavStyled = styled.nav`
   right: 0;
   transform: translateY(-100%);
 
-  margin-inline: auto;
-  width: 90%;
+  margin-inline: ${spacing['2xl']};
   display: flex;
   align-items: center;
   gap: ${spacing['4xs']};
@@ -92,5 +91,9 @@ const TabNavStyled = styled.nav`
 
   .btn-expandPanel {
     gap: 0;
+  }
+
+  @media screen and (min-width: ${breakpoints.lg}) {
+    margin-inline: ${spacing['4xl']};
   }
 `;

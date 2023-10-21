@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
+import FormContextProvider from '../../../../providers/FormContextProvider';
 import TabNav from './TabNav';
 import TabOutlet from './TabOutlet';
 import { theme } from '../../../../themes';
 
 export default function AdminPanel() {
   return (
-    <AdminPanelStyled>
-      <TabNav />
-      <TabOutlet />
-    </AdminPanelStyled>
+    <FormContextProvider>
+      <AdminPanelStyled>
+        <TabNav />
+        <TabOutlet />
+      </AdminPanelStyled>
+    </FormContextProvider>
   );
 }
 

@@ -14,7 +14,7 @@ export default function NavbarUserInfo() {
   const logout = useLogout();
   const { resetPanelInfo } = useAdmin();
 
-  const handleLogOut = () => {
+  const handleLogout = () => {
     logout();
     resetPanelInfo();
     navigate('/');
@@ -30,7 +30,7 @@ export default function NavbarUserInfo() {
           label="Sign Out"
           className="logout__btn"
           Icon={<TbLogout2 className="logout__btnIcon" />}
-          onClick={handleLogOut}
+          onClick={handleLogout}
         />
       </div>
       <BsPersonCircle className="userIcon" />

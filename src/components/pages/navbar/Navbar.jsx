@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useAdmin } from '../../../hooks/useAdmin';
 
 import Logo from '../../common/Logo';
-import UserInfo from '../order/UserInfo';
+import UserInfo from './UserInfo';
 import ToggleButton from '../../common/ToggleButton';
 
 import {

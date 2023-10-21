@@ -20,11 +20,7 @@ const { borderRadius, breakpoints } = theme;
 
 const AdminPanelStyled = styled.aside`
   position: relative;
-
   display: none;
-
-  /* grid-column: 2 / -1; */
-
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
 

@@ -8,9 +8,15 @@ export default function Button({
   Icon,
   className = '',
   onClick = null,
+  ...restProps
 }) {
   return (
-    <ButtonStyled type={type} className={className} onClick={onClick}>
+    <ButtonStyled
+      type={type}
+      className={className}
+      onClick={onClick}
+      {...restProps}
+    >
       <span>{label}</span>
       {Icon && Icon}
     </ButtonStyled>
@@ -20,7 +26,7 @@ export default function Button({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { blur, borderRadius, breakpoints, colors, fonts, spacing } = theme;
+const { colors, borderRadius, breakpoints, fonts, spacing } = theme;
 
 const ButtonStyled = styled.button`
   padding: ${spacing.xs};
@@ -31,8 +37,6 @@ const ButtonStyled = styled.button`
   justify-content: center;
   gap: ${spacing['2xs']};
 
-  background-color: rgba(255, 160, 27, 0.6);
-  backdrop-filter: ${blur};
   border: 1px solid transparent;
   border-radius: ${borderRadius.rounded};
 
@@ -41,17 +45,9 @@ const ButtonStyled = styled.button`
   line-height: 1;
   font-family: ${fonts.family.cta};
   font-size: ${fonts.size.sm};
-  transition-duration: 0.2s;
+  transition-duration: 0.3s;
   transition-timing-function: ease;
-  transition-property: background-color, background-color, border-color;
-
-  &:focus {
-    outline-color: ${colors.accent};
-  }
-
-  &:hover {
-    background-color: rgba(255, 160, 27, 0.8);
-  }
+  transition-property: background-color, background-color, border-color, color;
 
   @media screen and (min-width: ${breakpoints.md}) {
     padding: ${spacing.md};

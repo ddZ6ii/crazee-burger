@@ -27,15 +27,16 @@ export default function LoginForm() {
     <LoginFormStyled onSubmit={handleSubmit}>
       <h1>Welcome to the app !</h1>
       <hr />
-      <div className="container">
+      <div className="form__container">
         <h2>Log In</h2>
         <Input
           value={userName}
           onChange={handleChange}
           placeholder="Enter your name"
           Icon={<BsPersonCircle className="input__icon" />}
+          className="form__input"
         />
-        <Button type="submit" label="Sign In" />
+        <Button type="submit" label="Sign In" className="form__btn" />
       </div>
     </LoginFormStyled>
   );
@@ -44,7 +45,7 @@ export default function LoginForm() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, fonts, spacing } = theme;
+const { blur, breakpoints, colors, fonts, spacing } = theme;
 
 const LoginFormStyled = styled.form`
   width: 100%;
@@ -59,18 +60,16 @@ const LoginFormStyled = styled.form`
   & h1 {
     font-size: ${fonts.size['2xl']};
   }
-
+  & h2 {
+    font-size: ${fonts.size.xl};
+  }
   & hr {
     width: 100%;
     margin: ${spacing.md} auto ${spacing['2xl']};
     border: 1px solid ${colors.accent};
   }
 
-  & h2 {
-    font-size: ${fonts.size.xl};
-  }
-
-  & .container {
+  & .form__container {
     margin-inline: auto;
     display: flex;
     flex-direction: column;
@@ -79,31 +78,55 @@ const LoginFormStyled = styled.form`
     gap: ${spacing.sm};
   }
 
+  & .form__input {
+    &:focus-within svg,
+    &:has(input:not(:placeholder-shown)) svg {
+      fill: ${colors.accent};
+    }
+    & .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: ${blur};
+      &:has(input:focus) {
+        outline: 1px solid ${colors.accent};
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+    & .input {
+      color: ${colors.white};
+      &::placeholder {
+        color: ${colors.neutral_light};
+      }
+    }
+  }
+
   & .input__icon {
     color: ${colors.neutral_light};
     font-size: ${fonts.size.base};
   }
 
-  & .btn__icon {
-    stroke-width: 2px;
+  & .form__btn {
+    backdrop-filter: ${blur};
+    background-color: rgba(255, 160, 27, 0.6);
+    &:focus {
+      outline-color: ${colors.accent};
+    }
+    &:hover {
+      background-color: rgba(255, 160, 27, 0.8);
+    }
   }
 
   @media screen and (min-width: ${breakpoints.md}) {
     max-width: 400px;
-
     & h1 {
       font-size: ${fonts.size['3xl']};
     }
-
     & h2 {
       font-size: ${fonts.size['2xl']};
     }
-
     & hr {
       margin-top: ${spacing.lg};
       margin-bottom: ${spacing.xl};
     }
-
     & .input__icon {
       font-size: ${fonts.size.lg};
     }
@@ -111,20 +134,16 @@ const LoginFormStyled = styled.form`
 
   @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     max-width: 250px;
-
     & h1 {
       font-size: ${fonts.size['2xl']};
     }
-
     & hr {
       margin: ${spacing.xs} auto ${spacing.md};
     }
-
     & h2 {
       font-size: ${fonts.size.xl};
     }
-
-    & .container {
+    & .form__container {
       gap: ${spacing.xs};
     }
   }

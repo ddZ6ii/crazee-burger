@@ -1,5 +1,4 @@
 export const UPDATE_DATA = 'UPDATE_DATA';
-// export const UPDATE_STATUS = 'UPDATE_STATUS';
 export const DISABLE_SUBMISSION = 'UPDATE_SUBMISSION';
 export const UPDATE_ERRORS = 'UPDATE_ERRORS';
 export const RESET_ERRORS = 'RESET_ERRORS';

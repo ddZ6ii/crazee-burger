@@ -24,7 +24,7 @@ const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const TabContentStyled = styled.div`
   padding: ${spacing.md} ${spacing['2xl']};
-  min-height: 24vh;
+  min-height: 23vh;
   height: auto;
 
   background-color: ${colors.white};
@@ -33,8 +33,15 @@ const TabContentStyled = styled.div`
   box-shadow: ${shadows.sm};
   color: ${colors.neutral};
   font-family: ${fonts.family.cta};
+  font-size: ${fonts.size.sm};
 
   @media screen and (min-width: ${breakpoints.lg}) {
     padding-inline: ${spacing['4xl']};
+  }
+  @media screen and (min-width: ${breakpoints.xl}) {
+    font-size: ${fonts.size.base};
+  }
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.xl}) {
+    min-height: 33vh;
   }
 `;

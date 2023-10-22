@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { GiChefToque } from 'react-icons/gi';
 import Button from '../../common/Button';
 import { useAdmin } from '../../../hooks/useAdmin';
 import { useProducts } from '../../../hooks/useProducts';
@@ -9,26 +9,36 @@ export default function EmptyList() {
   const { isAdminMode } = useAdmin();
   const { resetProducts } = useProducts();
 
-  const message = isAdminMode ? (
-    <>
+  if (isAdminMode)
+    return (
+      <ContainerStyled>
+        <>
+          <div className="message__content">
+            <h2>Out of stock?</h2>
+
+            <h3>Click below to refill your list of products</h3>
+          </div>
+          <Button
+            className="message__btn"
+            label="Generate New Products"
+            onClick={() => resetProducts()}
+          />
+        </>
+      </ContainerStyled>
+    );
+
+  return (
+    <ContainerStyled>
       <div className="message__content">
-        <h2>Empty products list?</h2>
-        <h3>Click the button below to reset the list</h3>
+        <h2>Sorry we&apos;re sold out!</h2>
+        <h3>
+          New recipes currently in preparation...
+          <GiChefToque />
+        </h3>
+        <h3>See you soon!</h3>
       </div>
-      <Button
-        className="message__btn"
-        label="Generate New Products"
-        onClick={() => resetProducts()}
-      />
-    </>
-  ) : (
-    <div className="message__content">
-      <h2>Sorry we&apos;re sold out!</h2>
-      <h3>New recipes are being prepared.</h3>
-      <h3>See you soon!</h3>
-    </div>
+    </ContainerStyled>
   );
-  return <ContainerStyled>{message}</ContainerStyled>;
 }
 
 /* __________________________________________________________________________ *\
@@ -58,7 +68,6 @@ const ContainerStyled = styled.div`
       font-size: ${fonts.size['3xl']};
       font-weight: ${fonts.weight.bold};
     }
-
     & h3 {
       color: ${colors.neutral};
       font-size: ${fonts.size['2xl']};
@@ -69,11 +78,12 @@ const ContainerStyled = styled.div`
   .message__btn {
     width: fit-content;
     background-color: ${colors.accent};
+    outline: 2px solid transparent;
     font-weight: ${fonts.weight.bold};
-
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: ${colors.white};
-      border-color: ${colors.accent};
+      outline-color: ${colors.accent};
       color: ${colors.accent};
     }
   }

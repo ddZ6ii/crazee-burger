@@ -27,12 +27,6 @@ export const useFormStore = () => {
     [form]
   );
 
-  // const updateStatus = useCallback(
-  //   (showStatus, message) =>
-  //     dispatch(Actions.updateStatus(showStatus, message)),
-  //   []
-  // );
-
   const disableSubmit = useCallback(
     (disabled) => dispatch(Actions.disableSubmit(disabled)),
     []
@@ -54,7 +48,6 @@ export const useFormStore = () => {
     form,
     updateFormData,
     hasError,
-    // updateStatus,
     disableSubmit,
     updateErrors,
     resetErrors,

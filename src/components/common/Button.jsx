@@ -17,7 +17,7 @@ export default function Button({
       onClick={onClick}
       {...restProps}
     >
-      <span>{label}</span>
+      <span className="btn__label">{label}</span>
       {Icon && Icon}
     </ButtonStyled>
   );
@@ -37,8 +37,10 @@ const ButtonStyled = styled.button`
   justify-content: center;
   gap: ${spacing['2xs']};
 
+  background: none;
   border: 1px solid transparent;
   border-radius: ${borderRadius.rounded};
+  outline: 2px solid transparent;
 
   color: ${colors.white};
   cursor: pointer;
@@ -51,6 +53,7 @@ const ButtonStyled = styled.button`
 
   @media screen and (min-width: ${breakpoints.md}) {
     padding: ${spacing.md};
+    gap: ${spacing['xs']};
     font-size: ${fonts.size.base};
   }
 

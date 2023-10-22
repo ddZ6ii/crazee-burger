@@ -1,34 +1,25 @@
 import * as Actions from '../actions/formActionTypes';
 import { formInputs as inputs } from '../../components/pages/order/admin/helpers/formInputs';
 import { isEmpty } from '../../utilities/checks';
-import { validatePrice, validateUrl } from '../../utilities/validators';
 
 export const initForm = () => {
   const initialData = inputs.reduce(
-    (acc, input) => ({ ...acc, [input.label]: '' }),
+    (acc, input) => ({ ...acc, [input.data.label]: '' }),
     {}
   );
   const initialValidators = inputs.reduce(
-    (acc, input) => ({ ...acc, [input.label]: [] }),
+    (acc, input) => ({ ...acc, [input.data.label]: input.validators }),
     {}
   );
   const initialErrors = inputs.reduce(
-    (acc, input) => ({ ...acc, [input.label]: [] }),
+    (acc, input) => ({ ...acc, [input.data.label]: [] }),
     {}
   );
   return {
     data: { ...initialData },
-    validators: {
-      ...initialValidators,
-      imageSource: [validateUrl],
-      price: [validatePrice],
-    },
+    validators: { ...initialValidators },
     errors: { ...initialErrors },
-    submission: {
-      isDisabled: false,
-      // status: '',
-      // showStatus: false,
-    },
+    submission: { isDisabled: false },
   };
 };
 
@@ -40,16 +31,6 @@ export const formReducer = (form = initForm(), action) => {
         data: { ...form.data, [action.payload.name]: action.payload.value },
       };
     }
-    // case Actions.UPDATE_STATUS: {
-    //   return {
-    //     ...form,
-    //     submission: {
-    //       ...form.submission,
-    //       showStatus: action.payload.showStatus,
-    //       status: action.payload.message,
-    //     },
-    //   };
-    // }
     case Actions.DISABLE_SUBMISSION: {
       return {
         ...form,

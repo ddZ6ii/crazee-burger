@@ -16,7 +16,7 @@ export default function Input({
 }) {
   return (
     <StyledInput className={className}>
-      <label htmlFor={label}>
+      <label htmlFor={label} className="label">
         {labelValue && <span>{labelValue}</span>}
         <div className="container">
           {Icon && Icon}
@@ -44,13 +44,13 @@ const { borderRadius, breakpoints, fonts, spacing } = theme;
 const StyledInput = styled.div`
   width: 100%;
 
-  & label {
+  .label {
     display: flex;
     flex-direction: column;
     gap: ${spacing['2xs']};
   }
 
-  & .container {
+  .container {
     padding: ${spacing.xs};
     width: 100%;
 
@@ -59,37 +59,31 @@ const StyledInput = styled.div`
     gap: ${spacing.xs};
 
     border-radius: ${borderRadius.rounded};
-  }
-
-  & input {
-    flex-grow: 1;
-
-    background: none;
 
     line-height: 1;
     font-size: ${fonts.size.sm};
     font-family: ${fonts.family.cta};
     font-weight: ${fonts.weight.regular};
+  }
 
+  & .input {
+    flex-grow: 1;
+    background: none;
     &:focus {
       outline: none;
     }
   }
 
   @media screen and (min-width: ${breakpoints.md}) {
-    & .container {
+    .container {
       padding: ${spacing.md};
-    }
-    & input {
       font-size: ${fonts.size.base};
     }
   }
 
   @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
-    & .container {
+    .container {
       padding: ${spacing.xs};
-    }
-    & input {
       font-size: ${fonts.size.sm};
     }
   }

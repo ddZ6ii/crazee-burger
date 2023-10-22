@@ -1,13 +1,20 @@
 import { useCallback, useContext, useEffect, useReducer } from 'react';
 import { ProductsContext } from '../contexts/ProductsContext';
-import { productsReducer } from '../store/reducers/ProductsReducer';
+import {
+  productsReducer,
+  initialProducts,
+} from '../store/reducers/productsReducer';
 import * as Actions from '../store/actions/productsActions';
-import { LARGE as initialProducts } from '../data/fakeMenus';
 
-const STORAGE_KEY = 'products';
+const STORAGE_KEY_PRODUCTS = 'products';
+const STORAGE_KEY_NEXT_ID = 'nextId';
+
+let nextId =
+  JSON.parse(sessionStorage.getItem(STORAGE_KEY_NEXT_ID)) ??
+  initialProducts.length + 1;
 
 const initProducts = (initialProducts) => {
-  const products = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+  const products = JSON.parse(sessionStorage.getItem(STORAGE_KEY_PRODUCTS));
   return products ?? initialProducts;
 };
 
@@ -19,10 +26,11 @@ export const useProductsStore = () => {
     initProducts
   );
 
-  const addProduct = useCallback(
-    (product) => dispatch(Actions.addProduct(product)),
-    []
-  );
+  const addProduct = useCallback((product) => {
+    dispatch(Actions.addProduct(product, nextId));
+    nextId++;
+    sessionStorage.setItem(STORAGE_KEY_NEXT_ID, JSON.stringify(nextId));
+  }, []);
 
   const updateProduct = useCallback(
     (product) => dispatch(Actions.updateProduct(product)),
@@ -40,7 +48,7 @@ export const useProductsStore = () => {
   );
 
   useEffect(() => {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    sessionStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
   }, [products]);
 
   return {

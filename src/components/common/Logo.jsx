@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { theme } from '../../themes';
 import logo from '/assets/images/logo-orange.png';
 
-export default function Logo({ className = '', onClick = null }) {
+export default function Logo({ className = '' }) {
   return (
-    <LogoStyled className={className} onClick={onClick}>
+    <LogoStyled className={className}>
       <span>Crazee</span>
       <img src={logo} alt="crazee burger logo" />
       <span>Burger</span>
@@ -23,6 +23,7 @@ const LogoStyled = styled.button`
   justify-content: center;
   gap: ${spacing['2xs']};
   background: none;
+  outline-color: ${colors.white};
 
   & span {
     color: ${colors.accent};
@@ -32,7 +33,6 @@ const LogoStyled = styled.button`
     letter-spacing: 1.5px;
     text-transform: uppercase;
   }
-
   & img {
     max-height: 60px;
     width: auto;
@@ -46,7 +46,6 @@ const LogoStyled = styled.button`
     & span {
       font-size: ${fonts.size['6xl']};
     }
-
     & img {
       max-height: 136px;
     }

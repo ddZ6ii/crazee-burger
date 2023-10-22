@@ -5,11 +5,6 @@ export const updateFormData = (name, value) => ({
   payload: { name, value },
 });
 
-// export const updateStatus = (showStatus, message) => ({
-//   type: Actions.UPDATE_STATUS,
-//   payload: { showStatus, message },
-// });
-
 export const disableSubmit = (disabled) => ({
   type: Actions.DISABLE_SUBMISSION,
   disabled,

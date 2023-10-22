@@ -27,9 +27,9 @@ export default function NavbarUserInfo() {
           Hi, <span className="userInfo__userName">{userName}</span>
         </p>
         <Button
-          label="Sign Out"
-          className="logout__btn"
-          Icon={<TbLogout2 className="logout__btnIcon" />}
+          label="Log Out"
+          className="userInfo__btn-logout"
+          Icon={<TbLogout2 className="userInfo__btnIcon" />}
           onClick={handleLogout}
         />
       </div>
@@ -53,6 +53,7 @@ const ContainerStyled = styled.div`
 
   .container {
     display: block;
+
     color: ${colors.neutral_light};
     line-height: 1.375;
     font-family: ${fonts.family.body};
@@ -71,19 +72,14 @@ const ContainerStyled = styled.div`
     font-weight: ${fonts.weight.bold};
   }
 
-  .logout__btn {
+  .userInfo__btn-logout {
     padding: 0;
     width: fit-content;
 
     display: flex;
-    gap: ${spacing['3xs']};
-    align-items: center;
     flex-direction: column-reverse;
-
-    background-color: transparent;
-    backdrop-filter: none;
-    border: none;
-    border-radius: 0;
+    align-items: center;
+    gap: ${spacing['3xs']};
 
     color: ${colors.neutral_light};
     line-height: 1;
@@ -96,15 +92,19 @@ const ContainerStyled = styled.div`
       display: none;
     }
 
+    &:focus {
+      outline-color: ${colors.accent};
+    }
+
     &:hover {
       color: ${colors.neutral_lightest};
-      & .logout__btnIcon {
+      & .userInfo__btnIcon {
         color: ${colors.neutral_lightest};
       }
     }
   }
 
-  .logout__btnIcon {
+  .userInfo__btnIcon {
     height: auto;
     width: ${fonts.size['xl']};
     color: ${colors.neutral_light};
@@ -128,13 +128,13 @@ const ContainerStyled = styled.div`
     .userInfo {
       display: block;
     }
-    .logout__btn {
+    .userInfo__btn-logout {
       flex-direction: row-reverse;
       & span {
         display: block;
       }
     }
-    .logout__btnIcon {
+    .userInfo__btnIcon {
       width: ${fonts.size.md};
     }
     .userIcon {
@@ -146,12 +146,12 @@ const ContainerStyled = styled.div`
     .userInfo {
       display: none;
     }
-    .logout__btn {
+    .userInfo__btn-logout {
       & span {
         display: none;
       }
     }
-    .logout__btnIcon {
+    .userInfo__btnIcon {
       width: ${fonts.size['xl']};
     }
     .userIcon {

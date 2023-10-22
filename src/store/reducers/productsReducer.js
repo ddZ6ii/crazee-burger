@@ -1,5 +1,7 @@
 import * as Actions from '../actions/productsActionsTypes';
-import { LARGE as initialProducts } from '../../data/fakeMenus';
+import * as Menus from '../../data/fakeMenus';
+
+export const initialProducts = Menus.LARGE;
 
 export const productsReducer = (products = initialProducts, action) => {
   switch (action.type) {

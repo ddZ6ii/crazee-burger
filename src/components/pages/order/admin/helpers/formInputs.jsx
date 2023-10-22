@@ -1,35 +1,48 @@
 import { MdOutlineEuroSymbol } from 'react-icons/md';
 import { BsFillCameraFill } from 'react-icons/bs';
 import { FaHamburger } from 'react-icons/fa';
+import {
+  validatePrice,
+  validateUrl,
+} from '../../../../../utilities/validators';
 
 export const formInputs = [
   {
-    id: 0,
-    type: 'text',
-    label: 'title',
-    placeholder: 'Product name (e.g. "Super Burger")',
-    isRequired: false,
-    icon: <FaHamburger />,
-    klass: 'form__input',
+    data: {
+      id: 0,
+      type: 'text',
+      label: 'title',
+      placeholder: 'Product name (e.g. "Super Burger")',
+      isRequired: false,
+      icon: <FaHamburger className="input__icon" />,
+      klass: 'input__wrapper',
+    },
+    validators: [],
   },
   {
-    id: 1,
-    type: 'text',
-    label: 'imageSource',
-    placeholder: 'URL for product thumbnail (can be empty)',
-    isRequired: false,
-    icon: <BsFillCameraFill />,
-    klass: 'form__input',
+    data: {
+      id: 1,
+      type: 'text',
+      label: 'imageSource',
+      placeholder: 'URL for product thumbnail (can be empty)',
+      isRequired: false,
+      icon: <BsFillCameraFill className="input__icon" />,
+      klass: 'input__wrapper',
+    },
+    validators: [validateUrl],
   },
   {
-    id: 2,
-    type: 'number',
-    min: '0',
-    step: '.01',
-    label: 'price',
-    placeholder: 'Price',
-    isRequired: false,
-    icon: <MdOutlineEuroSymbol />,
-    klass: 'form__input',
+    data: {
+      id: 2,
+      type: 'number',
+      min: '0',
+      step: '.01',
+      label: 'price',
+      placeholder: 'Price',
+      isRequired: false,
+      icon: <MdOutlineEuroSymbol className="input__icon" />,
+      klass: 'input__wrapper',
+    },
+    validators: [validatePrice],
   },
 ];

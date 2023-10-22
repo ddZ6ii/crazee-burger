@@ -1,29 +1,13 @@
 import styled from 'styled-components';
 import { TiDelete } from 'react-icons/ti';
 
-import { useAdmin } from '../../../hooks/useAdmin';
-import { useProducts } from '../../../hooks/useProducts';
-
 import Button from '../../common/Button';
 
 import { formatPrice } from '../../../utilities/maths';
-import {
-  displayToastNotification,
-  TOAST_SUCCESS_SETTINGS,
-} from '../../../utilities/notifications';
-
 import { theme } from '../../../themes';
 
-export default function Product({ product }) {
-  const { isAdminMode } = useAdmin();
-  const { deleteProduct } = useProducts();
-
+export default function ProductCard({ product, showDeleteButton, onDelete }) {
   const formattedPrice = formatPrice(product.price);
-
-  const handleDelete = (productId) => {
-    deleteProduct(productId);
-    displayToastNotification('Product deleted!', TOAST_SUCCESS_SETTINGS);
-  };
 
   return (
     <ProductStyled>
@@ -44,10 +28,12 @@ export default function Product({ product }) {
         </div>
       </div>
 
-      {isAdminMode && (
-        <TiDelete
-          onClick={() => handleDelete(product.id)}
+      {showDeleteButton && (
+        <Button
+          aria-label="delete-product"
+          Icon={<TiDelete />}
           className="product__btn-delete"
+          onClick={() => onDelete(product.id)}
         />
       )}
     </ProductStyled>
@@ -60,11 +46,11 @@ export default function Product({ product }) {
 const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const ProductStyled = styled.div`
+  position: relative;
+
   padding: ${spacing.sm};
   width: 220px;
   height: 265px;
-
-  position: relative;
 
   display: grid;
   grid-template-rows: 55% 1fr;
@@ -78,15 +64,14 @@ const ProductStyled = styled.div`
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
   transition-property: outline-color, box-shadow;
+
   &:hover {
     box-shadow: ${shadows.md};
   }
-
   &:has(.product__btn-delete:hover) {
     outline-color: ${colors.info_danger};
     animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
   }
-
   @keyframes shake {
     10%,
     90% {
@@ -152,6 +137,7 @@ const ProductStyled = styled.div`
     width: fit-content;
 
     background-color: ${colors.accent};
+    outline: 2px solid transparent;
 
     font-size: ${fonts.size.xs};
     font-weight: ${fonts.weight.bold};
@@ -160,7 +146,7 @@ const ProductStyled = styled.div`
     &:hover,
     &:focus {
       background-color: transparent;
-      border-color: ${colors.accent};
+      outline-color: ${colors.accent};
       color: ${colors.accent};
     }
     &:active {
@@ -174,37 +160,61 @@ const ProductStyled = styled.div`
     top: ${spacing['2xs']};
     right: ${spacing['2xs']};
 
+    padding: ${spacing['4xs']};
+    width: fit-content;
+    gap: 0;
+
+    background: none;
+    border: 0;
+
     color: ${colors.neutral_darkest};
     cursor: pointer;
     font-size: ${fonts.size['xl']};
 
-    transition: color 0.3s ease-in-out;
-
     &:hover {
       color: ${colors.info_danger};
+    }
+    &:focus {
+      color: ${colors.info_danger};
+      outline-color: ${colors.info_danger};
+    }
+  }
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    .product__btn-add {
+      font-size: ${fonts.size.sm};
+    }
+    .product__price {
+      font-size: 22px;
     }
   }
 
   @media screen and (min-width: ${breakpoints.xl}) {
     width: 240px;
-    min-height: 330px;
+    min-height: 300px;
     gap: ${spacing.xs};
     border-radius: ${borderRadius.rounded_2xl};
 
     .product__thumbnailContainer {
       height: 145px;
     }
-
     .product__title {
       font-size: 36px;
     }
-
     .product__price {
       font-size: ${fonts.size.xl};
     }
-
     .product__btn-add {
       font-size: ${fonts.size.sm};
+    }
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    .product__btn-add {
+      font-size: ${fonts.size.xs};
+    }
+    .product__price {
+      font-size: ${fonts.size.lg};
     }
   }
 `;

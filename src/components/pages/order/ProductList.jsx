@@ -1,21 +1,39 @@
 import styled from 'styled-components';
 
+import { useAdmin } from '../../../hooks/useAdmin';
 import { useProducts } from '../../../hooks/useProducts';
-import Product from './Product';
-import { theme } from '../../../themes';
+import ProductCard from './ProductCard';
 import EmptyList from './EmptyList';
+import {
+  TOAST_SUCCESS_SETTINGS,
+  displayToastNotification,
+} from '../../../utilities/notifications';
+import { theme } from '../../../themes';
+
+const SUCCESS_DELETE_MESSAGE = 'Product deleted!';
 
 export default function ProductList() {
-  const { products } = useProducts();
+  const { products, deleteProduct } = useProducts();
+  const { isAdminMode } = useAdmin();
 
-  const isListEmpty = products.length === 0;
+  const handleDelete = (productId) => {
+    deleteProduct(productId);
+    displayToastNotification(SUCCESS_DELETE_MESSAGE, TOAST_SUCCESS_SETTINGS);
+  };
+
+  const hasProducts = products.length > 0;
 
   return (
     <ProductListStyled>
-      {!isListEmpty ? (
+      {hasProducts ? (
         <div className="container">
           {products.map((p) => (
-            <Product key={p.id} product={p} />
+            <ProductCard
+              key={p.id}
+              product={p}
+              showDeleteButton={isAdminMode}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       ) : (

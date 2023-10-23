@@ -11,7 +11,7 @@ const STORAGE_KEY_NEXT_ID = 'nextId';
 
 let nextId =
   JSON.parse(sessionStorage.getItem(STORAGE_KEY_NEXT_ID)) ??
-  initialProducts.length + 1;
+  initialProducts?.length + 1;
 
 const initProducts = (initialProducts) => {
   const products = JSON.parse(sessionStorage.getItem(STORAGE_KEY_PRODUCTS));

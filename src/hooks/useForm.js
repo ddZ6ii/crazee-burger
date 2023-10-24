@@ -44,14 +44,77 @@ export const useFormStore = () => {
 
   const resetForm = useCallback(() => dispatch(Actions.resetForm()), []);
 
+  const validateInput = useCallback(
+    (name, value) => {
+      // clear previous error
+      resetErrors(name);
+
+      const validators = form.validators[name];
+
+      if (isEmpty(validators)) {
+        if (!hasError()) disableSubmit(false);
+        return true;
+      }
+
+      // verify form input field for each related validator function
+      const messages = validators.reduce((result, validator) => {
+        const error = validator(value);
+        return error.length ? [...result, error] : [...result];
+      }, []);
+
+      if (isEmpty(messages)) {
+        disableSubmit(false);
+        return true;
+      }
+
+      // update form errors
+      updateErrors(messages, name);
+
+      // disable form submission
+      disableSubmit(true);
+
+      return false;
+    },
+    [form.validators, resetErrors, disableSubmit, hasError, updateErrors]
+  );
+
+  const validateForm = useCallback(() => {
+    // reset previous form errors
+    resetErrors();
+
+    const { data, validators } = form;
+
+    if (isEmpty(validators)) return true;
+
+    // verify each form input field with related validator function
+    const formErrors = Object.entries(validators).reduce(
+      (errors, [name, validators]) => {
+        const messages = validators.reduce((result, validator) => {
+          const error = validator(data[name], data);
+          return error.length ? [...result, error] : [...result];
+        }, []);
+        if (messages.length > 0) errors[name] = messages;
+        return errors;
+      },
+      {}
+    );
+
+    if (isEmpty(formErrors)) return true;
+
+    // update form errors
+    updateErrors(formErrors);
+
+    return false;
+  }, [form, resetErrors, updateErrors]);
+
   return {
     form,
     updateFormData,
     hasError,
     disableSubmit,
-    updateErrors,
-    resetErrors,
     resetForm,
+    validateInput,
+    validateForm,
   };
 };
 

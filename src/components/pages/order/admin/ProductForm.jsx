@@ -12,7 +12,6 @@ import {
   displayToastNotification,
   TOAST_SUCCESS_SETTINGS,
 } from '../../../../utilities/notifications';
-import { isEmpty } from '../../../../utilities/checks';
 import { theme } from '../../../../themes';
 
 const PRODUCT_DEFAULT_SETTINGS = {
@@ -29,71 +28,11 @@ export default function ProductForm() {
     form,
     updateFormData,
     disableSubmit,
-    updateErrors,
-    resetErrors,
     resetForm,
     hasError,
+    validateInput,
+    validateForm,
   } = useForm();
-
-  const validateInput = (name, value) => {
-    // clear previous error
-    resetErrors(name);
-
-    const validators = form.validators[name];
-
-    if (isEmpty(validators)) {
-      if (!hasError()) disableSubmit(false);
-      return true;
-    }
-
-    // verify form input field for each related validator function
-    const messages = validators.reduce((result, validator) => {
-      const error = validator(value);
-      return error.length ? [...result, error] : [...result];
-    }, []);
-
-    if (isEmpty(messages)) {
-      disableSubmit(false);
-      return true;
-    }
-
-    // update form errors
-    updateErrors(messages, name);
-
-    // disable form submission
-    disableSubmit(true);
-
-    return false;
-  };
-
-  const validateForm = () => {
-    // reset previous form errors
-    resetErrors();
-
-    const { data, validators } = form;
-
-    if (isEmpty(validators)) return true;
-
-    // verify each form input field with related validator function
-    const formErrors = Object.entries(validators).reduce(
-      (errors, [name, validators]) => {
-        const messages = validators.reduce((result, validator) => {
-          const error = validator(data[name], data);
-          return error.length ? [...result, error] : [...result];
-        }, []);
-        if (messages.length > 0) errors[name] = messages;
-        return errors;
-      },
-      {}
-    );
-
-    if (isEmpty(formErrors)) return true;
-
-    // update form errors
-    updateErrors(formErrors);
-
-    return false;
-  };
 
   const handleBlur = (e) => validateInput(e.target.name, e.target.value);
 
@@ -109,10 +48,11 @@ export default function ProductForm() {
     // lock form during submission
     disableSubmit(true);
 
-    // data validation
+    // validate form data
     const isFormValid = validateForm();
+
     if (isFormValid) {
-      // add new product to menu list
+      // add new product to existing list
       addProduct({
         ...PRODUCT_DEFAULT_SETTINGS,
         ...form.data,
@@ -120,7 +60,6 @@ export default function ProductForm() {
       });
       // confirm submission
       displayToastNotification(SUCCESS_SUBMIT_MESSAGE, TOAST_SUCCESS_SETTINGS);
-
       // clear form
       resetForm();
     }

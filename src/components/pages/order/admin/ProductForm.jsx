@@ -148,12 +148,14 @@ export default function ProductForm() {
         <Button
           type="submit"
           label="Add Product"
-          className="btn btn-submit"
+          className="form__btn"
+          version="success"
           disabled={form.submission.isDisabled}
         />
         <Button
           label="Reset"
-          className="btn btn-reset"
+          className="form__btn"
+          version="info"
           disabled={form.submission.isDisabled && !hasError()}
           onClick={() => resetForm()}
         />
@@ -165,7 +167,7 @@ export default function ProductForm() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, fonts, spacing } = theme;
+const { breakpoints, spacing } = theme;
 
 const FormStyled = styled.form`
   display: grid;
@@ -194,48 +196,8 @@ const FormStyled = styled.form`
     gap: ${spacing['2xs']};
   }
 
-  .btn {
+  .form__btn {
     padding: ${spacing.xs} ${spacing.md};
-    width: fit-content;
     font-size: inherit;
-    font-weight: ${fonts.weight.bold};
-  }
-
-  .btn-submit {
-    background-color: ${colors.info_success};
-
-    &:focus,
-    &:not(:disabled):hover {
-      color: ${colors.info_success};
-      background-color: ${colors.white};
-      outline-color: ${colors.info_success};
-    }
-    &:active {
-      background-color: ${colors.info_success};
-    }
-    &:disabled {
-      cursor: default;
-      background-color: ${colors.neutral_light};
-    }
-  }
-
-  .btn-reset {
-    background-color: ${colors.neutral};
-    color: ${colors.neutral_lightest};
-
-    &:not(:disabled):hover,
-    &:focus {
-      color: ${colors.neutral};
-      background-color: ${colors.white};
-      outline-color: ${colors.neutral};
-    }
-    &:active {
-      background-color: ${colors.neutral};
-      color: ${colors.neutral_lightest};
-    }
-    &:disabled {
-      cursor: default;
-      background-color: ${colors.neutral_light};
-    }
   }
 `;

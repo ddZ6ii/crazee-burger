@@ -110,6 +110,7 @@ const LoginFormStyled = styled.form`
   }
 
   .form__btn {
+    width: 100%;
     backdrop-filter: ${blur};
     background-color: rgba(255, 160, 27, 0.6);
     font-weight: ${fonts.weight.bold};

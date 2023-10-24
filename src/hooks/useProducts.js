@@ -3,7 +3,7 @@ import { ProductsContext } from '../contexts/ProductsContext';
 import {
   productsReducer,
   initialProducts,
-} from '../store/reducers/ProductsReducer';
+} from '../store/reducers/productsReducer';
 import * as Actions from '../store/actions/productsActions';
 
 const STORAGE_KEY_PRODUCTS = 'products';

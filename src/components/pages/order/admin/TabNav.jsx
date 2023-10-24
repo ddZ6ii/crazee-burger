@@ -5,19 +5,13 @@ import { useAdmin } from '../../../../hooks/useAdmin';
 import Tab from '../../../common/Button';
 import { adminTabs as tabs } from './helpers/adminTabs';
 import { theme } from '../../../../themes';
+import { classNames } from '../../../../utilities/classNames';
 
 export default function TabNav() {
   const { isPanelExpanded, expandPanel, activeTab, selectActiveTab } =
     useAdmin();
 
-  const togglePanelStyle = `navitem__btn btn-expandPanel ${
-    !isPanelExpanded ? 'is-active' : ''
-  }`;
-
-  const styleTab = (tabID) => {
-    const isTabActive = tabID === activeTab;
-    return `navitem__btn ${isTabActive ? 'is-active' : ''}`;
-  };
+  const isTabActive = (tabId) => tabId === activeTab;
 
   const handleClickTab = (tabId) => {
     selectActiveTab(tabId);
@@ -27,8 +21,13 @@ export default function TabNav() {
   return (
     <TabNavStyled>
       <Tab
+        aria-label="toggle-panel"
         Icon={isPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
-        className={togglePanelStyle}
+        className={classNames(
+          'navitem__btn',
+          'btn-togglePanel',
+          !isPanelExpanded && 'is-active'
+        )}
         onClick={() => expandPanel(!isPanelExpanded)}
       />
 
@@ -37,7 +36,10 @@ export default function TabNav() {
           key={tab.id}
           Icon={tab.navIcon}
           label={tab.navTitle}
-          className={styleTab(tab.id)}
+          className={classNames(
+            'navitem__btn',
+            isTabActive(tab.id) && 'is-active'
+          )}
           onClick={() => handleClickTab(tab.id)}
         />
       ))}
@@ -48,7 +50,7 @@ export default function TabNav() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { colors, shadows, spacing } = theme;
+const { breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const TabNavStyled = styled.nav`
   position: absolute;
@@ -57,40 +59,53 @@ const TabNavStyled = styled.nav`
   right: 0;
   transform: translateY(-100%);
 
-  margin-inline: auto;
-  width: 90%;
+  margin-inline: ${spacing['2xl']};
   display: flex;
   align-items: center;
   gap: ${spacing['4xs']};
 
   .navitem__btn {
     padding: ${spacing['2xs']} ${spacing.sm};
-    width: fit-content;
 
     flex-direction: row-reverse;
 
     background-color: ${colors.white};
-    border: 1px solid ${colors.neutral_light};
+    border-color: ${colors.neutral_light};
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     box-shadow: ${shadows.sm};
 
     color: ${colors.neutral};
-    transition: none;
+    font-size: ${fonts.size.sm};
+    font-weight: ${fonts.weight.regular};
 
     &:hover {
       text-decoration: underline;
     }
-
-    &.is-active {
-      color: ${colors.white};
-      background-color: ${colors.neutral_darkest};
-      border-color: transparent;
+    &:focus {
+      outline-color: ${colors.accent};
+      color: ${colors.accent};
     }
   }
 
-  .btn-expandPanel {
+  .btn-togglePanel {
     gap: 0;
+  }
+
+  .is-active {
+    color: ${colors.white};
+    background-color: ${colors.neutral_darkest};
+    border-color: transparent;
+  }
+
+  @media screen and (min-width: ${breakpoints.lg}) {
+    margin-inline: ${spacing['4xl']};
+  }
+
+  @media screen and (min-width: ${breakpoints.xl}) {
+    .navitem__btn {
+      font-size: ${fonts.size.base};
+    }
   }
 `;

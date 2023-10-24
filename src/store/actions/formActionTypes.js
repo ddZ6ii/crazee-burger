@@ -1,0 +1,5 @@
+export const UPDATE_DATA = 'UPDATE_DATA';
+export const DISABLE_SUBMISSION = 'UPDATE_SUBMISSION';
+export const UPDATE_ERRORS = 'UPDATE_ERRORS';
+export const RESET_ERRORS = 'RESET_ERRORS';
+export const RESET_FORM = 'RESET_FORM';

@@ -5,7 +5,7 @@ import { AdminContext } from '../contexts/AdminContext';
 import {
   initialAdminState,
   adminReducer,
-} from '../store/reducers/AdminReducer';
+} from '../store/reducers/adminReducer';
 
 const STORAGE_KEY = 'admin';
 

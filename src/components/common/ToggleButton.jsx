@@ -68,7 +68,6 @@ const ToggleButtonStyled = styled.div`
     border-radius: ${borderRadius.rounded_full};
 
     cursor: pointer;
-
     transition: all 500ms ease;
   }
 

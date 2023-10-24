@@ -4,16 +4,13 @@ function replaceFrenchCommaWithDot(price) {
 }
 
 export function formatPrice(priceToFormat) {
-  if (!priceToFormat) {
-    return '0,00 €';
-  } else {
-    const price = replaceFrenchCommaWithDot(priceToFormat);
+  if (!priceToFormat) return '0,00 €';
 
-    const formattedPrice = new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(price);
+  const price = replaceFrenchCommaWithDot(priceToFormat);
+  const formattedPrice = new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(price);
 
-    return formattedPrice;
-  }
+  return formattedPrice;
 }

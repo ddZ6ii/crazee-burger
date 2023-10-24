@@ -1,4 +1,6 @@
-export const fakeMenu1 = [
+export const EMPTY = [];
+
+export const SMALL = [
   {
     id: 1,
     imageSource: '/assets/images/menus/burger1.png',
@@ -19,7 +21,55 @@ export const fakeMenu1 = [
   },
 ];
 
-export const fakeMenu2 = [
+export const MEDIUM = [
+  {
+    id: 1,
+    imageSource: '/assets/images/menus/burger-bacon-egg.png',
+    title: 'Burger Smoke BBQ',
+    price: 5.598,
+    quantity: 0,
+    isAvailable: true,
+    isPromoted: false,
+  },
+  {
+    id: 2,
+    imageSource: '/assets/images/menus/burger-vegan.png',
+    title: 'Vegan Burger',
+    price: 5.4985,
+    quantity: 0,
+    isAvailable: true,
+    isPromoted: false,
+  },
+  {
+    id: 3,
+    imageSource: '/assets/images/menus/burger3.png',
+    title: 'Chicken Burger',
+    price: 5.367,
+    quantity: 0,
+    isAvailable: true,
+    isPromoted: false,
+  },
+  {
+    id: 4,
+    imageSource: '/assets/images/menus/drink1.png',
+    title: 'Coke 25cl',
+    price: 3.568,
+    quantity: 0,
+    isAvailable: true,
+    isPromoted: false,
+  },
+  {
+    id: 5,
+    imageSource: '/assets/images/menus/drink2.png',
+    title: 'Pepsi 25cl',
+    price: 3.487,
+    quantity: 0,
+    isAvailable: true,
+    isPromoted: false,
+  },
+];
+
+export const LARGE = [
   {
     id: 1,
     imageSource: '/assets/images/menus/burger-bacon-egg.png',

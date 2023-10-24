@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 import UserContextProvider from './providers/UserContextProvider.jsx';
 import AdminContextProvider from './providers/AdminContextProvider.jsx';
+import ProductsContextProvider from './providers/ProductsContextProvider.jsx';
 import App from './App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -12,8 +13,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Router>
       <UserContextProvider>
         <AdminContextProvider>
-          <App />
-          <ToastContainer />
+          <ProductsContextProvider>
+            <App />
+            <ToastContainer />
+          </ProductsContextProvider>
         </AdminContextProvider>
       </UserContextProvider>
     </Router>

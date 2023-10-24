@@ -1,31 +1,26 @@
-// import { useState } from 'react';
 import styled from 'styled-components';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useAdmin } from '../../../hooks/useAdmin';
-import Logo from '../../common/Logo';
-import UserInfo from '../order/UserInfo';
-import ToggleButton from '../../common/ToggleButton';
-import { theme } from '../../../themes';
 
-const toastOptions = {
-  autoClose: 3000,
-  pauseOnHover: true,
-  position: 'bottom-right',
-  theme: 'dark',
-};
+import Logo from '../../common/Logo';
+import UserInfo from './UserInfo';
+import ToggleButton from '../../common/ToggleButton';
+
+import {
+  displayToastNotification,
+  TOAST_INFO_SETTINGS,
+} from '../../../utilities/notifications';
+
+import { theme } from '../../../themes';
 
 export default function Navbar() {
   const { isAdminMode, showPanel } = useAdmin();
 
-  const displayToastNotification = (message) => {
-    if (!isAdminMode) toast.info(message, toastOptions);
-  };
-
   const handleToggle = () => {
     showPanel(!isAdminMode);
-    displayToastNotification('Admin mode enabled');
+    if (!isAdminMode)
+      displayToastNotification('Admin mode enabled', TOAST_INFO_SETTINGS);
   };
 
   return (

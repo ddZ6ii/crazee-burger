@@ -4,24 +4,31 @@ import { theme } from '../../themes';
 
 export default function Input({
   label = 'name',
+  type = 'text',
   labelValue = '',
+  isRequired = true,
   value,
   onChange,
+  onBlur = null,
   Icon,
+  className = '',
   ...restProps
 }) {
   return (
-    <StyledInput>
-      <label htmlFor={label}>
-        <span>{labelValue}</span>
-        <div className="wrapper">
+    <StyledInput className={className}>
+      <label htmlFor={label} className="label">
+        {labelValue && <span>{labelValue}</span>}
+        <div className="container">
           {Icon && Icon}
           <input
             id={label}
-            type="text"
-            required
+            name={label}
+            type={type}
+            required={isRequired}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
+            className="input"
             {...restProps}
           />
         </div>
@@ -29,27 +36,21 @@ export default function Input({
     </StyledInput>
   );
 }
-
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { blur, borderRadius, breakpoints, colors, fonts, spacing } = theme;
+const { borderRadius, breakpoints, fonts, spacing } = theme;
 
 const StyledInput = styled.div`
   width: 100%;
 
-  & label {
+  .label {
     display: flex;
     flex-direction: column;
     gap: ${spacing['2xs']};
-
-    &:focus-within svg,
-    &:has(input:not(:placeholder-shown)) svg {
-      fill: ${colors.accent};
-    }
   }
 
-  & .wrapper {
+  .container {
     padding: ${spacing.xs};
     width: 100%;
 
@@ -58,48 +59,31 @@ const StyledInput = styled.div`
     gap: ${spacing.xs};
 
     border-radius: ${borderRadius.rounded};
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: ${blur};
 
-    &:has(input:focus) {
-      outline: 1px solid ${colors.accent};
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-  }
-
-  & input {
-    background: none;
-    color: ${colors.white};
     line-height: 1;
     font-size: ${fonts.size.sm};
     font-family: ${fonts.family.cta};
     font-weight: ${fonts.weight.regular};
+  }
 
-    &:focus {
-      outline-color: ${colors.neutral_light};
-    }
-    &::placeholder {
-      color: ${colors.neutral_light};
-    }
+  & .input {
+    flex-grow: 1;
+    background: none;
     &:focus {
       outline: none;
     }
   }
 
   @media screen and (min-width: ${breakpoints.md}) {
-    & .wrapper {
+    .container {
       padding: ${spacing.md};
-    }
-    & input {
       font-size: ${fonts.size.base};
     }
   }
 
   @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
-    & .wrapper {
+    .container {
       padding: ${spacing.xs};
-    }
-    & input {
       font-size: ${fonts.size.sm};
     }
   }

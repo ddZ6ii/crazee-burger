@@ -14,7 +14,7 @@ export default function NavbarUserInfo() {
   const logout = useLogout();
   const { resetPanelInfo } = useAdmin();
 
-  const handleLogOut = () => {
+  const handleLogout = () => {
     logout();
     resetPanelInfo();
     navigate('/');
@@ -27,10 +27,10 @@ export default function NavbarUserInfo() {
           Hi, <span className="userInfo__userName">{userName}</span>
         </p>
         <Button
-          label="Sign Out"
-          className="logout__btn"
-          Icon={<TbLogout2 className="logout__btnIcon" />}
-          onClick={handleLogOut}
+          label="Log Out"
+          className="btn-logout"
+          Icon={<TbLogout2 className="btn__icon" />}
+          onClick={handleLogout}
         />
       </div>
       <BsPersonCircle className="userIcon" />
@@ -45,7 +45,6 @@ const { breakpoints, colors, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,40 +70,31 @@ const ContainerStyled = styled.div`
     font-weight: ${fonts.weight.bold};
   }
 
-  .logout__btn {
+  .btn-logout {
     padding: 0;
     width: fit-content;
-
-    display: flex;
-    gap: ${spacing['3xs']};
-    align-items: center;
     flex-direction: column-reverse;
-
-    background-color: transparent;
-    backdrop-filter: none;
-    border: none;
-    border-radius: 0;
-
+    gap: ${spacing['3xs']};
     color: ${colors.neutral_light};
-    line-height: 1;
     font-family: ${fonts.family.body};
-    font-size: ${fonts.size['sm']};
-    text-align: right;
-    transition: 0.3s ease;
+    font-size: ${fonts.size.sm};
+    font-weight: ${fonts.weight.regular};
 
-    & span {
+    & .btn__label {
       display: none;
     }
-
+    &:focus {
+      outline-color: ${colors.accent};
+    }
     &:hover {
-      color: ${colors.neutral_lightest};
-      & .logout__btnIcon {
-        color: ${colors.neutral_lightest};
+      color: ${colors.accent};
+      & .btn__icon {
+        color: ${colors.accent};
       }
     }
   }
 
-  .logout__btnIcon {
+  .btn__icon {
     height: auto;
     width: ${fonts.size['xl']};
     color: ${colors.neutral_light};
@@ -128,13 +118,13 @@ const ContainerStyled = styled.div`
     .userInfo {
       display: block;
     }
-    .logout__btn {
+    .btn-logout {
       flex-direction: row-reverse;
-      & span {
+      & .btn__label {
         display: block;
       }
     }
-    .logout__btnIcon {
+    .btn__icon {
       width: ${fonts.size.md};
     }
     .userIcon {
@@ -146,12 +136,12 @@ const ContainerStyled = styled.div`
     .userInfo {
       display: none;
     }
-    .logout__btn {
-      & span {
+    .btn-logout {
+      & .btn__label {
         display: none;
       }
     }
-    .logout__btnIcon {
+    .btn__icon {
       width: ${fonts.size['xl']};
     }
     .userIcon {

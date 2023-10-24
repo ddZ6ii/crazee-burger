@@ -27,6 +27,8 @@ const colors = {
   neutral: '#747B91',
   neutral_darkest: '#17161A',
   black: '#000000',
+  info_danger: '#bf1650',
+  info_success: '#60bd4f',
 };
 
 const fonts = {
@@ -70,6 +72,7 @@ const overlay = {
 
 const shadows = {
   sm: '0px -6px 8px -2px rgba(0, 0, 0, 0.1)',
+  base: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
   md: '-8px 8px 20px 0px rgba(0, 0, 0, 0.2)',
   lg: '0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset',
 };

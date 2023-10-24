@@ -1,15 +1,18 @@
 import styled from 'styled-components';
 
+import FormContextProvider from '../../../../providers/FormContextProvider';
 import TabNav from './TabNav';
 import TabOutlet from './TabOutlet';
 import { theme } from '../../../../themes';
 
 export default function AdminPanel() {
   return (
-    <AdminPanelStyled>
-      <TabNav />
-      <TabOutlet />
-    </AdminPanelStyled>
+    <FormContextProvider>
+      <AdminPanelStyled>
+        <TabNav />
+        <TabOutlet />
+      </AdminPanelStyled>
+    </FormContextProvider>
   );
 }
 
@@ -20,11 +23,7 @@ const { borderRadius, breakpoints } = theme;
 
 const AdminPanelStyled = styled.aside`
   position: relative;
-
   display: none;
-
-  /* grid-column: 2 / -1; */
-
   border-bottom-left-radius: ${borderRadius['rounded_2xl']};
   border-bottom-right-radius: ${borderRadius['rounded_2xl']};
 

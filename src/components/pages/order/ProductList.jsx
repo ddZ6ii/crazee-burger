@@ -1,30 +1,49 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import LoadingSpinner from '../../common/LoadingSpinner';
-import Product from './Product';
-
-import { fakeMenu2 as products } from '../../../data/fakeMenus';
+import { useAdmin } from '../../../hooks/useAdmin';
+import { useProducts } from '../../../hooks/useProducts';
+import ProductCard from './ProductCard';
+import EmptyList from './EmptyList';
+import Loader from '../../common/Loader';
+import {
+  TOAST_SUCCESS_SETTINGS,
+  displayToastNotification,
+} from '../../../utilities/notifications';
 import { theme } from '../../../themes';
 
+const SUCCESS_DELETE_MESSAGE = 'Product deleted!';
+
 export default function ProductList() {
-  const [menus, setMenus] = useState([]);
+  const { products, deleteProduct } = useProducts();
+  const { isAdminMode } = useAdmin();
 
-  useEffect(() => {
-    setMenus(products);
-  }, []);
+  const hasProducts = products !== null && products !== undefined;
+  const isListEmpty = products && products.length === 0;
 
+  const handleDelete = (productId) => {
+    deleteProduct(productId);
+    displayToastNotification(SUCCESS_DELETE_MESSAGE, TOAST_SUCCESS_SETTINGS);
+  };
+
+  if (!hasProducts)
+    return (
+      <ProductListStyled>
+        <Loader message="Loading products..." className="loader" />
+      </ProductListStyled>
+    );
+  if (hasProducts && isListEmpty) return <EmptyList />;
   return (
     <ProductListStyled>
-      {menus.length ? (
-        menus.map((product) => <Product key={product.id} product={product} />)
-      ) : (
-        <LoadingSpinner
-          message="Loading menus..."
-          className="spinnerContainer"
-          spinnerSize={40}
-        />
-      )}
+      <div className="container">
+        {products.map((p) => (
+          <ProductCard
+            key={p.id}
+            product={p}
+            showDeleteButton={isAdminMode}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
     </ProductListStyled>
   );
 }
@@ -35,33 +54,42 @@ export default function ProductList() {
 const { breakpoints, spacing } = theme;
 
 const ProductListStyled = styled.section`
+  height: 100%;
   padding: ${spacing.sm};
-
-  display: grid;
-  grid-template-columns: minmax(240px, 1fr);
-  justify-items: center;
-  row-gap: ${spacing.sm};
   overflow: auto;
 
-  .spinnerContainer {
+  .loader {
+    height: 100%;
+    width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: ${spacing['2xs']};
+    gap: ${spacing.xs};
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: minmax(240px, 1fr);
+    justify-items: center;
+    row-gap: ${spacing.sm};
   }
 
   @media screen and (min-width: ${breakpoints.sm}) {
     min-height: auto;
-
-    grid-template-columns: repeat(auto-fill, 240px);
-    justify-content: center;
-    place-items: center;
-    column-gap: ${spacing.sm};
-    row-gap: ${spacing.xl};
+    .container {
+      grid-template-columns: repeat(auto-fill, 240px);
+      justify-content: center;
+      place-items: center;
+      column-gap: ${spacing.sm};
+      row-gap: ${spacing.xl};
+    }
   }
 
   @media screen and (min-width: ${breakpoints['xl']}) {
     padding: ${spacing['2xl']} ${spacing.xl};
-    column-gap: 85px;
-    row-gap: 60px;
+    .container {
+      column-gap: 85px;
+      row-gap: 60px;
+    }
   }
 `;

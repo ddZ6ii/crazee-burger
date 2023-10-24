@@ -12,7 +12,7 @@ export default function TabOutlet() {
 
   return (
     isPanelExpanded && (
-      <TabContentStyled>{<p>{selectedTab.content}</p>}</TabContentStyled>
+      <TabContentStyled>{selectedTab.content}</TabContentStyled>
     )
   );
 }
@@ -20,11 +20,12 @@ export default function TabOutlet() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, colors, fonts, shadows, spacing } = theme;
+const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const TabContentStyled = styled.div`
-  padding: ${spacing.sm};
-  min-height: 25vh;
+  padding: ${spacing.md} ${spacing['2xl']};
+  min-height: 23vh;
+  height: auto;
 
   background-color: ${colors.white};
   border-bottom-left-radius: ${borderRadius.rounded_lg};
@@ -32,4 +33,15 @@ const TabContentStyled = styled.div`
   box-shadow: ${shadows.sm};
   color: ${colors.neutral};
   font-family: ${fonts.family.cta};
+  font-size: ${fonts.size.sm};
+
+  @media screen and (min-width: ${breakpoints.lg}) {
+    padding-inline: ${spacing['4xl']};
+  }
+  @media screen and (min-width: ${breakpoints.xl}) {
+    font-size: ${fonts.size.base};
+  }
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.xl}) {
+    min-height: 33vh;
+  }
 `;

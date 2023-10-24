@@ -66,27 +66,26 @@ const TabNavStyled = styled.nav`
 
   .navitem__btn {
     padding: ${spacing['2xs']} ${spacing.sm};
-    width: fit-content;
 
     flex-direction: row-reverse;
 
     background-color: ${colors.white};
-    border: 1px solid ${colors.neutral_light};
+    border-color: ${colors.neutral_light};
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     box-shadow: ${shadows.sm};
-    outline: 2px solid transparent;
 
     color: ${colors.neutral};
     font-size: ${fonts.size.sm};
-    transition: none;
+    font-weight: ${fonts.weight.regular};
 
     &:hover {
       text-decoration: underline;
     }
     &:focus {
       outline-color: ${colors.accent};
+      color: ${colors.accent};
     }
   }
 

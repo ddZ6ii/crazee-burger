@@ -24,7 +24,7 @@ export default function ProductCard({ product, showDeleteButton, onDelete }) {
 
         <div className="product__info">
           <span className="product__price">{formattedPrice}</span>
-          <Button label="Add" className="product__btn-add" />
+          <Button label="Add" className="product__btn-add" version="primary" />
         </div>
       </div>
 
@@ -33,6 +33,7 @@ export default function ProductCard({ product, showDeleteButton, onDelete }) {
           aria-label="delete-product"
           Icon={<TiDelete />}
           className="product__btn-delete"
+          version="danger"
           onClick={() => onDelete(product.id)}
         />
       )}
@@ -135,49 +136,16 @@ const ProductStyled = styled.div`
   .product__btn-add {
     padding: ${spacing.xs} ${spacing.md};
     width: fit-content;
-
-    background-color: ${colors.accent};
-    outline: 2px solid transparent;
-
     font-size: ${fonts.size.xs};
-    font-weight: ${fonts.weight.bold};
-    transition: 0.3s ease;
-
-    &:hover,
-    &:focus {
-      background-color: transparent;
-      outline-color: ${colors.accent};
-      color: ${colors.accent};
-    }
-    &:active {
-      background-color: ${colors.accent};
-      color: ${colors.white};
-    }
   }
 
   .product__btn-delete {
     position: absolute;
     top: ${spacing['2xs']};
     right: ${spacing['2xs']};
-
     padding: ${spacing['4xs']};
-    width: fit-content;
     gap: 0;
-
-    background: none;
-    border: 0;
-
-    color: ${colors.neutral_darkest};
-    cursor: pointer;
     font-size: ${fonts.size['xl']};
-
-    &:hover {
-      color: ${colors.info_danger};
-    }
-    &:focus {
-      color: ${colors.info_danger};
-      outline-color: ${colors.info_danger};
-    }
   }
 
   @media screen and (min-width: ${breakpoints.md}) {

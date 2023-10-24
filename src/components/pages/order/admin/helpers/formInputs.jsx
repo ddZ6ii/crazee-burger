@@ -35,8 +35,9 @@ export const formInputs = [
     data: {
       id: 2,
       type: 'number',
-      min: '0',
-      step: '.01',
+      min: 0,
+      max: 99.99,
+      step: 0.001,
       label: 'price',
       placeholder: 'Price',
       isRequired: false,

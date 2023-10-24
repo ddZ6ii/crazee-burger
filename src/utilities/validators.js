@@ -22,6 +22,8 @@ export function validatePrice(price) {
 
   if (isPriceEmpty) return '';
 
+  if (price >= 100) return 'Please enter a reasonable price';
+
   // regular expression for positive decimal numbers (with comma or dot separator)
   const pattern = new RegExp('^(?!-)(?:[1-9][0-9]*|0)?(?:(\\.|,))?[0-9]+$');
 

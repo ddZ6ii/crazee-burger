@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { BsPersonCircle } from 'react-icons/bs';
 import { TbLogout2 } from 'react-icons/tb';
 
-import { useUserName, useLogout } from '../../../hooks/useUser';
+import { useAuth } from '../../../hooks/useAuth';
 import { useAdmin } from '../../../hooks/useAdmin';
 import Button from '../../common/Button';
 import { theme } from '../../../themes';
 
 export default function NavbarUserInfo() {
   const navigate = useNavigate();
-  const userName = useUserName();
-  const logout = useLogout();
+  const { userInfo, logout } = useAuth();
   const { resetPanelInfo } = useAdmin();
 
   const handleLogout = () => {
@@ -24,7 +23,7 @@ export default function NavbarUserInfo() {
     <ContainerStyled>
       <div className="container">
         <p className="userInfo">
-          Hi, <span className="userInfo__userName">{userName}</span>
+          Hi, <span className="userInfo__userName">{userInfo}</span>
         </p>
         <Button
           label="Log Out"

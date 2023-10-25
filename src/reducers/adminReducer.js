@@ -1,4 +1,4 @@
-import * as Actions from '../actions/adminActionTypes';
+import * as Actions from './actions/adminActionTypes';
 
 export const initialAdminState = {
   isAdminMode: false,

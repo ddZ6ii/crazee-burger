@@ -1,6 +1,6 @@
-import * as Actions from '../actions/formActionTypes';
-import { formInputs as inputs } from '../../components/pages/order/admin/helpers/formInputs';
-import { isEmpty } from '../../utilities/checks';
+import * as Actions from './actions/formActionTypes';
+import { formInputs as inputs } from '../components/pages/order/admin/helpers/formInputs';
+import { isEmpty } from '../utilities/checks';
 
 export const initForm = () => {
   const initialData = inputs.reduce(

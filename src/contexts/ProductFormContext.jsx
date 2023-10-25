@@ -1,12 +1,12 @@
-import { useCallback, useContext, useReducer } from 'react';
+import { createContext, useCallback, useReducer } from 'react';
 
-import * as Actions from '../store/actions/formActions';
-import { formReducer, initForm } from '../store/reducers/formReducer';
-import { FormContext } from '../contexts/FormContext';
+import * as Actions from '../reducers/actions/formActions';
+import { formReducer, initForm } from '../reducers/formReducer';
 import { isEmpty } from '../utilities/checks';
 
-// to be passed as the value for the context provider
-export const useFormStore = () => {
+export const ProductFormContext = createContext(null);
+
+export const ProductFormProvider = ({ children }) => {
   const [form, dispatch] = useReducer(formReducer, {}, initForm);
 
   const updateFormData = useCallback(
@@ -107,7 +107,7 @@ export const useFormStore = () => {
     return false;
   }, [form, resetErrors, updateErrors]);
 
-  return {
+  const productInfo = {
     form,
     updateFormData,
     hasError,
@@ -116,7 +116,10 @@ export const useFormStore = () => {
     validateInput,
     validateForm,
   };
-};
 
-// custom hook to be used by context consumers
-export const useForm = () => useContext(FormContext);
+  return (
+    <ProductFormContext.Provider value={productInfo}>
+      {children}
+    </ProductFormContext.Provider>
+  );
+};

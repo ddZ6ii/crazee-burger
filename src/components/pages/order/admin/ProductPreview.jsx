@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import { useForm } from '../../../../hooks/useForm';
+import { useProductForm } from '../../../../hooks/useProductForm';
 import { isEmpty } from '../../../../utilities/checks';
 import { theme } from '../../../../themes';
 
 export default function ProductPreview({ className }) {
-  const { form, hasError } = useForm();
+  const { form, hasError } = useProductForm();
   const url = form.data?.imageSource;
   const showThumbnail = !hasError() && !isEmpty(url);
 

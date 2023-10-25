@@ -1,9 +1,9 @@
 import * as Actions from './productsActionsTypes';
 
-export const addProduct = (product, nextId) => {
+export const addProduct = (productInfo) => {
   return {
     type: Actions.ADD_PRODUCT,
-    product: { id: nextId, ...product },
+    product: { id: crypto.randomUUID(), ...productInfo },
   };
 };
 

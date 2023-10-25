@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { useProducts } from '../../../../hooks/useProducts';
-import { useForm } from '../../../../hooks/useForm';
+import { useProductForm } from '../../../../hooks/useProductForm';
 
 import AddFormInput from './AddFormInput';
 import Button from '../../../common/Button';
@@ -32,7 +32,7 @@ export default function ProductForm() {
     hasError,
     validateInput,
     validateForm,
-  } = useForm();
+  } = useProductForm();
 
   const handleBlur = (e) => validateInput(e.target.name, e.target.value);
 

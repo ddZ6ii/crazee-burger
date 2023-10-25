@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { BiError } from 'react-icons/bi';
 
 import Input from '../../../common/Input';
+import { useProductForm } from '../../../../hooks/useProductForm';
 import { classNames } from '../../../../utilities/classNames';
-import { useForm } from '../../../../hooks/useForm';
 import { theme } from '../../../../themes';
 
 export default function AddFormInput({
@@ -13,7 +13,7 @@ export default function AddFormInput({
   handleBlur,
   handleChange,
 }) {
-  const { hasError } = useForm();
+  const { hasError } = useProductForm();
 
   return (
     <ContainerStyled className={className}>

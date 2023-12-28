@@ -3,14 +3,41 @@ import { TiDelete } from 'react-icons/ti';
 
 import Button from '../../common/Button';
 
+import { classNames } from '../../../utilities/classNames';
 import { formatPrice } from '../../../utilities/maths';
 import { theme } from '../../../themes';
 
-export default function ProductCard({ product, showDeleteButton, onDelete }) {
+export default function ProductCard({
+  product,
+  isClickable,
+  isSelected,
+  showDeleteButton,
+  onSelect,
+  onDelete,
+}) {
   const formattedPrice = formatPrice(product.price);
+  const priceClassName = classNames(
+    'product__price',
+    isSelected && 'is--selected'
+  );
+
+  const handleAdd = (e) => {
+    e.stopPropagation();
+    alert('Add button clicked');
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete(product.id);
+  };
 
   return (
-    <ProductStyled>
+    // Pass in transient props ($) to fix React warning "not valid HTML attribute"
+    <ProductStyled
+      $isClickable={isClickable}
+      $isSelected={isSelected}
+      onClick={() => onSelect(product.id)}
+    >
       <div className="product__thumbnailContainer">
         <img
           src={product.imageSource}
@@ -23,8 +50,13 @@ export default function ProductCard({ product, showDeleteButton, onDelete }) {
         <h2 className="product__title">{product.title}</h2>
 
         <div className="product__info">
-          <span className="product__price">{formattedPrice}</span>
-          <Button label="Add" className="product__btn-add" version="primary" />
+          <span className={priceClassName}>{formattedPrice}</span>
+          <Button
+            label="Add"
+            className="product__btn-add"
+            version={isSelected ? 'primaryInverted' : 'primary'}
+            onClick={handleAdd}
+          />
         </div>
       </div>
 
@@ -33,8 +65,8 @@ export default function ProductCard({ product, showDeleteButton, onDelete }) {
           aria-label="delete-product"
           Icon={<TiDelete />}
           className="product__btn-delete"
-          version="danger"
-          onClick={() => onDelete(product.id)}
+          version={isSelected ? 'dangerInverted' : 'danger'}
+          onClick={handleDelete}
         />
       )}
     </ProductStyled>
@@ -45,6 +77,8 @@ export default function ProductCard({ product, showDeleteButton, onDelete }) {
  ** Style
 /* __________________________________________________________________________ */
 const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
+
+const SCALING = 1.02;
 
 const ProductStyled = styled.div`
   position: relative;
@@ -57,42 +91,53 @@ const ProductStyled = styled.div`
   grid-template-rows: 55% 1fr;
   row-gap: ${spacing['2xs']};
 
-  background-color: ${colors.white};
+  background-color: ${(props) =>
+    props.$isSelected ? `${colors.accent}` : `${colors.white}`};
   border-radius: ${borderRadius.rounded_lg};
   box-shadow: ${shadows.base};
   outline: 2px solid transparent;
 
   transition-duration: 0.3s;
   transition-timing-function: ease-in-out;
-  transition-property: outline-color, box-shadow;
+  transition-property: outline-color, box-shadow, transform;
 
   &:hover {
     box-shadow: ${shadows.md};
+
+    outline-color: ${(props) =>
+      props.$isClickable ? `${colors.accent}` : 'transparent'};
+
+    cursor: ${(props) => (props.$isClickable ? `pointer` : 'default')};
+
+    transform: ${(props) =>
+      props.$isClickable ? `scale(${SCALING})` : 'none'};
+
+    &:has(.product__btn-delete:hover) {
+      outline-color: ${colors.info_danger};
+      animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
   }
-  &:has(.product__btn-delete:hover) {
-    outline-color: ${colors.info_danger};
-    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
-  }
+
   @keyframes shake {
     10%,
     90% {
-      transform: translate3d(-1px, 0, 0);
+      transform: translate3d(-1px, 0, 0) ${`scale(${SCALING})`};
     }
 
     20%,
     80% {
-      transform: translate3d(2px, 0, 0);
+      transform: translate3d(2px, 0, 0) ${`scale(${SCALING})`};
     }
 
     30%,
     50%,
     70% {
-      transform: translate3d(-4px, 0, 0);
+      transform: translate3d(-4px, 0, 0) ${`scale(${SCALING})`};
     }
 
     40%,
     60% {
-      transform: translate3d(4px, 0, 0);
+      transform: translate3d(4px, 0, 0) ${`scale(${SCALING})`};
     }
   }
 
@@ -131,6 +176,9 @@ const ProductStyled = styled.div`
     color: ${colors.accent};
     font-size: ${fonts.size.lg};
     font-weight: ${fonts.weight.regular};
+    &.is--selected {
+      color: ${colors.white};
+    }
   }
 
   .product__btn-add {

@@ -10,15 +10,19 @@ import {
   displayToastNotification,
 } from '../../../utilities/notifications';
 import { theme } from '../../../themes';
+import { useState } from 'react';
 
 const SUCCESS_DELETE_MESSAGE = 'Product deleted!';
 
 export default function ProductList() {
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { products, deleteProduct } = useProducts();
   const { isAdminMode } = useAdmin();
 
   const hasProducts = products !== null && products !== undefined;
   const isListEmpty = products && products.length === 0;
+
+  const handleSelect = (productId) => setSelectedProduct(productId);
 
   const handleDelete = (productId) => {
     deleteProduct(productId);
@@ -39,7 +43,10 @@ export default function ProductList() {
           <ProductCard
             key={p.id}
             product={p}
+            isClickable={isAdminMode}
+            isSelected={p.id === selectedProduct && isAdminMode}
             showDeleteButton={isAdminMode}
+            onSelect={handleSelect}
             onDelete={handleDelete}
           />
         ))}

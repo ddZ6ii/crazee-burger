@@ -31,30 +31,42 @@ export default function Button({
 const { colors, borderRadius, breakpoints, fonts, spacing } = theme;
 
 const VARIANT_MINIMALIST = css``;
-
 const VARIANT_PRIMARY = css`
-  color: ${colors.white};
   background-color: ${colors.accent};
+  color: ${colors.white};
   &:hover,
   &:focus {
     background-color: ${colors.white};
-    outline-color: ${colors.accent};
     color: ${colors.accent};
+    outline-color: ${colors.accent};
   }
   &:active {
     background-color: ${colors.accent};
     color: ${colors.white};
   }
 `;
-
+const VARIANT_PRIMARY_INVERTED = css`
+  background-color: ${colors.white};
+  color: ${colors.accent};
+  &:hover,
+  &:focus {
+    background-color: ${colors.accent};
+    color: ${colors.white};
+    outline-color: ${colors.white};
+  }
+  &:active {
+    background-color: ${colors.white};
+    color: ${colors.accent};
+  }
+`;
 const VARIANT_INFO = css`
   background-color: ${colors.neutral};
   color: ${colors.neutral_lightest};
 
   &:not(:disabled):hover,
   &:focus {
-    color: ${colors.neutral};
     background-color: ${colors.white};
+    color: ${colors.neutral};
     outline-color: ${colors.neutral};
   }
   &:active {
@@ -62,29 +74,27 @@ const VARIANT_INFO = css`
     color: ${colors.neutral_lightest};
   }
   &:disabled {
-    cursor: default;
     background-color: ${colors.neutral_light};
+    cursor: default;
   }
 `;
-
 const VARIANT_SUCCESS = css`
-  color: ${colors.white};
   background-color: ${colors.info_success};
+  color: ${colors.white};
   &:focus,
   &:not(:disabled):hover {
-    color: ${colors.info_success};
     background-color: ${colors.white};
+    color: ${colors.info_success};
     outline-color: ${colors.info_success};
   }
   &:active {
     background-color: ${colors.info_success};
   }
   &:disabled {
-    cursor: default;
     background-color: ${colors.neutral_light};
+    cursor: default;
   }
 `;
-
 const VARIANT_DANGER = css`
   color: ${colors.neutral_darkest};
   &:hover {
@@ -95,13 +105,24 @@ const VARIANT_DANGER = css`
     outline-color: ${colors.info_danger};
   }
 `;
-
+const VARIANT_DANGER_INVERTED = css`
+  color: ${colors.white};
+  &:hover {
+    color: ${colors.info_danger};
+  }
+  &:focus {
+    color: ${colors.info_danger};
+    outline-color: ${colors.info_danger};
+  }
+`;
 const VARIANTS = {
   minimalist: VARIANT_MINIMALIST,
   primary: VARIANT_PRIMARY,
+  primaryInverted: VARIANT_PRIMARY_INVERTED,
   info: VARIANT_INFO,
   success: VARIANT_SUCCESS,
   danger: VARIANT_DANGER,
+  dangerInverted: VARIANT_DANGER_INVERTED,
 };
 
 const ButtonStyled = styled.button`

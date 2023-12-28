@@ -7,34 +7,71 @@ import AddFormInput from './AddFormInput';
 import Button from '../../../common/Button';
 import ProductPreview from './ProductPreview';
 
-import { formInputs as inputs } from './helpers/formInputs';
+import {
+  formInputs as inputs,
+  formStatus as STATUS,
+  formNotifications as NOTIFICATIONS,
+  productAddDefault as DEFAULT_SETTINGS,
+} from './helpers/formSettings';
 import {
   displayToastNotification,
   TOAST_SUCCESS_SETTINGS,
+  TOAST_ERROR_SETTINGS,
 } from '../../../../utilities/notifications';
 import { theme } from '../../../../themes';
-
-const PRODUCT_DEFAULT_SETTINGS = {
-  quantity: 0,
-  isAvailable: true,
-  isPromoted: false,
-};
-const DEFAULT_PRODUCT_URL = '/assets/images/menus/coming-soon.png';
-const SUCCESS_SUBMIT_MESSAGE = 'Product added!';
+import { isEmpty } from '../../../../utilities/checks';
+import Loader from '../../../common/Loader';
 
 export default function ProductForm() {
   const { addProduct } = useProducts();
   const {
     form,
-    updateFormData,
-    disableSubmit,
-    resetForm,
     hasError,
-    validateInput,
-    validateForm,
+    updateFormData,
+    updateFormErrors,
+    updateFormStatus,
+    resetForm,
+    resetFormErrors,
   } = useProductForm();
 
-  const handleBlur = (e) => validateInput(e.target.name, e.target.value);
+  const isUrlValid = !hasError('imageSource');
+  const hasUrl = !isEmpty(form.data.imageSource);
+  const isSubmitting = form.status === STATUS.submitting;
+  const isSubmitDisabled = isSubmitting || hasError();
+  const isResetDisabled = isSubmitting;
+
+  const validateInput = (name, value) => {
+    // Clear previous input error (if any)
+    resetFormErrors(name);
+
+    // Extract input validator
+    const validators = form.validators[name];
+
+    // Return if input has no validator...
+    if (isEmpty(validators)) return;
+
+    // ...otherwise apply each validator to input and update related error
+    const messages = validators.reduce((result, validator) => {
+      const error = validator(value);
+      return error.length ? [...result, error] : [...result];
+    }, []);
+
+    updateFormErrors(messages, name);
+  };
+
+  const submitProduct = (product, delay = 0, shouldSucceed = true) => {
+    // Pretend its hitting the network
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (shouldSucceed) {
+          addProduct(product);
+          resolve(true);
+        } else {
+          reject('Product could not be added');
+        }
+      }, delay);
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,35 +79,43 @@ export default function ProductForm() {
     updateFormData(name, value);
   };
 
-  const handleSumbit = async (e) => {
+  const handleSubmit = async (e) => {
+    let hasSucceeded = false;
     e.preventDefault();
+    try {
+      // Update form status to disable submission
+      updateFormStatus(STATUS.submitting);
 
-    // lock form during submission
-    disableSubmit(true);
-
-    // validate form data
-    const isFormValid = validateForm();
-
-    if (isFormValid) {
-      // add new product to existing list
-      addProduct({
-        ...PRODUCT_DEFAULT_SETTINGS,
+      // Add new product to existing list
+      hasSucceeded = await submitProduct({
+        ...DEFAULT_SETTINGS,
         ...form.data,
-        imageSource: form.data.imageSource || DEFAULT_PRODUCT_URL,
+        imageSource: form.data.imageSource || DEFAULT_SETTINGS.imageSource,
       });
-      // confirm submission
-      displayToastNotification(SUCCESS_SUBMIT_MESSAGE, TOAST_SUCCESS_SETTINGS);
-      // clear form
-      resetForm();
-    }
 
-    // unlock form
-    disableSubmit(false);
+      // Clear form
+      resetForm();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      // Update form status to re-enable submission
+      updateFormStatus(STATUS.typing);
+
+      // Notify user
+      const message = hasSucceeded
+        ? [NOTIFICATIONS.submitSuccess, TOAST_SUCCESS_SETTINGS]
+        : [NOTIFICATIONS.submitError, TOAST_ERROR_SETTINGS];
+      displayToastNotification(...message);
+    }
   };
 
   return (
-    <FormStyled onSubmit={handleSumbit}>
-      <ProductPreview className="form__preview" />
+    <FormStyled onSubmit={handleSubmit}>
+      <ProductPreview
+        imageUrl={form.data.imageSource}
+        showPreview={hasUrl && isUrlValid}
+        className="form__preview"
+      />
 
       {inputs.map((input) => (
         <AddFormInput
@@ -78,7 +123,6 @@ export default function ProductForm() {
           form={form}
           inputData={input.data}
           className="form__input"
-          handleBlur={handleBlur}
           handleChange={handleChange}
         />
       ))}
@@ -86,16 +130,21 @@ export default function ProductForm() {
       <div className="form__buttons">
         <Button
           type="submit"
-          label="Add Product"
+          label={isSubmitting ? 'Submitting...' : 'Add Product'}
+          Icon={
+            isSubmitting && (
+              <Loader className="loader" version="accentOnWhite" size="sm" />
+            )
+          }
           className="form__btn"
           version="success"
-          disabled={form.submission.isDisabled}
+          disabled={isSubmitDisabled}
         />
         <Button
           label="Reset"
           className="form__btn"
           version="info"
-          disabled={form.submission.isDisabled && !hasError()}
+          disabled={isResetDisabled}
           onClick={() => resetForm()}
         />
       </div>
@@ -106,7 +155,7 @@ export default function ProductForm() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, spacing } = theme;
+const { breakpoints, colors, fonts, spacing } = theme;
 
 const FormStyled = styled.form`
   display: grid;
@@ -138,5 +187,14 @@ const FormStyled = styled.form`
   .form__btn {
     padding: ${spacing.xs} ${spacing.md};
     font-size: inherit;
+  }
+
+  .loader {
+    & .spinningLoader {
+      height: ${fonts.size.sm};
+      width: ${fonts.size.sm};
+      /* border-color: ${colors.white}; */
+      /* border-top-color: ${colors.accent}; */
+    }
   }
 `;

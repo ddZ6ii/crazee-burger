@@ -10,22 +10,36 @@ import {
   displayToastNotification,
 } from '../../../utilities/notifications';
 import { theme } from '../../../themes';
-import { useState } from 'react';
 
 const SUCCESS_DELETE_MESSAGE = 'Product deleted!';
 
 export default function ProductList() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const { products, deleteProduct } = useProducts();
-  const { isAdminMode } = useAdmin();
+  const {
+    activeTabId,
+    isAdminMode,
+    isPanelExpanded,
+    selectedProductId,
+    expandPanel,
+    selectProduct,
+    selectActiveTab,
+  } = useAdmin();
 
   const hasProducts = products !== null && products !== undefined;
   const isListEmpty = products && products.length === 0;
 
-  const handleSelect = (productId) => setSelectedProduct(productId);
+  const handleSelect = (productId) => {
+    // Allow product selection on click only in  admin mode
+    if (!isAdminMode) return;
+
+    selectProduct(productId);
+    if (!isPanelExpanded) expandPanel();
+    if (activeTabId !== 1) selectActiveTab(1);
+  };
 
   const handleDelete = (productId) => {
     deleteProduct(productId);
+    selectProduct(null);
     displayToastNotification(SUCCESS_DELETE_MESSAGE, TOAST_SUCCESS_SETTINGS);
   };
 
@@ -35,7 +49,9 @@ export default function ProductList() {
         <Loader message="Loading products..." className="loader" />
       </ProductListStyled>
     );
+
   if (hasProducts && isListEmpty) return <EmptyList />;
+
   return (
     <ProductListStyled>
       <div className="container">
@@ -44,7 +60,7 @@ export default function ProductList() {
             key={p.id}
             product={p}
             isClickable={isAdminMode}
-            isSelected={p.id === selectedProduct && isAdminMode}
+            isSelected={p.id === selectedProductId && isAdminMode}
             showDeleteButton={isAdminMode}
             onSelect={handleSelect}
             onDelete={handleDelete}

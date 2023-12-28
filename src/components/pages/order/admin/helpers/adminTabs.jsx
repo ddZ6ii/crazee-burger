@@ -1,18 +1,19 @@
 import { HiPlus } from 'react-icons/hi';
 import { MdModeEditOutline } from 'react-icons/md';
-import ProductForm from '../ProductForm';
+import AddProduct from '../AddProduct';
+import EditProduct from '../EditProduct';
 
 export const adminTabs = [
   {
     id: 0,
     navTitle: 'Add a product',
     navIcon: <HiPlus />,
-    content: <ProductForm />,
+    content: <AddProduct />,
   },
   {
     id: 1,
-    navTitle: 'Update a product',
+    navTitle: 'Edit a product',
     navIcon: <MdModeEditOutline />,
-    content: 'Update a product...',
+    content: <EditProduct />,
   },
 ];

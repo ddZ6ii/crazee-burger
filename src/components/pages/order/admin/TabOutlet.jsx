@@ -6,9 +6,9 @@ import { adminTabs as tabs } from './helpers/adminTabs';
 import { theme } from '../../../../themes';
 
 export default function TabOutlet() {
-  const { activeTab, isPanelExpanded } = useAdmin();
+  const { activeTabId, isPanelExpanded } = useAdmin();
 
-  const selectedTab = tabs.find((tab) => tab.id === activeTab);
+  const selectedTab = tabs.find((tab) => tab.id === activeTabId);
 
   return (
     isPanelExpanded && (
@@ -25,7 +25,7 @@ const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 const TabContentStyled = styled.div`
   padding: ${spacing.md} ${spacing['2xl']};
   min-height: 23vh;
-  height: auto;
+  height: 1px;
 
   background-color: ${colors.white};
   border-bottom-left-radius: ${borderRadius.rounded_lg};

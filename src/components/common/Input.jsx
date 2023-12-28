@@ -1,19 +1,23 @@
 import styled from 'styled-components';
+import { forwardRef } from 'react';
 
 import { theme } from '../../themes';
 
-export default function Input({
-  label = 'name',
-  type = 'text',
-  labelValue = '',
-  isRequired = true,
-  value,
-  onChange,
-  onBlur = null,
-  Icon,
-  className = '',
-  ...restProps
-}) {
+const Input = forwardRef(function Input(
+  {
+    label = 'name',
+    type = 'text',
+    labelValue = '',
+    isRequired = true,
+    value,
+    onChange,
+    onBlur = null,
+    Icon,
+    className = '',
+    ...restProps
+  },
+  ref
+) {
   return (
     <StyledInput className={className}>
       <label htmlFor={label} className="label">
@@ -21,6 +25,7 @@ export default function Input({
         <div className="container">
           {Icon && Icon}
           <input
+            ref={ref}
             id={label}
             name={label}
             type={type}
@@ -35,7 +40,10 @@ export default function Input({
       </label>
     </StyledInput>
   );
-}
+});
+
+export default Input;
+
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */

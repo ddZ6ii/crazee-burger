@@ -8,10 +8,10 @@ import { theme } from '../../../../themes';
 import { classNames } from '../../../../utilities/classNames';
 
 export default function TabNav() {
-  const { isPanelExpanded, expandPanel, activeTab, selectActiveTab } =
+  const { isPanelExpanded, expandPanel, activeTabId, selectActiveTab } =
     useAdmin();
 
-  const isTabActive = (tabId) => tabId === activeTab;
+  const isTabActive = (tabId) => tabId === activeTabId;
 
   const handleClickTab = (tabId) => {
     selectActiveTab(tabId);

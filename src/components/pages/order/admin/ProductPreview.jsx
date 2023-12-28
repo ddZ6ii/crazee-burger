@@ -1,20 +1,15 @@
 import styled from 'styled-components';
 
-import { useProductForm } from '../../../../hooks/useProductForm';
-import { isEmpty } from '../../../../utilities/checks';
 import { theme } from '../../../../themes';
 
-export default function ProductPreview({ className }) {
-  const { form, hasError } = useProductForm();
-  const url = form.data?.imageSource;
-  const showThumbnail = !hasError() && !isEmpty(url);
-
+export default function ProductPreview({ imageUrl, showPreview, className }) {
+  const tooltip = showPreview ? '' : 'Add an image URL first to see a preview';
   return (
-    <PreviewStyled className={className}>
-      {showThumbnail ? (
-        <img src={url} alt="product thumbnail" className="thumbnail" />
+    <PreviewStyled className={className} title={tooltip}>
+      {showPreview ? (
+        <img src={imageUrl} alt="product thumbnail" className="thumbnail" />
       ) : (
-        <span>No product thumbnail</span>
+        <span>No preview available</span>
       )}
     </PreviewStyled>
   );

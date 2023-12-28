@@ -15,6 +15,11 @@ export const selectActiveTab = (tabId) => ({
   tabId,
 });
 
+export const selectProduct = (productId) => ({
+  type: Actions.SELECT_PRODUCT,
+  productId,
+});
+
 export const resetPanelInfo = () => ({
   type: Actions.RESET,
 });

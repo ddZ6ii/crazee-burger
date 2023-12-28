@@ -21,32 +21,36 @@ export const AdminProvider = ({ children }) => {
   const showPanel = useCallback((isAdmin) => {
     dispatch(Actions.showPanel(isAdmin));
   }, []);
-
   const expandPanel = useCallback(
-    (isExpanded) => dispatch(Actions.expandPanel(isExpanded)),
+    (isExpanded = true) => dispatch(Actions.expandPanel(isExpanded)),
     []
   );
   const selectActiveTab = useCallback(
     (tabId) => dispatch(Actions.selectActiveTab(tabId)),
     []
   );
-  const resetPanelInfo = useCallback(
-    () => dispatch(Actions.resetPanelInfo()),
+  const selectProduct = useCallback(
+    (productId) => dispatch(Actions.selectProduct(productId)),
     []
   );
+  const resetPanelInfo = useCallback(() => {
+    dispatch(Actions.resetPanelInfo());
+  }, []);
 
   const admin = {
-    isAdminMode: state.isAdminMode,
-    isPanelExpanded: state.isPanelExpanded,
-    activeTab: state.activeTabId,
+    ...state,
     showPanel,
     expandPanel,
     selectActiveTab,
+    selectProduct,
     resetPanelInfo,
   };
 
   useEffect(() => {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    return () => {
+      sessionStorage.removeItem(STORAGE_KEY);
+    };
   }, [state]);
 
   return (

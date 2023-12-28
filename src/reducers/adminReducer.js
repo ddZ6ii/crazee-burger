@@ -4,6 +4,7 @@ export const initialAdminState = {
   isAdminMode: false,
   isPanelExpanded: true,
   activeTabId: 0,
+  selectedProductId: null,
 };
 
 export const adminReducer = (state = initialAdminState, action) => {
@@ -16,6 +17,9 @@ export const adminReducer = (state = initialAdminState, action) => {
     }
     case Actions.CHANGE_TAB: {
       return { ...state, activeTabId: action.tabId };
+    }
+    case Actions.SELECT_PRODUCT: {
+      return { ...state, selectedProductId: action.productId };
     }
     case Actions.RESET: {
       return { ...initialAdminState };

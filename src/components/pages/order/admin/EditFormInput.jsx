@@ -1,40 +1,52 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { BiError } from 'react-icons/bi';
 
 import Input from '../../../common/Input';
-import { useProductForm } from '../../../../hooks/useProductForm';
 import { classNames } from '../../../../utilities/classNames';
 import { theme } from '../../../../themes';
 
-export default function AddFormInput({
-  form: { data: formData, errors: formErrors },
-  inputData: { id, type, label, placeholder, isRequired, icon, klass, ...rest },
-  className,
-  handleChange,
-}) {
-  const { hasError } = useProductForm();
-
+const EditFormInput = forwardRef(function EditFormInput(
+  {
+    type = 'text',
+    label,
+    placeholder,
+    isRequired = false,
+    icon,
+    klass = 'input__wrapper',
+    hasError,
+    value,
+    className = '',
+    handleChange,
+    errorMessage,
+    ...rest
+  },
+  ref
+) {
   return (
     <ContainerStyled className={className}>
       <Input
+        ref={ref}
         type={type}
         label={label}
         placeholder={placeholder}
         isRequired={isRequired}
         Icon={icon}
         className={classNames(klass, hasError(label) && 'has-error')}
-        value={formData[label] ?? ''}
+        value={value}
         onChange={handleChange}
         {...rest}
       />
       {hasError(label) && (
-        <p key={id} className="input__errorMessage">
-          <BiError /> {formErrors[label][0]}
+        <p key={label} className="input__errorMessage">
+          <BiError /> {errorMessage}
         </p>
       )}
     </ContainerStyled>
   );
-}
+});
+
+export default EditFormInput;
 
 /* __________________________________________________________________________ *\
  ** Style

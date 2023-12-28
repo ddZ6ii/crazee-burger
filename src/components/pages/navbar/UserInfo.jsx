@@ -4,18 +4,15 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { TbLogout2 } from 'react-icons/tb';
 
 import { useAuth } from '../../../hooks/useAuth';
-import { useAdmin } from '../../../hooks/useAdmin';
 import Button from '../../common/Button';
 import { theme } from '../../../themes';
 
 export default function NavbarUserInfo() {
   const navigate = useNavigate();
   const { userInfo, logout } = useAuth();
-  const { resetPanelInfo } = useAdmin();
 
   const handleLogout = () => {
     logout();
-    resetPanelInfo();
     navigate('/');
   };
 

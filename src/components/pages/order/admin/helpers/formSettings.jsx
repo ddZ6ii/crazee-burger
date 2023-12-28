@@ -6,6 +6,11 @@ import {
   validateUrl,
 } from '../../../../../utilities/validators';
 
+export const formStatus = {
+  typing: 'typing',
+  submitting: 'submitting',
+};
+
 export const formInputs = [
   {
     data: {
@@ -47,3 +52,16 @@ export const formInputs = [
     validators: [validatePrice],
   },
 ];
+
+export const formNotifications = {
+  submitSuccess: 'Product added!',
+  submitError:
+    'Ooops an error has occured... Please try again later or contact your administrator ',
+};
+
+export const productAddDefault = {
+  quantity: 0,
+  isAvailable: true,
+  isPromoted: false,
+  imageSource: '/assets/images/menus/coming-soon.png',
+};

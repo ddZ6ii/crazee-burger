@@ -1,17 +1,20 @@
 import * as Actions from './actions/formActionTypes';
-import { formInputs as inputs } from '../components/pages/order/admin/helpers/formInputs';
+import {
+  formInputs as INPUTS,
+  formStatus as STATUS,
+} from '../components/pages/order/admin/helpers/formSettings';
 import { isEmpty } from '../utilities/checks';
 
 export const initForm = () => {
-  const initialData = inputs.reduce(
+  const initialData = INPUTS.reduce(
     (acc, input) => ({ ...acc, [input.data.label]: '' }),
     {}
   );
-  const initialValidators = inputs.reduce(
+  const initialValidators = INPUTS.reduce(
     (acc, input) => ({ ...acc, [input.data.label]: input.validators }),
     {}
   );
-  const initialErrors = inputs.reduce(
+  const initialErrors = INPUTS.reduce(
     (acc, input) => ({ ...acc, [input.data.label]: [] }),
     {}
   );
@@ -19,38 +22,50 @@ export const initForm = () => {
     data: { ...initialData },
     validators: { ...initialValidators },
     errors: { ...initialErrors },
-    submission: { isDisabled: false },
+    status: STATUS.typing,
   };
 };
 
 export const formReducer = (form = initForm(), action) => {
   switch (action.type) {
+    case Actions.INIT_DATA: {
+      return {
+        ...form,
+        data: { ...form.data, ...action.payload },
+      };
+    }
     case Actions.UPDATE_DATA: {
       return {
         ...form,
         data: { ...form.data, [action.payload.name]: action.payload.value },
       };
     }
-    case Actions.DISABLE_SUBMISSION: {
+    case Actions.UPDATE_STATUS: {
       return {
         ...form,
-        submission: { ...form.submission, isDisabled: action.disabled },
+        status: action.status,
       };
     }
     case Actions.UPDATE_ERRORS: {
       // if no input parameter is provided, update all form errors
       // otherwise, update errors only for the provided input
-      if (isEmpty(action.payload.name))
+      if (isEmpty(action.name))
         return {
           ...form,
-          errors: action.payload.errors,
+          errors: action.errors,
         };
       return {
         ...form,
         errors: {
           ...form.errors,
-          [action.payload.name]: action.payload.errors,
+          [action.name]: action.errors,
         },
+      };
+    }
+    case Actions.UPDATE_MULTIPLE: {
+      return {
+        ...form,
+        ...action.payload,
       };
     }
     case Actions.RESET_ERRORS: {

@@ -7,12 +7,12 @@ import { theme } from '../../../../themes';
 
 export default function AdminPanel() {
   return (
-    <ProductFormProvider>
-      <AdminPanelStyled>
-        <TabNav />
+    <AdminPanelStyled>
+      <TabNav />
+      <ProductFormProvider>
         <TabOutlet />
-      </AdminPanelStyled>
-    </ProductFormProvider>
+      </ProductFormProvider>
+    </AdminPanelStyled>
   );
 }
 

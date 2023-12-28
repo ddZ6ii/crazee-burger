@@ -7,6 +7,13 @@ export const addProduct = (productInfo) => {
   };
 };
 
+export const editProduct = (productId, fieldName, fieldValue) => ({
+  type: Actions.EDIT_PRODUCT,
+  productId,
+  fieldName,
+  fieldValue,
+});
+
 export const updateProduct = (product) => ({
   type: Actions.UPDATE_PRODUCT,
   product,

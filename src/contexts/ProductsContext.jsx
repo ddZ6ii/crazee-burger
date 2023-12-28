@@ -27,6 +27,10 @@ export const ProductsProvider = ({ children }) => {
     []
   );
 
+  const editProduct = useCallback((productId, fieldName, fieldValue) => {
+    dispatch(Actions.editProduct(productId, fieldName, fieldValue));
+  }, []);
+
   const deleteProduct = useCallback(
     (productId) => dispatch(Actions.deleteProduct(productId)),
     []
@@ -41,6 +45,7 @@ export const ProductsProvider = ({ children }) => {
     products,
     addProduct,
     updateProduct,
+    editProduct,
     deleteProduct,
     resetProducts,
   };

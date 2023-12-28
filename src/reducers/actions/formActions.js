@@ -1,18 +1,28 @@
 import * as Actions from './formActionTypes';
 
-export const updateFormData = (name, value) => ({
+export const initData = (payload) => ({
+  type: Actions.INIT_DATA,
+  payload,
+});
+export const updateData = (name, value) => ({
   type: Actions.UPDATE_DATA,
   payload: { name, value },
 });
 
-export const disableSubmit = (disabled) => ({
-  type: Actions.DISABLE_SUBMISSION,
-  disabled,
+export const updateStatus = (status) => ({
+  type: Actions.UPDATE_STATUS,
+  status,
 });
 
 export const updateErrors = (errors, name) => ({
   type: Actions.UPDATE_ERRORS,
-  payload: { errors, name },
+  errors,
+  name,
+});
+
+export const updateMultiple = (payload) => ({
+  type: Actions.UPDATE_MULTIPLE,
+  payload,
 });
 
 export const resetErrors = (name) => ({

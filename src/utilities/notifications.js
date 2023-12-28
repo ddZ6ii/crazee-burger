@@ -18,6 +18,12 @@ export const TOAST_SUCCESS_SETTINGS = {
   type: 'success',
 };
 
+export const TOAST_ERROR_SETTINGS = {
+  ...TOAST_DEFAULT_SETTINGS,
+  autoClose: 5000,
+  type: 'error',
+};
+
 export const displayToastNotification = (message, toastSettings) => {
   toast.info(message, toastSettings);
 };

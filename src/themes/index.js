@@ -27,8 +27,11 @@ const colors = {
   neutral: '#747B91',
   neutral_darkest: '#17161A',
   black: '#000000',
-  info_danger: '#bf1650',
-  info_success: '#60bd4f',
+  status: {
+    info: '#367bbe',
+    danger: '#bf1650',
+    success: '#60bd4f',
+  },
 };
 
 const fonts = {

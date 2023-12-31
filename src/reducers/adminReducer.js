@@ -1,13 +1,13 @@
 import * as Actions from './actions/adminActionTypes';
 
-export const initialAdminState = {
+export const initialState = {
   isAdminMode: false,
   isPanelExpanded: true,
   activeTabId: 0,
   selectedProductId: null,
 };
 
-export const adminReducer = (state = initialAdminState, action) => {
+export const adminReducer = (state = initialState, action) => {
   switch (action.type) {
     case Actions.SHOW_PANEL: {
       return { ...state, isAdminMode: action.isAdmin };
@@ -22,7 +22,7 @@ export const adminReducer = (state = initialAdminState, action) => {
       return { ...state, selectedProductId: action.productId };
     }
     case Actions.RESET: {
-      return { ...initialAdminState };
+      return { ...initialState };
     }
     default: {
       throw new Error(`Unknown action: ${action.type}`);

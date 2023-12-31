@@ -22,7 +22,9 @@ export const AuthProvider = ({ children }) => {
     sessionStorage.removeItem(STORAGE_KEY);
   }, []);
 
-  const auth = { userInfo, login, logout };
+  const contextValue = { userInfo, login, logout };
 
-  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };

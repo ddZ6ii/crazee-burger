@@ -9,59 +9,53 @@ import {
 export const formStatus = {
   typing: 'typing',
   submitting: 'submitting',
+  submitted: 'submitted',
 };
 
-export const formInputs = [
-  {
-    data: {
-      id: 0,
-      type: 'text',
+export const formInputs = {
+  title: {
+    inputProps: {
       label: 'title',
+      type: 'text',
+      value: '',
       placeholder: 'Product name (e.g. "Super Burger")',
       isRequired: false,
-      icon: <FaHamburger className="input__icon" />,
-      klass: 'input__wrapper',
+      className: 'input__wrapper',
     },
+    Icon: <FaHamburger className="input__icon" />,
     validators: [],
   },
-  {
-    data: {
-      id: 1,
-      type: 'text',
+  imageSource: {
+    inputProps: {
       label: 'imageSource',
+      type: 'text',
+      value: '',
       placeholder: 'URL for product thumbnail (can be empty)',
       isRequired: false,
-      icon: <BsFillCameraFill className="input__icon" />,
-      klass: 'input__wrapper',
+      className: 'input__wrapper',
     },
+    Icon: <BsFillCameraFill className="input__icon" />,
     validators: [validateUrl],
   },
-  {
-    data: {
-      id: 2,
+  price: {
+    inputProps: {
+      label: 'price',
       type: 'number',
+      value: '',
+      placeholder: 'Price',
       min: 0,
       max: 99.99,
       step: 0.001,
-      label: 'price',
-      placeholder: 'Price',
       isRequired: false,
-      icon: <MdOutlineEuroSymbol className="input__icon" />,
-      klass: 'input__wrapper',
+      className: 'input__wrapper',
     },
+    Icon: <MdOutlineEuroSymbol className="input__icon" />,
     validators: [validatePrice],
   },
-];
+};
 
 export const formNotifications = {
   submitSuccess: 'Product added!',
   submitError:
     'Ooops an error has occured... Please try again later or contact your administrator ',
-};
-
-export const productAddDefault = {
-  quantity: 0,
-  isAvailable: true,
-  isPromoted: false,
-  imageSource: '/assets/images/menus/coming-soon.png',
 };

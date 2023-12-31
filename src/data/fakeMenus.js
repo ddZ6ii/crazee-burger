@@ -2,7 +2,7 @@ export const EMPTY = [];
 
 export const SMALL = [
   {
-    id: 1,
+    id: '1',
     imageSource: '/assets/images/menus/burger1.png',
     title: 'Burger 1',
     price: 5.297,
@@ -11,7 +11,7 @@ export const SMALL = [
     isPromoted: false,
   },
   {
-    id: 2,
+    id: '2',
     imageSource: '/assets/images/menus/burger2.png',
     title: 'Burger 2',
     price: 7.556,
@@ -23,7 +23,7 @@ export const SMALL = [
 
 export const MEDIUM = [
   {
-    id: 1,
+    id: '1',
     imageSource: '/assets/images/menus/burger-bacon-egg.png',
     title: 'Burger Smoke BBQ',
     price: 5.598,
@@ -32,7 +32,7 @@ export const MEDIUM = [
     isPromoted: false,
   },
   {
-    id: 2,
+    id: '2',
     imageSource: '/assets/images/menus/burger-vegan.png',
     title: 'Vegan Burger',
     price: 5.4985,
@@ -41,7 +41,7 @@ export const MEDIUM = [
     isPromoted: false,
   },
   {
-    id: 3,
+    id: '3',
     imageSource: '/assets/images/menus/burger3.png',
     title: 'Chicken Burger',
     price: 5.367,
@@ -50,7 +50,7 @@ export const MEDIUM = [
     isPromoted: false,
   },
   {
-    id: 4,
+    id: '4',
     imageSource: '/assets/images/menus/drink1.png',
     title: 'Coke 25cl',
     price: 3.568,
@@ -59,7 +59,7 @@ export const MEDIUM = [
     isPromoted: false,
   },
   {
-    id: 5,
+    id: '5',
     imageSource: '/assets/images/menus/drink2.png',
     title: 'Pepsi 25cl',
     price: 3.487,
@@ -71,7 +71,7 @@ export const MEDIUM = [
 
 export const LARGE = [
   {
-    id: 1,
+    id: '1',
     imageSource: '/assets/images/menus/burger-bacon-egg.png',
     title: 'Burger Smoke BBQ',
     price: 5.598,
@@ -80,7 +80,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 2,
+    id: '2',
     imageSource: '/assets/images/menus/burger-vegan.png',
     title: 'Vegan Burger',
     price: 5.4985,
@@ -89,7 +89,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 3,
+    id: '3',
     imageSource: '/assets/images/menus/burger3.png',
     title: 'Chicken Burger',
     price: 5.367,
@@ -98,7 +98,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 4,
+    id: '4',
     imageSource: '/assets/images/menus/drink1.png',
     title: 'Coke 25cl',
     price: 3.568,
@@ -107,7 +107,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 5,
+    id: '5',
     imageSource: '/assets/images/menus/drink2.png',
     title: 'Pepsi 25cl',
     price: 3.487,
@@ -116,7 +116,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 6,
+    id: '6',
     imageSource: '/assets/images/menus/drink3.png',
     title: 'Iced Tea 25cl',
     price: 3.356,
@@ -125,7 +125,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 7,
+    id: '7',
     imageSource: '/assets/images/menus/frites1.png',
     title: 'Paprika Fries',
     price: 2.567,
@@ -134,7 +134,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 8,
+    id: '8',
     imageSource: '/assets/images/menus/fries3.png',
     title: 'New York Fries',
     price: 3.1678,
@@ -143,7 +143,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 9,
+    id: '9',
     imageSource: '/assets/images/menus/wedges1.png',
     title: 'Crispy Wedges',
     price: 3.7,
@@ -152,7 +152,7 @@ export const LARGE = [
     isPromoted: false,
   },
   {
-    id: 10,
+    id: '10',
     imageSource: '/assets/images/menus/ice-cream.png',
     title: 'Ice Cream Cones',
     price: 4.678,

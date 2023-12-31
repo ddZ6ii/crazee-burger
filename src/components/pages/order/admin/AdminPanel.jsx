@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-import { ProductFormProvider } from '../../../../contexts/ProductFormContext';
 import TabNav from './TabNav';
 import TabOutlet from './TabOutlet';
 import { theme } from '../../../../themes';
@@ -9,9 +8,7 @@ export default function AdminPanel() {
   return (
     <AdminPanelStyled>
       <TabNav />
-      <ProductFormProvider>
-        <TabOutlet />
-      </ProductFormProvider>
+      <TabOutlet />
     </AdminPanelStyled>
   );
 }

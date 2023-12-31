@@ -3,50 +3,52 @@ import styled from 'styled-components';
 import { BiError } from 'react-icons/bi';
 
 import Input from '../../../common/Input';
+import { PRODUCT as PRODUCT_DEFAULT } from '../../../../enums/product';
+import { isEmpty } from '../../../../utilities/checks';
 import { classNames } from '../../../../utilities/classNames';
 import { theme } from '../../../../themes';
 
-const EditFormInput = forwardRef(function EditFormInput(
+const FormInput = forwardRef(function FormInput(
   {
-    type = 'text',
-    label,
-    placeholder,
-    isRequired = false,
-    icon,
-    klass = 'input__wrapper',
-    hasError,
     value,
-    className = '',
-    handleChange,
-    errorMessage,
-    ...rest
+    errors,
+    inputProps,
+    Icon,
+    onChange,
+    // Additionnal attributes passed fron the parent
+    ...restProps
   },
   ref
 ) {
+  const hasError = !isEmpty(errors);
+  const isDefaultUrl = value === PRODUCT_DEFAULT.imageSource;
+  const isUrl = inputProps.label === 'imageSource';
+  const inputClassName = classNames(
+    inputProps.className,
+    hasError && 'has-error'
+  );
+
   return (
-    <ContainerStyled className={className}>
+    <ContainerStyled>
       <Input
-        ref={ref}
-        type={type}
-        label={label}
-        placeholder={placeholder}
-        isRequired={isRequired}
-        Icon={icon}
-        className={classNames(klass, hasError(label) && 'has-error')}
-        value={value}
-        onChange={handleChange}
-        {...rest}
+        {...inputProps}
+        ref={ref && ref}
+        Icon={Icon}
+        onChange={onChange}
+        className={inputClassName}
+        value={isUrl && isDefaultUrl ? '' : value}
+        {...restProps}
       />
-      {hasError(label) && (
-        <p key={label} className="input__errorMessage">
-          <BiError /> {errorMessage}
+      {hasError && (
+        <p key={inputProps.label} className="input__errorMessage">
+          <BiError /> {errors[0]}
         </p>
       )}
     </ContainerStyled>
   );
 });
 
-export default EditFormInput;
+export default FormInput;
 
 /* __________________________________________________________________________ *\
  ** Style
@@ -54,6 +56,9 @@ export default EditFormInput;
 const { colors, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
+  max-width: 650px;
+  grid-column: 2 / -1;
+
   .input__wrapper:has(.input:not(:placeholder-shown)) {
     & .input__icon {
       color: ${colors.neutral};
@@ -62,7 +67,7 @@ const ContainerStyled = styled.div`
 
   .input__wrapper:is(.has-error) {
     & .container {
-      outline-color: ${colors.info_danger};
+      outline-color: ${colors.status.danger};
     }
   }
 
@@ -103,7 +108,7 @@ const ContainerStyled = styled.div`
     display: flex;
     align-items: center;
     gap: ${spacing['4xs']};
-    color: ${colors.info_danger};
+    color: ${colors.status.danger};
     font-size: ${fonts.size.xs};
   }
 `;

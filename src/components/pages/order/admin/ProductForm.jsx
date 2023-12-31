@@ -1,153 +1,171 @@
+import { useEffect, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 
-import { useProducts } from '../../../../hooks/useProducts';
-import { useProductForm } from '../../../../hooks/useProductForm';
-
-import AddFormInput from './AddFormInput';
 import Button from '../../../common/Button';
+import FormInput from './FormInput';
+import Loader from '../../../common/Loader';
 import ProductPreview from './ProductPreview';
-
+import { PRODUCT as PRODUCT_DEFAULT } from '../../../../enums/product';
 import {
-  formInputs as inputs,
+  formInputs as INPUTS,
   formStatus as STATUS,
   formNotifications as NOTIFICATIONS,
-  productAddDefault as DEFAULT_SETTINGS,
 } from './helpers/formSettings';
+import * as Actions from '../../../../reducers/actions/productFormActionTypes';
 import {
-  displayToastNotification,
-  TOAST_SUCCESS_SETTINGS,
-  TOAST_ERROR_SETTINGS,
-} from '../../../../utilities/notifications';
+  initForm,
+  productFormReducer,
+} from '../../../../reducers/productFormReducer';
 import { theme } from '../../../../themes';
-import { isEmpty } from '../../../../utilities/checks';
-import Loader from '../../../common/Loader';
+import {
+  getInputErrors,
+  hasErrors,
+  isEmpty,
+} from '../../../../utilities/checks';
+import { capitalizeString } from '../../../../utilities/format';
+import {
+  notifySuccess,
+  notifyError,
+} from '../../../../utilities/notifications';
 
-export default function ProductForm() {
-  const { addProduct } = useProducts();
-  const {
-    form,
-    hasError,
-    updateFormData,
-    updateFormErrors,
-    updateFormStatus,
-    resetForm,
-    resetFormErrors,
-  } = useProductForm();
-
-  const isUrlValid = !hasError('imageSource');
-  const hasUrl = !isEmpty(form.data.imageSource);
-  const isSubmitting = form.status === STATUS.submitting;
-  const isSubmitDisabled = isSubmitting || hasError();
-  const isResetDisabled = isSubmitting;
+export default function ProductForm({
+  initialProduct,
+  isEditing = false,
+  onEdit = () => {},
+  onSubmit = () => {},
+  onReset = () => {},
+}) {
+  const inputRef = useRef(null);
+  const [form, dispatch] = useReducer(productFormReducer, {}, () =>
+    initForm(initialProduct)
+  );
 
   const validateInput = (name, value) => {
     // Clear previous input error (if any)
-    resetFormErrors(name);
-
-    // Extract input validator
-    const validators = form.validators[name];
-
-    // Return if input has no validator...
-    if (isEmpty(validators)) return;
-
-    // ...otherwise apply each validator to input and update related error
-    const messages = validators.reduce((result, validator) => {
-      const error = validator(value);
-      return error.length ? [...result, error] : [...result];
-    }, []);
-
-    updateFormErrors(messages, name);
-  };
-
-  const submitProduct = (product, delay = 0, shouldSucceed = true) => {
-    // Pretend its hitting the network
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (shouldSucceed) {
-          addProduct(product);
-          resolve(true);
-        } else {
-          reject('Product could not be added');
-        }
-      }, delay);
-    });
+    dispatch({ type: Actions.RESET_ERROR, name });
+    // Extract related input validator(s)
+    const inputValidators = INPUTS[name].validators;
+    // Apply each validator to input to compute error message(s) (if any)
+    const errors = getInputErrors(inputValidators, value);
+    // Update form state
+    dispatch({ type: Actions.UPDATE_ERROR, name, errors });
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    // Update form status
+    if (!isTyping)
+      dispatch({ type: Actions.UPDATE_STATUS, status: STATUS.typing });
+    // Verify input
     validateInput(name, value);
-    updateFormData(name, value);
+    // Update local state with input value
+    dispatch({ type: Actions.UPDATE_DATA, name, value });
+    // Update parent state
+    onEdit(name, value);
   };
 
   const handleSubmit = async (e) => {
     let hasSucceeded = false;
-    e.preventDefault();
+    const productInfo = {
+      ...PRODUCT_DEFAULT,
+      title: capitalizeString(form.data.title),
+      imageSource: form.data.imageSource || PRODUCT_DEFAULT.imageSource,
+      price: form.data.price,
+    };
     try {
+      e.preventDefault();
       // Update form status to disable submission
-      updateFormStatus(STATUS.submitting);
-
-      // Add new product to existing list
-      hasSucceeded = await submitProduct({
-        ...DEFAULT_SETTINGS,
-        ...form.data,
-        imageSource: form.data.imageSource || DEFAULT_SETTINGS.imageSource,
-      });
-
-      // Clear form
-      resetForm();
+      dispatch({ type: Actions.UPDATE_STATUS, status: STATUS.submitting });
+      // Execute parent's onSubmit event handler
+      hasSucceeded = await onSubmit(productInfo);
+      // Reset form input fields
+      dispatch({ type: Actions.RESET_FORM });
     } catch (err) {
       console.error(err);
     } finally {
       // Update form status to re-enable submission
-      updateFormStatus(STATUS.typing);
-
+      dispatch({ type: Actions.UPDATE_STATUS, status: STATUS.submitted });
       // Notify user
-      const message = hasSucceeded
-        ? [NOTIFICATIONS.submitSuccess, TOAST_SUCCESS_SETTINGS]
-        : [NOTIFICATIONS.submitError, TOAST_ERROR_SETTINGS];
-      displayToastNotification(...message);
+      const productTitle = productInfo.title || 'Product';
+      hasSucceeded
+        ? notifySuccess(`${productTitle} added!`)
+        : notifyError(NOTIFICATIONS.submitError);
     }
   };
+
+  const handleReset = () => {
+    dispatch({ type: Actions.RESET_FORM });
+    onReset();
+    inputRef.current.focus();
+  };
+
+  const isDefaultUrl = form.data.imageSource === PRODUCT_DEFAULT.imageSource;
+  const isSubmitted = form.status === STATUS.submitted;
+  const isSubmitting = form.status === STATUS.submitting;
+  const isSubmitDisabled = isSubmitting || hasErrors(form.errors);
+  const isTyping = form.status === STATUS.typing;
+  const isUrlValid = !hasErrors(form.errors.imageSource);
+  const hasUrl = !isEmpty(form.data.imageSource);
+  const showPreview = hasUrl && isUrlValid && !isDefaultUrl;
+
+  // Focus first form input on mounting and after submitting
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [isSubmitted]);
 
   return (
     <FormStyled onSubmit={handleSubmit}>
       <ProductPreview
         imageUrl={form.data.imageSource}
-        showPreview={hasUrl && isUrlValid}
+        showPreview={showPreview}
         className="form__preview"
       />
 
-      {inputs.map((input) => (
-        <AddFormInput
-          key={input.data.id}
-          form={form}
-          inputData={input.data}
-          className="form__input"
-          handleChange={handleChange}
+      {Object.entries(INPUTS).map(([key, { inputProps, Icon }], index) => (
+        <FormInput
+          key={key}
+          ref={index === 0 ? inputRef : null}
+          value={form.data[key]}
+          errors={form.errors[key]}
+          inputProps={inputProps}
+          Icon={Icon}
+          disabled={isSubmitting}
+          onChange={handleChange}
         />
       ))}
 
-      <div className="form__buttons">
-        <Button
-          type="submit"
-          label={isSubmitting ? 'Submitting...' : 'Add Product'}
-          Icon={
-            isSubmitting && (
-              <Loader className="loader" version="accentOnWhite" size="sm" />
-            )
-          }
-          className="form__btn"
-          version="success"
-          disabled={isSubmitDisabled}
-        />
-        <Button
-          label="Reset"
-          className="form__btn"
-          version="info"
-          disabled={isResetDisabled}
-          onClick={() => resetForm()}
-        />
-      </div>
+      {isEditing ? (
+        <p className="form__info">
+          Select a product to start <i>live editing</i> (click outside to cancel
+          selection)
+        </p>
+      ) : (
+        <div className="form__buttons">
+          <Button
+            type="submit"
+            label={isSubmitting ? 'Submitting...' : 'Add Product'}
+            Icon={
+              isSubmitting && (
+                <Loader
+                  className="form__loader"
+                  version="accentOnWhite"
+                  size="sm"
+                />
+              )
+            }
+            className="form__btn"
+            version="success"
+            disabled={isSubmitDisabled}
+          />
+          <Button
+            label="Reset"
+            className="form__btn"
+            version="info"
+            disabled={isSubmitting}
+            onClick={handleReset}
+          />
+        </div>
+      )}
     </FormStyled>
   );
 }
@@ -172,11 +190,6 @@ const FormStyled = styled.form`
     grid-area: 1 / 1 / span 3 / span 1;
   }
 
-  .form__input {
-    max-width: 650px;
-    grid-column: 2 / -1;
-  }
-
   .form__buttons {
     max-width: 650px;
     grid-area: 4 / 2 / span 1 / -1;
@@ -188,13 +201,14 @@ const FormStyled = styled.form`
     padding: ${spacing.xs} ${spacing.md};
     font-size: inherit;
   }
-
-  .loader {
+  .form__info {
+    color: ${colors.status.info};
+    grid-column: 2 / -1;
+  }
+  .form__loader {
     & .spinningLoader {
       height: ${fonts.size.sm};
       width: ${fonts.size.sm};
-      /* border-color: ${colors.white}; */
-      /* border-top-color: ${colors.accent}; */
     }
   }
 `;

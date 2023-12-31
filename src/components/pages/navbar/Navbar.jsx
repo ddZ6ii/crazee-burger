@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useAdmin } from '../../../hooks/useAdmin';
-
 import Logo from '../../common/Logo';
 import UserInfo from './UserInfo';
 import ToggleButton from '../../common/ToggleButton';
 
-import {
-  displayToastNotification,
-  TOAST_INFO_SETTINGS,
-} from '../../../utilities/notifications';
-
+import { useAdmin } from '../../../hooks/useAdmin';
+import { notifyInfo } from '../../../utilities/notifications';
 import { theme } from '../../../themes';
 
 export default function Navbar() {
@@ -19,8 +14,7 @@ export default function Navbar() {
 
   const handleToggle = () => {
     showPanel(!isAdminMode);
-    if (!isAdminMode)
-      displayToastNotification('Admin mode enabled', TOAST_INFO_SETTINGS);
+    if (!isAdminMode) notifyInfo('Admin mode enabled');
   };
 
   return (

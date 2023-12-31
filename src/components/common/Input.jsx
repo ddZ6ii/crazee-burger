@@ -10,9 +10,9 @@ const Input = forwardRef(function Input(
     labelValue = '',
     isRequired = true,
     value,
-    onChange,
-    onBlur = null,
+    // Use PascalCase for 'Icon' to avoid landing into '...restProps'
     Icon,
+    onChange,
     className = '',
     ...restProps
   },
@@ -32,7 +32,6 @@ const Input = forwardRef(function Input(
             required={isRequired}
             value={value}
             onChange={onChange}
-            onBlur={onBlur}
             className="input"
             {...restProps}
           />

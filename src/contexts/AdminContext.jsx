@@ -1,22 +1,18 @@
 import { createContext, useCallback, useEffect, useReducer } from 'react';
 import * as Actions from '../reducers/actions/adminActions';
-import { initialAdminState, adminReducer } from '../reducers/adminReducer';
+import { initialState, adminReducer } from '../reducers/adminReducer';
 
 export const AdminContext = createContext(null);
 
 const STORAGE_KEY = 'admin';
 
-const initAdmin = (initialState) => {
+const initState = (initialState) => {
   const adminInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
   return adminInfo ?? initialState;
 };
 
 export const AdminProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(
-    adminReducer,
-    initialAdminState,
-    initAdmin
-  );
+  const [state, dispatch] = useReducer(adminReducer, initialState, initState);
 
   const showPanel = useCallback((isAdmin) => {
     dispatch(Actions.showPanel(isAdmin));
@@ -37,7 +33,7 @@ export const AdminProvider = ({ children }) => {
     dispatch(Actions.resetPanelInfo());
   }, []);
 
-  const admin = {
+  const contextValue = {
     ...state,
     showPanel,
     expandPanel,
@@ -54,6 +50,8 @@ export const AdminProvider = ({ children }) => {
   }, [state]);
 
   return (
-    <AdminContext.Provider value={admin}>{children}</AdminContext.Provider>
+    <AdminContext.Provider value={contextValue}>
+      {children}
+    </AdminContext.Provider>
   );
 };

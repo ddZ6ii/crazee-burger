@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 
-import { useAdmin } from '../../../hooks/useAdmin';
-import { useProducts } from '../../../hooks/useProducts';
-import ProductCard from './ProductCard';
 import EmptyList from './EmptyList';
-import Loader from '../../common/Loader';
-import {
-  TOAST_SUCCESS_SETTINGS,
-  displayToastNotification,
-} from '../../../utilities/notifications';
-import { theme } from '../../../themes';
-
-const SUCCESS_DELETE_MESSAGE = 'Product deleted!';
+import Loader from '../../../common/Loader';
+import ProductCard from './ProductCard';
+import { useAdmin } from '../../../../hooks/useAdmin';
+import { useProducts } from '../../../../hooks/useProducts';
+import { notifySuccess } from '../../../../utilities/notifications';
+import { theme } from '../../../../themes';
 
 export default function ProductList() {
   const { products, deleteProduct } = useProducts();
@@ -29,7 +24,7 @@ export default function ProductList() {
   const isListEmpty = products && products.length === 0;
 
   const handleSelect = (productId) => {
-    // Allow product selection on click only in  admin mode
+    // Allow product selection on click only in admin mode
     if (!isAdminMode) return;
 
     selectProduct(productId);
@@ -39,8 +34,10 @@ export default function ProductList() {
 
   const handleDelete = (productId) => {
     deleteProduct(productId);
-    selectProduct(null);
-    displayToastNotification(SUCCESS_DELETE_MESSAGE, TOAST_SUCCESS_SETTINGS);
+    if (productId === selectedProductId) selectProduct(null);
+    const productTitle =
+      products.find((p) => p.id === productId).title || 'Product';
+    notifySuccess(`${productTitle} deleted!`);
   };
 
   if (!hasProducts)

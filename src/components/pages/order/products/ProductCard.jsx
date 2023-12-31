@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { TiDelete } from 'react-icons/ti';
 
-import Button from '../../common/Button';
+import Button from '../../../common/Button';
 
-import { classNames } from '../../../utilities/classNames';
-import { formatPrice } from '../../../utilities/maths';
-import { theme } from '../../../themes';
+import { classNames } from '../../../../utilities/classNames';
+import { formatPrice } from '../../../../utilities/maths';
+import { theme } from '../../../../themes';
 
 export default function ProductCard({
   product,
@@ -113,7 +113,7 @@ const ProductStyled = styled.div`
       props.$isClickable ? `scale(${SCALING})` : 'none'};
 
     &:has(.product__btn-delete:hover) {
-      outline-color: ${colors.info_danger};
+      outline-color: ${colors.status.danger};
       animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
     }
   }

@@ -5,10 +5,11 @@ import { theme } from '../../themes';
 export default function Button({
   type = 'button',
   label,
+  // Use PascalCase for 'Icon' to avoid landing into '...restProps'
   Icon,
   className = 'variantMinimalist',
   version = '',
-  onClick = null,
+  onClick = () => {},
   ...restProps
 }) {
   return (
@@ -79,16 +80,16 @@ const VARIANT_INFO = css`
   }
 `;
 const VARIANT_SUCCESS = css`
-  background-color: ${colors.info_success};
+  background-color: ${colors.status.success};
   color: ${colors.white};
   &:focus,
   &:not(:disabled):hover {
     background-color: ${colors.white};
-    color: ${colors.info_success};
-    outline-color: ${colors.info_success};
+    color: ${colors.status.success};
+    outline-color: ${colors.status.success};
   }
   &:active {
-    background-color: ${colors.info_success};
+    background-color: ${colors.status.success};
   }
   &:disabled {
     background-color: ${colors.neutral_light};
@@ -98,21 +99,21 @@ const VARIANT_SUCCESS = css`
 const VARIANT_DANGER = css`
   color: ${colors.neutral_darkest};
   &:hover {
-    color: ${colors.info_danger};
+    color: ${colors.status.danger};
   }
   &:focus {
-    color: ${colors.info_danger};
-    outline-color: ${colors.info_danger};
+    color: ${colors.status.danger};
+    outline-color: ${colors.status.danger};
   }
 `;
 const VARIANT_DANGER_INVERTED = css`
   color: ${colors.white};
   &:hover {
-    color: ${colors.info_danger};
+    color: ${colors.status.danger};
   }
   &:focus {
-    color: ${colors.info_danger};
-    outline-color: ${colors.info_danger};
+    color: ${colors.status.danger};
+    outline-color: ${colors.status.danger};
   }
 `;
 const VARIANTS = {

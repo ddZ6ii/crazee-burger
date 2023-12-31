@@ -4,10 +4,10 @@ import * as Actions from '../reducers/actions/productsActions';
 
 export const ProductsContext = createContext(null);
 
-const STORAGE_KEY_PRODUCTS = 'products';
+const STORAGE_KEY = 'products';
 
 const initProducts = (initialProducts) => {
-  const products = JSON.parse(sessionStorage.getItem(STORAGE_KEY_PRODUCTS));
+  const products = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
   return products ?? initialProducts;
 };
 
@@ -17,6 +17,10 @@ export const ProductsProvider = ({ children }) => {
     initialProducts,
     initProducts
   );
+
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+  }, [products]);
 
   const addProduct = useCallback((productInfo) => {
     dispatch(Actions.addProduct(productInfo));
@@ -41,7 +45,7 @@ export const ProductsProvider = ({ children }) => {
     []
   );
 
-  const productInfo = {
+  const contextValue = {
     products,
     addProduct,
     updateProduct,
@@ -50,12 +54,8 @@ export const ProductsProvider = ({ children }) => {
     resetProducts,
   };
 
-  useEffect(() => {
-    sessionStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
-  }, [products]);
-
   return (
-    <ProductsContext.Provider value={productInfo}>
+    <ProductsContext.Provider value={contextValue}>
       {children}
     </ProductsContext.Provider>
   );

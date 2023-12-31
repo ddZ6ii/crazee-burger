@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { useAdmin } from '../../../hooks/useAdmin';
 import AdminPanel from './admin/AdminPanel';
-import ProductList from './ProductList';
-
+import ProductList from './products/ProductList';
+import { AddProductProvider } from '../../../contexts/AddProductContext';
+import { useAdmin } from '../../../hooks/useAdmin';
 import { theme } from '../../../themes';
 
 export default function OrderPage() {
@@ -13,7 +13,8 @@ export default function OrderPage() {
     <OrderPageStyled>
       {/* <aside className="cart">Shopping Cart</aside> */}
       <ProductList />
-      {isAdminMode && <AdminPanel />}
+      {/* Hold the state for the AddProduct to retain product info when switching tabs in the admin panel  */}
+      <AddProductProvider>{isAdminMode && <AdminPanel />}</AddProductProvider>
     </OrderPageStyled>
   );
 }

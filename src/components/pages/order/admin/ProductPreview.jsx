@@ -2,7 +2,11 @@ import styled from 'styled-components';
 
 import { theme } from '../../../../themes';
 
-export default function ProductPreview({ imageUrl, showPreview, className }) {
+export default function ProductPreview({
+  imageUrl,
+  showPreview = true,
+  className,
+}) {
   const tooltip = showPreview ? '' : 'Add an image URL first to see a preview';
   return (
     <PreviewStyled className={className} title={tooltip}>

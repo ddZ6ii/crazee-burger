@@ -21,6 +21,9 @@ export const adminReducer = (state = initialState, action) => {
     case Actions.SELECT_PRODUCT: {
       return { ...state, selectedProductId: action.productId };
     }
+    case Actions.DESELECT_PRODUCT: {
+      return { ...state, selectedProductId: initialState.selectedProductId };
+    }
     case Actions.RESET: {
       return { ...initialState };
     }

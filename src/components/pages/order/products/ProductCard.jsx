@@ -26,9 +26,14 @@ export default function ProductCard({
     alert('Add button clicked');
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = (e, productId) => {
     e.stopPropagation();
-    onDelete(product.id);
+    onDelete(productId);
+  };
+
+  const handleSelect = (e, productId) => {
+    e.stopPropagation();
+    onSelect(productId);
   };
 
   return (
@@ -36,7 +41,7 @@ export default function ProductCard({
     <ProductStyled
       $isClickable={isClickable}
       $isSelected={isSelected}
-      onClick={() => onSelect(product.id)}
+      onClick={(e) => handleSelect(e, product.id)}
     >
       <div className="product__thumbnailContainer">
         <img
@@ -66,7 +71,7 @@ export default function ProductCard({
           Icon={<TiDelete />}
           className="product__btn-delete"
           version={isSelected ? 'dangerInverted' : 'danger'}
-          onClick={handleDelete}
+          onClick={(e) => handleDelete(e, product.id)}
         />
       )}
     </ProductStyled>

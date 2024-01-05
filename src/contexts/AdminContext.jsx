@@ -14,6 +14,13 @@ const initState = (initialState) => {
 export const AdminProvider = ({ children }) => {
   const [state, dispatch] = useReducer(adminReducer, initialState, initState);
 
+  useEffect(() => {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    return () => {
+      sessionStorage.removeItem(STORAGE_KEY);
+    };
+  }, [state]);
+
   const showPanel = useCallback((isAdmin) => {
     dispatch(Actions.showPanel(isAdmin));
   }, []);
@@ -29,6 +36,10 @@ export const AdminProvider = ({ children }) => {
     (productId) => dispatch(Actions.selectProduct(productId)),
     []
   );
+  const deselectProduct = useCallback(
+    () => dispatch(Actions.deselectProduct()),
+    []
+  );
   const resetPanelInfo = useCallback(() => {
     dispatch(Actions.resetPanelInfo());
   }, []);
@@ -39,15 +50,9 @@ export const AdminProvider = ({ children }) => {
     expandPanel,
     selectActiveTab,
     selectProduct,
+    deselectProduct,
     resetPanelInfo,
   };
-
-  useEffect(() => {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    return () => {
-      sessionStorage.removeItem(STORAGE_KEY);
-    };
-  }, [state]);
 
   return (
     <AdminContext.Provider value={contextValue}>

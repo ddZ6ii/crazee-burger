@@ -7,6 +7,7 @@ import { useAdmin } from '../../../../hooks/useAdmin';
 import { useProducts } from '../../../../hooks/useProducts';
 import { notifySuccess } from '../../../../utilities/notifications';
 import { theme } from '../../../../themes';
+import { isEmpty } from '../../../../utilities/checks';
 
 export default function ProductList() {
   const { products, deleteProduct } = useProducts();
@@ -18,18 +19,26 @@ export default function ProductList() {
     expandPanel,
     selectProduct,
     selectActiveTab,
+    deselectProduct,
   } = useAdmin();
 
   const hasProducts = products !== null && products !== undefined;
+  const hasProductSelected = !isEmpty(selectedProductId);
   const isListEmpty = products && products.length === 0;
+  const sectionClassName =
+    hasProductSelected && isAdminMode ? 'is--clickable' : '';
 
   const handleSelect = (productId) => {
     // Allow product selection on click only in admin mode
     if (!isAdminMode) return;
 
-    selectProduct(productId);
     if (!isPanelExpanded) expandPanel();
     if (activeTabId !== 1) selectActiveTab(1);
+    if (
+      !hasProductSelected ||
+      (hasProductSelected && selectedProductId !== productId)
+    )
+      selectProduct(productId);
   };
 
   const handleDelete = (productId) => {
@@ -38,6 +47,11 @@ export default function ProductList() {
     const productTitle =
       products.find((p) => p.id === productId).title || 'Product';
     notifySuccess(`${productTitle} deleted!`);
+  };
+
+  const handleDeselect = () => {
+    if (!isAdminMode) return;
+    if (hasProductSelected) deselectProduct();
   };
 
   if (!hasProducts)
@@ -50,7 +64,7 @@ export default function ProductList() {
   if (hasProducts && isListEmpty) return <EmptyList />;
 
   return (
-    <ProductListStyled>
+    <ProductListStyled onClick={handleDeselect} className={sectionClassName}>
       <div className="container">
         {products.map((p) => (
           <ProductCard
@@ -76,7 +90,10 @@ const { breakpoints, spacing } = theme;
 const ProductListStyled = styled.section`
   height: 100%;
   padding: ${spacing.sm};
+  cursor: default;
   overflow: auto;
+  cursor: ${(props) =>
+    (props.className ?? '').includes('is--clickable') ? 'pointer' : 'default'};
 
   .loader {
     height: 100%;

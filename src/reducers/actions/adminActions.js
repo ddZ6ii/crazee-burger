@@ -20,6 +20,10 @@ export const selectProduct = (productId) => ({
   productId,
 });
 
+export const deselectProduct = () => ({
+  type: Actions.DESELECT_PRODUCT,
+});
+
 export const resetPanelInfo = () => ({
   type: Actions.RESET,
 });

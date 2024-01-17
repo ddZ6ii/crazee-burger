@@ -21,6 +21,7 @@ export default function EmptyList() {
           <Button
             className="message__btn"
             label="Restock Products"
+            version="primary"
             onClick={() => resetProducts()}
           />
         </>
@@ -77,14 +78,5 @@ const ContainerStyled = styled.div`
 
   .message__btn {
     width: fit-content;
-    background-color: ${colors.accent};
-    outline: 2px solid transparent;
-    font-weight: ${fonts.weight.bold};
-    &:hover,
-    &:focus {
-      background-color: ${colors.white};
-      outline-color: ${colors.accent};
-      color: ${colors.accent};
-    }
   }
 `;

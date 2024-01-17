@@ -1,32 +1,32 @@
 import { useEffect, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 
-import Button from '../../../common/Button';
+import Button from '../../../../../../common/Button';
 import FormInput from './FormInput';
-import Loader from '../../../common/Loader';
+import Loader from '../../../../../../common/Loader';
 import ProductPreview from './ProductPreview';
-import { PRODUCT as PRODUCT_DEFAULT } from '../../../../enums/product';
+import { PRODUCT as PRODUCT_DEFAULT } from '../../../../../../../enums/product';
 import {
   formInputs as INPUTS,
   formStatus as STATUS,
   formNotifications as NOTIFICATIONS,
-} from './helpers/formSettings';
-import * as Actions from '../../../../reducers/actions/productFormActionTypes';
+} from '../../../helpers/formSettings';
+import * as Actions from '../../../../../../../reducers/actions/productFormActionTypes';
 import {
   initForm,
   productFormReducer,
-} from '../../../../reducers/productFormReducer';
-import { theme } from '../../../../themes';
+} from '../../../../../../../reducers/productFormReducer';
+import { theme } from '../../../../../../../themes';
 import {
   getInputErrors,
   hasErrors,
   isEmpty,
-} from '../../../../utilities/checks';
-import { capitalizeString } from '../../../../utilities/format';
+} from '../../../../../../../utilities/checks';
+import { capitalizeString } from '../../../../../../../utilities/format';
 import {
   notifySuccess,
   notifyError,
-} from '../../../../utilities/notifications';
+} from '../../../../../../../utilities/notifications';
 
 export default function ProductForm({
   initialProduct,

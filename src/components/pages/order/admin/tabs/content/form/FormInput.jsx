@@ -2,11 +2,11 @@ import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { BiError } from 'react-icons/bi';
 
-import Input from '../../../common/Input';
-import { PRODUCT as PRODUCT_DEFAULT } from '../../../../enums/product';
-import { isEmpty } from '../../../../utilities/checks';
-import { classNames } from '../../../../utilities/classNames';
-import { theme } from '../../../../themes';
+import Input from '../../../../../../common/Input';
+import { PRODUCT as PRODUCT_DEFAULT } from '../../../../../../../enums/product';
+import { isEmpty } from '../../../../../../../utilities/checks';
+import { classNames } from '../../../../../../../utilities/classNames';
+import { theme } from '../../../../../../../themes/index';
 
 const FormInput = forwardRef(function FormInput(
   {

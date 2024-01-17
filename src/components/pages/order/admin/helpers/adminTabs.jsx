@@ -1,7 +1,7 @@
 import { HiPlus } from 'react-icons/hi';
 import { MdModeEditOutline } from 'react-icons/md';
-import AddProduct from '../AddProduct';
-import EditProduct from '../EditProduct';
+import AddProduct from '../tabs/content/AddProduct';
+import EditProduct from '../tabs/content/EditProduct';
 
 export const adminTabs = [
   {

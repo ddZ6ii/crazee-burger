@@ -74,10 +74,6 @@ export default ProductCard;
 const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const SCALING = 1.02;
-const WIDTH = {
-  sm: '220px',
-  xl: '240px',
-};
 
 const WIDTH = {
   sm: '220px',

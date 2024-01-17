@@ -1,11 +1,11 @@
 import { HiCursorClick } from 'react-icons/hi';
 
-import FormInfo from './FormInfo';
-import FormTooltip from './FormTooltip';
-import ProductForm from './ProductForm';
-import { useAdmin } from '../../../../hooks/useAdmin';
-import { useProducts } from '../../../../hooks/useProducts';
-import { isEmpty } from '../../../../utilities/checks';
+import FormInfo from './form/FormInfo';
+import FormTooltip from '../../tabs/content/form/FormTooltip';
+import ProductForm from './form/ProductForm';
+import { useAdmin } from '../../../../../../hooks/useAdmin';
+import { useProducts } from '../../../../../../hooks/useProducts';
+import { isEmpty } from '../../../../../../utilities/checks';
 
 export default function EditProduct() {
   const { selectedProductId } = useAdmin();

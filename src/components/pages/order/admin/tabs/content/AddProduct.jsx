@@ -1,7 +1,7 @@
-import ProductForm from './ProductForm';
-import { useAdmin } from '../../../../hooks/useAdmin';
-import { useProducts } from '../../../../hooks/useProducts';
-import { useAddProduct } from '../../../../hooks/useAddProduct';
+import ProductForm from './form/ProductForm';
+import { useAdmin } from '../../../../../../hooks/useAdmin';
+import { useProducts } from '../../../../../../hooks/useProducts';
+import { useAddProduct } from '../../../../../../hooks/useAddProduct';
 
 export default function AddProduct() {
   const { activeTabId } = useAdmin();

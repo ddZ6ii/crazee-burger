@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import LoginForm from './LoginForm';
+import LoginForm from './form/LoginForm';
 import Logo from '../../common/Logo';
 import background from '/assets/images/background-burger.jpg';
 import { theme } from '../../../themes';

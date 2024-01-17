@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-import { useAdmin } from '../../../../hooks/useAdmin';
-import Tab from '../../../common/Button';
-import { adminTabs as tabs } from './helpers/adminTabs';
-import { theme } from '../../../../themes';
-import { classNames } from '../../../../utilities/classNames';
+import { useAdmin } from '../../../../../hooks/useAdmin';
+import Tab from '../../../../common/Button';
+import { adminTabs as tabs } from '../helpers/adminTabs';
+import { theme } from '../../../../../themes';
+import { classNames } from '../../../../../utilities/classNames';
 
 export default function TabNav() {
   const { isPanelExpanded, expandPanel, activeTabId, selectActiveTab } =

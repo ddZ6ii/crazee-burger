@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Logo from '../../common/Logo';
-import UserInfo from './UserInfo';
+import UserInfo from './info/UserInfo';
 import ToggleButton from '../../common/ToggleButton';
 
 import { useAdmin } from '../../../hooks/useAdmin';

@@ -34,7 +34,6 @@ export const initForm = (productData) => {
 };
 
 export const productFormReducer = (form, action) => {
-  console.log(action.type);
   switch (action.type) {
     case Actions.UPDATE_DATA: {
       return {

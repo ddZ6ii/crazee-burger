@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import EmptyList from './EmptyList';
+import EmptyList from './product/EmptyList';
 import Loader from '../../../common/Loader';
 import ProductCard from './product/ProductCard';
 import { useAdmin } from '../../../../hooks/useAdmin';

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import TabNav from './TabNav';
-import TabOutlet from './TabOutlet';
+import TabNav from './tabs/TabNav';
+import TabOutlet from './tabs/TabOutlet';
 import { theme } from '../../../../themes';
 
 export default function AdminPanel() {

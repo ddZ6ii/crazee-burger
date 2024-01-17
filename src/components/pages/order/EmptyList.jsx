@@ -16,11 +16,11 @@ export default function EmptyList() {
           <div className="message__content">
             <h2>Out of stock?</h2>
 
-            <h3>Click below to refill your list of products</h3>
+            <h3>Click below to generate new products</h3>
           </div>
           <Button
             className="message__btn"
-            label="Generate New Products"
+            label="Restock Products"
             onClick={() => resetProducts()}
           />
         </>

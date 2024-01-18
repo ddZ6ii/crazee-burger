@@ -1,15 +1,23 @@
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import EmptyList from './EmptyList';
 import Loader from '../../../common/Loader';
-import ProductCard from './ProductCard';
+import ProductCard from './product/ProductCard';
 import { useAdmin } from '../../../../hooks/useAdmin';
 import { useProducts } from '../../../../hooks/useProducts';
+import { isEmpty } from '../../../../utilities/checks';
 import { notifySuccess } from '../../../../utilities/notifications';
 import { theme } from '../../../../themes';
-import { isEmpty } from '../../../../utilities/checks';
+
+const SCROLL_SETTINGS = {
+  behavior: 'smooth',
+  block: 'center',
+  inline: 'center',
+};
 
 export default function ProductList() {
+  const cardsRef = useRef(null);
   const { products, deleteProduct } = useProducts();
   const {
     activeTabId,
@@ -28,31 +36,80 @@ export default function ProductList() {
   const sectionClassName =
     hasProductSelected && isAdminMode ? 'is--clickable' : '';
 
-  const handleSelect = (productId) => {
+  const checkIsProductSelected = (productId) =>
+    productId === selectedProductId && isAdminMode;
+
+  const getCardRef = (productId) => cardsRef.current.get(productId);
+
+  const getRefMap = () => {
+    // Initialize the Map on first usage
+    if (!cardsRef.current) cardsRef.current = new Map();
+    return cardsRef.current;
+  };
+
+  const refCallback = (node, productId) => {
+    const map = getRefMap();
+    if (node) map.set(productId, node);
+    else map.delete(productId);
+  };
+
+  const handleSelect = (e, productId) => {
+    e.stopPropagation();
+
     // Allow product selection on click only in admin mode
     if (!isAdminMode) return;
 
     if (!isPanelExpanded) expandPanel();
     if (activeTabId !== 1) selectActiveTab(1);
-    if (
-      !hasProductSelected ||
-      (hasProductSelected && selectedProductId !== productId)
-    )
-      selectProduct(productId);
-  };
 
-  const handleDelete = (productId) => {
-    deleteProduct(productId);
-    if (productId === selectedProductId) selectProduct(null);
-    const productTitle =
-      products.find((p) => p.id === productId).title || 'Product';
-    notifySuccess(`${productTitle} deleted!`);
+    const isNewSelection =
+      !hasProductSelected ||
+      (hasProductSelected && productId !== selectedProductId);
+
+    if (isNewSelection) selectProduct(productId);
   };
 
   const handleDeselect = () => {
     if (!isAdminMode) return;
     if (hasProductSelected) deselectProduct();
   };
+
+  const handleDelete = (e, productId) => {
+    e.stopPropagation();
+
+    deleteProduct(productId);
+
+    if (productId === selectedProductId) selectProduct(null);
+
+    const productTitle =
+      products.find((p) => p.id === productId).title || 'Product';
+    notifySuccess(`${productTitle} deleted!`);
+  };
+
+  // Center view on lastly added or currently selected product
+  useEffect(() => {
+    if (!isAdminMode) return;
+
+    const scrollViewToProduct = (productId) => {
+      if (isEmpty(productId)) return;
+      const node = getCardRef(productId);
+      node.scrollIntoView(SCROLL_SETTINGS);
+    };
+
+    let productToCenterViewOn;
+    // If AddProduct panel is active, center view on lastly added product
+    if (activeTabId === 0) {
+      productToCenterViewOn = products[0].id;
+    }
+    // If EditProduct panel is active, center view on selected product only if any
+    else {
+      productToCenterViewOn = isEmpty(selectedProductId)
+        ? null
+        : selectedProductId;
+    }
+
+    scrollViewToProduct(productToCenterViewOn);
+  }, [isAdminMode, activeTabId, selectedProductId, products]);
 
   if (!hasProducts)
     return (
@@ -69,12 +126,13 @@ export default function ProductList() {
         {products.map((p) => (
           <ProductCard
             key={p.id}
+            ref={(node) => refCallback(node, p.id)}
             product={p}
-            isClickable={isAdminMode}
-            isSelected={p.id === selectedProductId && isAdminMode}
             showDeleteButton={isAdminMode}
-            onSelect={handleSelect}
-            onDelete={handleDelete}
+            isClickable={isAdminMode}
+            isSelected={checkIsProductSelected(p.id)}
+            onSelect={(e) => handleSelect(e, p.id)}
+            onDelete={(e) => handleDelete(e, p.id)}
           />
         ))}
       </div>

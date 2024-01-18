@@ -1,20 +1,17 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { TiDelete } from 'react-icons/ti';
 
-import Button from '../../../common/Button';
+import Button from '../../../../common/Button';
 
-import { classNames } from '../../../../utilities/classNames';
-import { formatPrice } from '../../../../utilities/maths';
-import { theme } from '../../../../themes';
+import { classNames } from '../../../../../utilities/classNames';
+import { formatPrice } from '../../../../../utilities/maths';
+import { theme } from '../../../../../themes';
 
-export default function ProductCard({
-  product,
-  isClickable,
-  isSelected,
-  showDeleteButton,
-  onSelect,
-  onDelete,
-}) {
+const ProductCard = forwardRef(function ProductCard(
+  { product, isClickable, isSelected, showDeleteButton, onSelect, onDelete },
+  ref
+) {
   const formattedPrice = formatPrice(product.price);
   const priceClassName = classNames(
     'product__price',
@@ -26,22 +23,13 @@ export default function ProductCard({
     alert('Add button clicked');
   };
 
-  const handleDelete = (e, productId) => {
-    e.stopPropagation();
-    onDelete(productId);
-  };
-
-  const handleSelect = (e, productId) => {
-    e.stopPropagation();
-    onSelect(productId);
-  };
-
   return (
     // Pass in transient props ($) to fix React warning "not valid HTML attribute"
     <ProductStyled
+      ref={ref}
       $isClickable={isClickable}
       $isSelected={isSelected}
-      onClick={(e) => handleSelect(e, product.id)}
+      onClick={onSelect}
     >
       <div className="product__thumbnailContainer">
         <img
@@ -71,12 +59,14 @@ export default function ProductCard({
           Icon={<TiDelete />}
           className="product__btn-delete"
           version={isSelected ? 'dangerInverted' : 'danger'}
-          onClick={(e) => handleDelete(e, product.id)}
+          onClick={onDelete}
         />
       )}
     </ProductStyled>
   );
-}
+});
+
+export default ProductCard;
 
 /* __________________________________________________________________________ *\
  ** Style
@@ -85,11 +75,16 @@ const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const SCALING = 1.02;
 
+const WIDTH = {
+  sm: '220px',
+  xl: '240px',
+};
+
 const ProductStyled = styled.div`
   position: relative;
 
   padding: ${spacing.sm};
-  width: 220px;
+  width: ${WIDTH.sm};
   height: 265px;
 
   display: grid;
@@ -108,14 +103,6 @@ const ProductStyled = styled.div`
 
   &:hover {
     box-shadow: ${shadows.md};
-
-    outline-color: ${(props) =>
-      props.$isClickable ? `${colors.accent}` : 'transparent'};
-
-    cursor: ${(props) => (props.$isClickable ? `pointer` : 'default')};
-
-    transform: ${(props) =>
-      props.$isClickable ? `scale(${SCALING})` : 'none'};
 
     &:has(.product__btn-delete:hover) {
       outline-color: ${colors.status.danger};
@@ -164,6 +151,7 @@ const ProductStyled = styled.div`
   }
 
   .product__title {
+    max-width: calc(${WIDTH.sm} - 2 * ${spacing.sm});
     font-size: ${fonts.size['2xl']};
     text-align: center;
     text-overflow: ellipsis;
@@ -211,7 +199,7 @@ const ProductStyled = styled.div`
   }
 
   @media screen and (min-width: ${breakpoints.xl}) {
-    width: 240px;
+    width: ${WIDTH.xl};
     min-height: 300px;
     gap: ${spacing.xs};
     border-radius: ${borderRadius.rounded_2xl};
@@ -220,8 +208,10 @@ const ProductStyled = styled.div`
       height: 145px;
     }
     .product__title {
+      max-width: calc(${WIDTH.xl} - 2 * ${spacing.sm});
       font-size: 36px;
     }
+
     .product__price {
       font-size: ${fonts.size.xl};
     }

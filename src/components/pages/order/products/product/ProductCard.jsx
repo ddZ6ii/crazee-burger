@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TiDelete } from 'react-icons/ti';
 
 import Button from '../../../../common/Button';
@@ -80,6 +80,13 @@ const WIDTH = {
   xl: '240px',
 };
 
+const clickableStyle = css`
+  cursor: ${(props) => props.$isClickable && 'pointer'};
+  outline-color: ${(props) =>
+    props.$isSelected ? colors.neutral_lightest : colors.accent};
+  transform: ${(props) => props.$isClickable && `scale(${SCALING})`};
+`;
+
 const ProductStyled = styled.div`
   position: relative;
 
@@ -104,9 +111,13 @@ const ProductStyled = styled.div`
   &:hover {
     box-shadow: ${shadows.md};
 
+    ${(props) => props.$isClickable && clickableStyle}
+
     &:has(.product__btn-delete:hover) {
+      box-shadow: ${shadows.md};
       outline-color: ${colors.status.danger};
       animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+      transition-property: none;
     }
   }
 

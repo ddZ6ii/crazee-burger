@@ -11,6 +11,7 @@ import {
   formStatus as STATUS,
   formNotifications as NOTIFICATIONS,
 } from '../../../helpers/formSettings';
+import { useProducts } from '../../../../../../../hooks/useProducts';
 import * as Actions from '../../../../../../../reducers/actions/productFormActionTypes';
 import {
   initForm,
@@ -40,6 +41,7 @@ export default function ProductForm({
   const [form, dispatch] = useReducer(productFormReducer, {}, () =>
     initForm(initialProduct)
   );
+  const { products } = useProducts();
 
   const validateInput = (name, value) => {
     // Clear previous input error (if any)
@@ -101,7 +103,6 @@ export default function ProductForm({
   };
 
   const isDefaultUrl = form.data.imageSource === PRODUCT_DEFAULT.imageSource;
-  const isSubmitted = form.status === STATUS.submitted;
   const isSubmitting = form.status === STATUS.submitting;
   const isSubmitDisabled = isSubmitting || hasErrors(form.errors);
   const isTyping = form.status === STATUS.typing;
@@ -109,10 +110,10 @@ export default function ProductForm({
   const hasUrl = !isEmpty(form.data.imageSource);
   const showPreview = hasUrl && isUrlValid && !isDefaultUrl;
 
-  // Focus first form input on mounting and after submitting
+  // Focus product name form's input on mounting and after product addition or deletion
   useEffect(() => {
     inputRef.current.focus();
-  }, [isSubmitted]);
+  }, [products.length]);
 
   return (
     <FormStyled onSubmit={handleSubmit}>

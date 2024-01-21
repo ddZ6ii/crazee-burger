@@ -1,17 +1,18 @@
 import styled from 'styled-components';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
-import { useAdmin } from '../../../../hooks/useAdmin';
-import Tab from '../../../common/Button';
-import { adminTabs as tabs } from './helpers/adminTabs';
-import { theme } from '../../../../themes';
-import { classNames } from '../../../../utilities/classNames';
+import Tab from '../../../common/Button.jsx';
+import { useAdmin } from '../../../../hooks/useAdmin.js';
+import { useAdminTabs } from '../../../../hooks/useAdminTabs.jsx';
+import { theme } from '../../../../themes/index.js';
+import { classNames } from '../../../../utilities/classNames.js';
 
 export default function TabNav() {
-  const { isPanelExpanded, expandPanel, activeTab, selectActiveTab } =
+  const { isPanelExpanded, expandPanel, activeTabId, selectActiveTab } =
     useAdmin();
+  const tabs = useAdminTabs();
 
-  const isTabActive = (tabId) => tabId === activeTab;
+  const isTabActive = (tabId) => tabId === activeTabId;
 
   const handleClickTab = (tabId) => {
     selectActiveTab(tabId);

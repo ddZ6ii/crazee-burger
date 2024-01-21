@@ -7,14 +7,14 @@ export function validateUrl(url) {
 
   // regular expression of image url with specific format (jpg, jpeg, png, webp, tif, tiff)
   const pattern = new RegExp(
-    '^(http(s)?:\\/\\/)?[\\w@:%._+~#-=/,]*(.(jpg|jpeg|png|webp|tif|tiff))([?\\w=]*)?',
+    '^(http(s)?:\\/\\/)?[\\w@:%._+~#-=/,]*(.(jpg|jpeg|png|webp|tif|tiff))$',
     'gi'
   );
   const isUrlValid = pattern.test(url);
 
   if (isUrlValid) return '';
 
-  return 'Please provide a valid image URL (formats: jpg, jpeg, png, webp, tif, tiff)';
+  return 'Please provide a valid URL (formats: jpg, jpeg, png, webp, tif, tiff) or leave it blank';
 }
 
 export function validatePrice(price) {

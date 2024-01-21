@@ -1,20 +1,42 @@
 import { Routes, Route } from 'react-router-dom';
 
+import ErrorPage from './components/pages/ErrorPage';
+import LoginPage from './components/pages/LoginPage';
+import OrderPage from './components/pages/OrderPage';
 import RootLayout from './components/layouts/RootLayout';
-import LoginPage from './components/pages/login/LoginPage';
-import OrderPage from './components/pages/order/OrderPage';
-import ErrorPage from './components/pages/error/ErrorPage';
+
+import { AuthProvider } from './contexts/AuthContext';
+import { AdminProvider } from './contexts/AdminContext';
+import { ProductsProvider } from './contexts/ProductsContext';
 
 import './App.css';
 
 export default function App() {
   return (
-    <Routes>
-      <Route index element={<LoginPage />} />
-      <Route path="/" element={<RootLayout />}>
-        <Route path="order" element={<OrderPage />} />
-      </Route>
-      <Route path="*" element={<ErrorPage />} />
-    </Routes>
+    <>
+      <AuthProvider>
+        <Routes>
+          <Route index element={<LoginPage />} />
+          <Route
+            path="/"
+            element={
+              <AdminProvider>
+                <RootLayout />
+              </AdminProvider>
+            }
+          >
+            <Route
+              path="order"
+              element={
+                <ProductsProvider>
+                  <OrderPage />
+                </ProductsProvider>
+              }
+            />
+          </Route>
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </AuthProvider>
+    </>
   );
 }

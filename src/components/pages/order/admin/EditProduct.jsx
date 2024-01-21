@@ -1,5 +1,6 @@
 import { HiCursorClick } from 'react-icons/hi';
 
+import FormInfo from './FormInfo';
 import FormTooltip from './FormTooltip';
 import ProductForm from './ProductForm';
 import { useAdmin } from '../../../../hooks/useAdmin';
@@ -20,7 +21,12 @@ export default function EditProduct() {
         initialProduct={selectedProduct}
         onEdit={(name, value) => editProduct(selectedProductId, name, value)}
         isEditing
-      />
+      >
+        <FormInfo>
+          Select a product to start <i>live editing</i> (click outside to cancel
+          selection)
+        </FormInfo>
+      </ProductForm>
     );
   }
   return (

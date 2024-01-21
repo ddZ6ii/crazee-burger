@@ -31,6 +31,7 @@ import {
 export default function ProductForm({
   initialProduct,
   isEditing = false,
+  children,
   onEdit = () => {},
   onSubmit = () => {},
   onReset = () => {},
@@ -134,12 +135,9 @@ export default function ProductForm({
         />
       ))}
 
-      {isEditing ? (
-        <p className="form__info">
-          Select a product to start <i>live editing</i> (click outside to cancel
-          selection)
-        </p>
-      ) : (
+      {children}
+
+      {!isEditing && (
         <div className="form__buttons">
           <Button
             type="submit"
@@ -173,7 +171,7 @@ export default function ProductForm({
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, fonts, spacing } = theme;
+const { breakpoints, fonts, spacing } = theme;
 
 const FormStyled = styled.form`
   display: grid;
@@ -201,10 +199,7 @@ const FormStyled = styled.form`
     padding: ${spacing.xs} ${spacing.md};
     font-size: inherit;
   }
-  .form__info {
-    color: ${colors.status.info};
-    grid-column: 2 / -1;
-  }
+
   .form__loader {
     & .spinningLoader {
       height: ${fonts.size.sm};

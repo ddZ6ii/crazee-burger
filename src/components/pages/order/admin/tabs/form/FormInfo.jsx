@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { theme } from '../../../../../../../themes/index';
+import { theme } from '../../../../../../themes/index';
 
 export default function FormInfo({ children }) {
   return <ParagraphStyled>{children}</ParagraphStyled>;

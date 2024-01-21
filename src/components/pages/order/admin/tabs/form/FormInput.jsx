@@ -2,11 +2,11 @@ import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { BiError } from 'react-icons/bi';
 
-import Input from '../../../../../../common/Input';
-import { PRODUCT as PRODUCT_DEFAULT } from '../../../../../../../enums/product';
-import { isEmpty } from '../../../../../../../utilities/checks';
-import { classNames } from '../../../../../../../utilities/classNames';
-import { theme } from '../../../../../../../themes/index';
+import Input from '../../../../../common/Input';
+import { PRODUCT as PRODUCT_DEFAULT } from '../../../../../../enums/product';
+import { isEmpty } from '../../../../../../utilities/checks';
+import { classNames } from '../../../../../../utilities/classNames';
+import { theme } from '../../../../../../themes/index';
 
 const FormInput = forwardRef(function FormInput(
   {
@@ -21,12 +21,24 @@ const FormInput = forwardRef(function FormInput(
   ref
 ) {
   const hasError = !isEmpty(errors);
-  const isDefaultUrl = value === PRODUCT_DEFAULT.imageSource;
-  const isUrl = inputProps.label === 'imageSource';
+
+  const isDefaultUrl =
+    inputProps.label === 'imageSource' &&
+    (value === PRODUCT_DEFAULT.imageSource || value === '');
+
+  const isDefaultPrice =
+    inputProps.label === 'price' &&
+    (Number(value) === PRODUCT_DEFAULT.price || value === '');
+
   const inputClassName = classNames(
     inputProps.className,
     hasError && 'has-error'
   );
+
+  const formatInputValue = () => {
+    if (isDefaultUrl || isDefaultPrice) return '';
+    return value;
+  };
 
   return (
     <ContainerStyled>
@@ -36,7 +48,7 @@ const FormInput = forwardRef(function FormInput(
         Icon={Icon}
         onChange={onChange}
         className={inputClassName}
-        value={isUrl && isDefaultUrl ? '' : value}
+        value={formatInputValue()}
         {...restProps}
       />
       {hasError && (

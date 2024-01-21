@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-import { useAdmin } from '../../../../../hooks/useAdmin';
-import { adminTabs as tabs } from '../helpers/adminTabs';
-
-import { theme } from '../../../../../themes';
+import { useAdmin } from '../../../../hooks/useAdmin.js';
+import { useAdminTabs } from '../../../../hooks/useAdminTabs.jsx';
+import { theme } from '../../../../themes/index.js';
 
 export default function TabOutlet() {
   const { activeTabId, isPanelExpanded } = useAdmin();
+  const tabs = useAdminTabs();
 
   const selectedTab = tabs.find((tab) => tab.id === activeTabId);
 

@@ -1,10 +1,11 @@
 import { MdOutlineEuroSymbol } from 'react-icons/md';
 import { BsFillCameraFill } from 'react-icons/bs';
 import { FaHamburger } from 'react-icons/fa';
+
 import {
   validatePrice,
   validateUrl,
-} from '../../../../../utilities/validators';
+} from '../../../../../../../utilities/validators';
 
 export const formStatus = {
   typing: 'typing',
@@ -17,7 +18,6 @@ export const formInputs = {
     inputProps: {
       label: 'title',
       type: 'text',
-      value: '',
       placeholder: 'Product name (e.g. "Super Burger")',
       isRequired: false,
       className: 'input__wrapper',
@@ -29,7 +29,6 @@ export const formInputs = {
     inputProps: {
       label: 'imageSource',
       type: 'text',
-      value: '',
       placeholder: 'URL for product thumbnail (can be empty)',
       isRequired: false,
       className: 'input__wrapper',
@@ -41,7 +40,6 @@ export const formInputs = {
     inputProps: {
       label: 'price',
       type: 'number',
-      value: '',
       placeholder: 'Price',
       min: 0,
       max: 99.99,

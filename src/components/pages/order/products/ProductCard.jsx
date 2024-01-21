@@ -2,11 +2,11 @@ import { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 import { TiDelete } from 'react-icons/ti';
 
-import Button from '../../../../common/Button';
+import Button from '../../../common/Button';
 
-import { classNames } from '../../../../../utilities/classNames';
-import { formatPrice } from '../../../../../utilities/maths';
-import { theme } from '../../../../../themes';
+import { classNames } from '../../../../utilities/classNames';
+import { formatPrice } from '../../../../utilities/maths';
+import { theme } from '../../../../themes';
 
 const ProductCard = forwardRef(function ProductCard(
   { product, isClickable, isSelected, showDeleteButton, onSelect, onDelete },

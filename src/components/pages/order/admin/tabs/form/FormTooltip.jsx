@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { theme } from '../../../../../../../themes/index';
+import { theme } from '../../../../../../themes/index';
 
 export default function FormTooltip({ message, icon }) {
   return (

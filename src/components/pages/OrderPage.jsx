@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import AdminPanel from './admin/AdminPanel';
-import ProductList from './products/ProductList';
-import { AddProductProvider } from '../../../contexts/AddProductContext';
-import { useAdmin } from '../../../hooks/useAdmin';
-import { theme } from '../../../themes';
+import AdminPanel from './order/AdminPanel';
+import ProductList from './order/ProductList';
+import { AddProductProvider } from '../../contexts/AddProductContext';
+import { useAdmin } from '../../hooks/useAdmin';
+import { theme } from '../../themes';
 
 export default function OrderPage() {
   const { isAdminMode } = useAdmin();

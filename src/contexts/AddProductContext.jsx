@@ -1,5 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
-import { PRODUCT as EMPTY_PRODUCT } from '../enums/product';
+import { PRODUCT as PRODUCT_DEFAULT } from '../enums/product';
 
 export const AddProductContext = createContext(null);
 
@@ -7,7 +7,7 @@ const STORAGE_KEY = 'addProductInfo';
 
 const initProduct = () => {
   const product = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
-  return product ?? { ...EMPTY_PRODUCT, price: '', imageSource: '' };
+  return product ?? PRODUCT_DEFAULT;
 };
 
 export const AddProductProvider = ({ children }) => {
@@ -25,11 +25,7 @@ export const AddProductProvider = ({ children }) => {
     []
   );
 
-  // const resetProduct = useCallback(() => setProduct(EMPTY_PRODUCT), []);
-  const resetProduct = useCallback(
-    () => setProduct({ ...EMPTY_PRODUCT, price: '', imageSource: '' }),
-    []
-  );
+  const resetProduct = useCallback(() => setProduct(PRODUCT_DEFAULT), []);
 
   const contextValue = {
     product,

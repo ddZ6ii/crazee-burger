@@ -5,11 +5,11 @@ import { BiSolidChevronRight } from 'react-icons/bi';
 
 import styled from 'styled-components';
 
-import Input from '../../../common/Input';
+import Input from '../../common/Input';
 
-import Button from '../../../common/Button';
-import { useAuth } from '../../../../hooks/useAuth';
-import { theme } from '../../../../themes';
+import Button from '../../common/Button';
+import { useAuth } from '../../../hooks/useAuth';
+import { theme } from '../../../themes';
 
 export default function LoginForm() {
   const navigate = useNavigate();

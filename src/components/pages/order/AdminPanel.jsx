@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import TabNav from './tabs/TabNav';
-import TabOutlet from './tabs/TabOutlet';
-import { theme } from '../../../../themes';
+import TabNav from './admin/TabNav';
+import TabOutlet from './admin/TabOutlet';
+import { theme } from '../../../themes';
 
 export default function AdminPanel() {
   return (

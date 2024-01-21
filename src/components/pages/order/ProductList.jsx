@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-import EmptyList from './product/EmptyList';
-import Loader from '../../../common/Loader';
-import ProductCard from './product/ProductCard';
-import { useAdmin } from '../../../../hooks/useAdmin';
-import { useProducts } from '../../../../hooks/useProducts';
-import { isEmpty } from '../../../../utilities/checks';
-import { notifySuccess } from '../../../../utilities/notifications';
-import { theme } from '../../../../themes';
+import EmptyList from './products/EmptyList';
+import Loader from '../../common/Loader';
+import ProductCard from './products/ProductCard';
+import { useAdmin } from '../../../hooks/useAdmin';
+import { useProducts } from '../../../hooks/useProducts';
+import { isEmpty } from '../../../utilities/checks';
+import { notifySuccess } from '../../../utilities/notifications';
+import { theme } from '../../../themes';
 
 const SCROLL_SETTINGS = {
   behavior: 'smooth',

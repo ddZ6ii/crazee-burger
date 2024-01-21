@@ -1,5 +1,6 @@
 import * as Actions from './actions/productsActionsTypes';
 import * as Menus from '../data/fakeMenus';
+import { PRODUCT as PRODUCT_DEFAULT } from '../enums/product';
 
 export const initialProducts = Menus.LARGE;
 
@@ -15,7 +16,14 @@ export const productsReducer = (products = initialProducts, action) => {
     }
     case Actions.EDIT_PRODUCT: {
       const selectedProduct = products.find((p) => p.id === action.productId);
-      selectedProduct[action.fieldName] = action.fieldValue;
+
+      const isUrlEmpty =
+        action.fieldName === 'imageSource' && action.fieldValue === '';
+
+      selectedProduct[action.fieldName] = isUrlEmpty
+        ? PRODUCT_DEFAULT.imageSource
+        : action.fieldValue;
+
       return products.map((p) =>
         p.id === action.productId ? selectedProduct : p
       );

@@ -2,14 +2,16 @@ import * as Actions from './actions/productFormActionTypes';
 import {
   formInputs as INPUTS,
   formStatus as STATUS,
-} from '../components/pages/order/admin/helpers/formSettings';
+} from '../components/pages/order/admin/tabs/form/constants/formSettings';
+import { PRODUCT as PRODUCT_DEFAULT } from '../enums/product';
+
 import { getInputErrors, isEmpty } from '../utilities/checks';
 import { deepClone } from '../utilities/deepClone';
 
 const initFormData = (productData) =>
   Object.keys(INPUTS).reduce((acc, key) => {
     const inputValue = isEmpty(productData)
-      ? INPUTS[key].inputProps.value
+      ? PRODUCT_DEFAULT[key]
       : productData[key];
     return { ...acc, [key]: inputValue };
   }, {});
@@ -60,7 +62,7 @@ export const productFormReducer = (form, action) => {
       };
     }
     case Actions.RESET_FORM: {
-      return { ...form, ...initForm() };
+      return { ...deepClone(form), ...initForm(action.productData) };
     }
     default: {
       throw new Error(`Unknown action: ${action.type}`);

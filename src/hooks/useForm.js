@@ -1,122 +1,83 @@
-import { useCallback, useContext, useReducer } from 'react';
+import { useCallback, useState } from 'react';
+import { getInputErrors, hasErrors, isEmpty } from '../utilities/checks';
+import {
+  formInputs as INPUTS,
+  formStatus as STATUS,
+} from '../components/pages/order/admin/helpers/formSettings';
 
-import * as Actions from '../store/actions/formActions';
-import { formReducer, initForm } from '../store/reducers/formReducer';
-import { FormContext } from '../contexts/FormContext';
-import { isEmpty } from '../utilities/checks';
-
-// to be passed as the value for the context provider
-export const useFormStore = () => {
-  const [form, dispatch] = useReducer(formReducer, {}, initForm);
-
-  const updateFormData = useCallback(
-    (name, value) => dispatch(Actions.updateFormData(name, value)),
-    []
+const initForm = (initialProductInfo) => {
+  const initialValidators = INPUTS.reduce(
+    (acc, input) => ({ ...acc, [input.data.label]: input.validators }),
+    {}
   );
-
-  const hasError = useCallback(
-    (name) => {
-      // if no input name parameter is provided, check for any form error
-      if (isEmpty(name))
-        return Object.entries(form.errors).some(
-          ([, errors]) => !isEmpty(errors)
-        );
-      // otherwise, check for error only for the provided input
-      return !isEmpty(form.errors[name]);
-    },
-    [form]
-  );
-
-  const disableSubmit = useCallback(
-    (disabled) => dispatch(Actions.disableSubmit(disabled)),
-    []
-  );
-
-  const updateErrors = useCallback(
-    (errors, name) => dispatch(Actions.updateErrors(errors, name)),
-    []
-  );
-
-  const resetErrors = useCallback(
-    (name) => dispatch(Actions.resetErrors(name)),
-    []
-  );
-
-  const resetForm = useCallback(() => dispatch(Actions.resetForm()), []);
-
-  const validateInput = useCallback(
-    (name, value) => {
-      // clear previous error
-      resetErrors(name);
-
-      const validators = form.validators[name];
-
-      if (isEmpty(validators)) {
-        if (!hasError()) disableSubmit(false);
-        return true;
-      }
-
-      // verify form input field for each related validator function
-      const messages = validators.reduce((result, validator) => {
-        const error = validator(value);
-        return error.length ? [...result, error] : [...result];
-      }, []);
-
-      if (isEmpty(messages)) {
-        disableSubmit(false);
-        return true;
-      }
-
-      // update form errors
-      updateErrors(messages, name);
-
-      // disable form submission
-      disableSubmit(true);
-
-      return false;
-    },
-    [form.validators, resetErrors, disableSubmit, hasError, updateErrors]
-  );
-
-  const validateForm = useCallback(() => {
-    // reset previous form errors
-    resetErrors();
-
-    const { data, validators } = form;
-
-    if (isEmpty(validators)) return true;
-
-    // verify each form input field with related validator function
-    const formErrors = Object.entries(validators).reduce(
-      (errors, [name, validators]) => {
-        const messages = validators.reduce((result, validator) => {
-          const error = validator(data[name], data);
-          return error.length ? [...result, error] : [...result];
-        }, []);
-        if (messages.length > 0) errors[name] = messages;
-        return errors;
-      },
-      {}
-    );
-
-    if (isEmpty(formErrors)) return true;
-
-    // update form errors
-    updateErrors(formErrors);
-
-    return false;
-  }, [form, resetErrors, updateErrors]);
-
+  const initialErrors = isEmpty(initialProductInfo)
+    ? INPUTS.reduce(
+        (errors, input) => ({ ...errors, [input.data.label]: [] }),
+        {}
+      )
+    : Object.entries(initialProductInfo).reduce(
+        (errors, [inputName, inputValue]) => ({
+          ...errors,
+          [inputName]: getInputErrors(initialValidators[inputName], inputValue),
+        }),
+        {}
+      );
   return {
-    form,
-    updateFormData,
-    hasError,
-    disableSubmit,
-    resetForm,
-    validateInput,
-    validateForm,
+    validators: { ...initialValidators },
+    errors: { ...initialErrors },
+    status: STATUS.typing,
   };
 };
 
-// custom hook to be used by context consumers
-export const useForm = () => useContext(FormContext);
+export const useForm = (product) => {
+  const [form, setForm] = useState(() => initForm(product));
+
+  const updateFormStatus = useCallback(
+    (status) => setForm((prevForm) => ({ ...prevForm, status })),
+    []
+  );
+
+  const updateFormErrors = useCallback((errors, name) => {
+    // if no input parameter is provided, update all form errors
+    // otherwise, update errors only for the provided input
+    isEmpty(name)
+      ? setForm((prevForm) => ({ ...prevForm, errors: errors }))
+      : setForm((prevForm) => ({
+          ...prevForm,
+          errors: {
+            ...prevForm.errors,
+            [name]: errors,
+          },
+        }));
+  }, []);
+
+  const resetForm = useCallback(() => setForm(initForm), []);
+
+  const resetFormErrors = useCallback((name) => {
+    // If no name parameter is provided, reset all form errors...
+    isEmpty(name)
+      ? setForm((prevForm) => ({ ...prevForm, errors: {} }))
+      : // ...otherwise reset errors only for the provided input
+        setForm((prevForm) => ({
+          ...prevForm,
+          errors: { ...prevForm.errors, [name]: [] },
+        }));
+  }, []);
+
+  const isUrlValid = !hasErrors(form.errors, INPUTS[1].data.label);
+  const hasUrl = !isEmpty(product.imageSource);
+  const showPreview = hasUrl && isUrlValid;
+  const isSubmitting = form.status === STATUS.submitting;
+  const isSubmitDisabled = isSubmitting || hasErrors(form.errors);
+
+  return {
+    form,
+    updateFormStatus,
+    updateFormErrors,
+    resetForm,
+    resetFormErrors,
+    showPreview,
+    isSubmitting,
+    isSubmitDisabled,
+  };
+};

@@ -27,8 +27,11 @@ const colors = {
   neutral: '#747B91',
   neutral_darkest: '#17161A',
   black: '#000000',
-  info_danger: '#bf1650',
-  info_success: '#60bd4f',
+  status: {
+    info: '#367bbe',
+    danger: '#bf1650',
+    success: '#60bd4f',
+  },
 };
 
 const fonts = {
@@ -75,6 +78,9 @@ const shadows = {
   base: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
   md: '-8px 8px 20px 0px rgba(0, 0, 0, 0.2)',
   lg: '0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset',
+  highlight: {
+    accent: '0 0 8px 0 rgb(255 154 35 / 1)',
+  },
 };
 
 const spacing = {

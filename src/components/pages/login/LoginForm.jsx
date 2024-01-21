@@ -8,12 +8,12 @@ import styled from 'styled-components';
 import Input from '../../common/Input';
 
 import Button from '../../common/Button';
-import { useLogin } from '../../../hooks/useUser';
+import { useAuth } from '../../../hooks/useAuth';
 import { theme } from '../../../themes';
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const login = useLogin();
+  const { login } = useAuth();
   const [userName, setUserName] = useState('');
 
   const handleChange = (e) => setUserName(e.target.value);

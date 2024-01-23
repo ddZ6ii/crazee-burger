@@ -89,6 +89,7 @@ export default function ProductList() {
   // Center view on lastly added or currently selected product
   useEffect(() => {
     if (!isAdminMode) return;
+    if (isEmpty(products)) return;
 
     const scrollViewToProduct = (productId) => {
       if (isEmpty(productId)) return;

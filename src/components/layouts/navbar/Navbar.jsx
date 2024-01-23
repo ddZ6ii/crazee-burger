@@ -86,11 +86,6 @@ const NavStyled = styled.nav`
     }
   }
 
-  @media screen and (min-width: ${breakpoints.lg}) {
-    border-top-left-radius: ${borderRadius.rounded_2xl};
-    border-top-right-radius: ${borderRadius.rounded_2xl};
-  }
-
   @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     border-radius: 0;
 

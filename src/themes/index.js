@@ -14,9 +14,12 @@ const borderRadius = {
 const breakpoints = {
   sm: '640px',
   md: '768px',
+  base: '820px',
   lg: '1023px',
   xl: '1280px',
-  '2xl': '1536px',
+  xxl: '1536px',
+  xxxl: '1792px',
+  xxxxl: '2048px',
 };
 
 const colors = {

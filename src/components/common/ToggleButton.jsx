@@ -31,10 +31,12 @@ export default function ToggleButton({
  ** Style
 /* __________________________________________________________________________ */
 const { borderRadius, colors, fonts, spacing } = theme;
+
 const SLIDER_SIZE = {
   width: '200px',
   height: '34px',
 };
+
 const SWITCH_SIZE = {
   width: '24px',
   height: '24px',
@@ -45,10 +47,6 @@ const ToggleButtonStyled = styled.div`
   width: ${SLIDER_SIZE.width};
 
   transition: 0.5s ease;
-
-  &:hover .toggle:not(:checked) + .rounded:before {
-    background-color: ${colors.accent};
-  }
 
   // hides the square box but keeps the core "toggle functionality"
   .toggle {
@@ -80,7 +78,8 @@ const ToggleButtonStyled = styled.div`
     width: ${SWITCH_SIZE.width};
     height: ${SWITCH_SIZE.height};
 
-    background-color: ${colors.accent};
+    background-color: ${colors.neutral};
+    border: 1px solid transparent;
     border-radius: ${borderRadius.rounded_full};
     z-index: 2;
 
@@ -107,22 +106,21 @@ const ToggleButtonStyled = styled.div`
   // toggle transitions (unchecked state)
   .toggle:not(:checked) {
     & + .rounded {
-      background-color: ${colors.neutral_darkest};
-      border-color: ${colors.neutral_light};
+      background-color: ${colors.neutral_light};
     }
 
     // small circle
     & + .rounded:before {
       left: ${spacing['3xs']};
       transform: translateX(0%);
-      background-color: ${colors.neutral_light};
+      background-color: ${colors.neutral};
     }
 
     // text inside the switch button
     & + .rounded:after {
       content: attr(data-unchecked);
       left: 0;
-      color: ${colors.neutral_light};
+      color: ${colors.neutral_darkest};
       transform: translateX(calc(${SWITCH_SIZE.width} + ${spacing.sm}));
     }
   }
@@ -130,7 +128,7 @@ const ToggleButtonStyled = styled.div`
   // toggle transitions (checked state)
   .toggle:checked {
     & + .rounded {
-      background-color: ${colors.neutral_light};
+      background-color: ${colors.accent};
       border-color: ${colors.accent};
     }
 

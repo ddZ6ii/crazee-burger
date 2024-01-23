@@ -24,11 +24,7 @@ export default function TabNav() {
       <Tab
         aria-label="toggle-panel"
         Icon={isPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
-        className={classNames(
-          'navitem__btn',
-          'btn-togglePanel',
-          !isPanelExpanded && 'is-active'
-        )}
+        className={classNames('navitem__btn', 'btn-togglePanel')}
         onClick={() => expandPanel(!isPanelExpanded)}
       />
 
@@ -63,29 +59,30 @@ const TabNavStyled = styled.nav`
   margin-inline: ${spacing['2xl']};
   display: flex;
   align-items: center;
-  gap: ${spacing['4xs']};
+  gap: ${spacing['3xs']};
 
   .navitem__btn {
     padding: ${spacing['2xs']} ${spacing.sm};
 
     flex-direction: row-reverse;
 
-    background-color: ${colors.white};
-    border-color: ${colors.neutral_light};
+    background-color: ${colors.neutral_darkest};
+    border: 2px solid transparent;
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     box-shadow: ${shadows.sm};
 
-    color: ${colors.neutral};
+    color: ${colors.neutral_lightest};
     font-size: ${fonts.size.sm};
     font-weight: ${fonts.weight.regular};
+    outline: 2px solid transparent;
 
     &:hover {
       text-decoration: underline;
     }
     &:focus {
-      outline-color: ${colors.accent};
+      border-color: ${colors.accent};
       color: ${colors.accent};
     }
   }
@@ -95,9 +92,9 @@ const TabNavStyled = styled.nav`
   }
 
   .is-active {
-    color: ${colors.white};
-    background-color: ${colors.neutral_darkest};
-    border-color: transparent;
+    color: ${colors.neutral};
+    background-color: ${colors.white};
+    border-color: ${colors.neutral_light};
   }
 
   @media screen and (min-width: ${breakpoints.lg}) {

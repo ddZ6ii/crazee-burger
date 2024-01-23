@@ -71,14 +71,11 @@ export default ProductCard;
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
+const { borderRadius, colors, fonts, shadows, spacing } = theme;
 
 const SCALING = 1.02;
 
-const WIDTH = {
-  sm: '220px',
-  xl: '240px',
-};
+const WIDTH = '220px';
 
 const clickableStyle = css`
   cursor: ${(props) => props.$isClickable && 'pointer'};
@@ -91,7 +88,7 @@ const ProductStyled = styled.div`
   position: relative;
 
   padding: ${spacing.sm};
-  width: ${WIDTH.sm};
+  width: ${WIDTH};
   height: 265px;
 
   display: grid;
@@ -162,7 +159,7 @@ const ProductStyled = styled.div`
   }
 
   .product__title {
-    max-width: calc(${WIDTH.sm} - 2 * ${spacing.sm});
+    max-width: calc(${WIDTH} - 2 * ${spacing.sm});
     font-size: ${fonts.size['2xl']};
     text-align: center;
     text-overflow: ellipsis;
@@ -188,7 +185,7 @@ const ProductStyled = styled.div`
   .product__btn-add {
     padding: ${spacing.xs} ${spacing.md};
     width: fit-content;
-    font-size: ${fonts.size.xs};
+    font-size: ${fonts.size.sm};
   }
 
   .product__btn-delete {
@@ -198,45 +195,5 @@ const ProductStyled = styled.div`
     padding: ${spacing['4xs']};
     gap: 0;
     font-size: ${fonts.size['xl']};
-  }
-
-  @media screen and (min-width: ${breakpoints.md}) {
-    .product__btn-add {
-      font-size: ${fonts.size.sm};
-    }
-    .product__price {
-      font-size: 22px;
-    }
-  }
-
-  @media screen and (min-width: ${breakpoints.xl}) {
-    width: ${WIDTH.xl};
-    min-height: 300px;
-    gap: ${spacing.xs};
-    border-radius: ${borderRadius.rounded_2xl};
-
-    .product__thumbnailContainer {
-      height: 145px;
-    }
-    .product__title {
-      max-width: calc(${WIDTH.xl} - 2 * ${spacing.sm});
-      font-size: 36px;
-    }
-
-    .product__price {
-      font-size: ${fonts.size.xl};
-    }
-    .product__btn-add {
-      font-size: ${fonts.size.sm};
-    }
-  }
-
-  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
-    .product__btn-add {
-      font-size: ${fonts.size.xs};
-    }
-    .product__price {
-      font-size: ${fonts.size.lg};
-    }
   }
 `;

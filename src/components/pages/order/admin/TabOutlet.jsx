@@ -20,7 +20,7 @@ export default function TabOutlet() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
+const { breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const TabContentStyled = styled.div`
   padding: ${spacing.md} ${spacing['2xl']};
@@ -28,8 +28,6 @@ const TabContentStyled = styled.div`
   height: 1px;
 
   background-color: ${colors.white};
-  border-bottom-left-radius: ${borderRadius.rounded_lg};
-  border-bottom-right-radius: ${borderRadius.rounded_lg};
   box-shadow: ${shadows.sm};
   color: ${colors.neutral};
   font-family: ${fonts.family.cta};

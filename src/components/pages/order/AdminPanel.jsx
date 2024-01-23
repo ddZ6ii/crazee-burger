@@ -16,13 +16,11 @@ export default function AdminPanel() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints } = theme;
+const { breakpoints } = theme;
 
 const AdminPanelStyled = styled.aside`
   position: relative;
   display: none;
-  border-bottom-left-radius: ${borderRadius['rounded_2xl']};
-  border-bottom-right-radius: ${borderRadius['rounded_2xl']};
 
   @media screen and (min-width: ${breakpoints.md}) {
     display: block;

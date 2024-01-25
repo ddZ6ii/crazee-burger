@@ -14,7 +14,7 @@ export function validateUrl(url) {
 
   if (isUrlValid) return '';
 
-  return 'Please provide a valid URL (formats: jpg, jpeg, png, webp, tif, tiff) or leave it blank';
+  return 'Please provide a valid URL (formats: jpg, jpeg, png, webp, tif, tiff)';
 }
 
 export function validatePrice(price) {

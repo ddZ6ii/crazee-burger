@@ -91,6 +91,7 @@ export default ProductForm;
 const { breakpoints, spacing } = theme;
 
 const FormStyled = styled.form`
+  width: 100%;
   display: grid;
   grid-template-columns: auto repeat(3, 1fr);
   grid-template-rows: repeat(4, auto);

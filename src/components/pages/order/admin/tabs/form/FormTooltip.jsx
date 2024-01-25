@@ -21,7 +21,7 @@ const ContainerStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${spacing['2xs']};
+  gap: ${spacing['sm']};
   font-family: ${fonts.family.headings};
-  font-size: ${fonts.size.xl};
+  font-size: ${fonts.size['2xl']};
 `;

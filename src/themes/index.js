@@ -14,9 +14,12 @@ const borderRadius = {
 const breakpoints = {
   sm: '640px',
   md: '768px',
+  base: '820px',
   lg: '1023px',
   xl: '1280px',
-  '2xl': '1536px',
+  xxl: '1536px',
+  xxxl: '1792px',
+  xxxxl: '2048px',
 };
 
 const colors = {
@@ -78,6 +81,7 @@ const shadows = {
   base: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
   md: '-8px 8px 20px 0px rgba(0, 0, 0, 0.2)',
   lg: '0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset',
+  xl: '6px 8px 12px 0px rgba(0, 0, 0, 0.5) inset',
   highlight: {
     accent: '0 0 8px 0 rgb(255 154 35 / 1)',
   },

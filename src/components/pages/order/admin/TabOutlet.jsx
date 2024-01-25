@@ -37,7 +37,7 @@ export default function TabOutlet() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, fonts, shadows, spacing } = theme;
+const { breakpoints, colors, fonts, spacing } = theme;
 
 const TabContentStyled = styled.div`
   padding: ${spacing.md} ${spacing['2xl']};
@@ -50,7 +50,7 @@ const TabContentStyled = styled.div`
   align-items: center;
 
   background-color: ${colors.white};
-  box-shadow: ${shadows.sm};
+  box-shadow: 0px 4px 28px 0px rgba(0, 0, 0, 0.4);
   color: ${colors.neutral};
   font-family: ${fonts.family.cta};
   font-size: ${fonts.size.sm};

@@ -89,6 +89,7 @@ export default function ProductList() {
   // Center view on lastly added or currently selected product
   useEffect(() => {
     if (!isAdminMode) return;
+    if (isEmpty(products)) return;
 
     const scrollViewToProduct = (productId) => {
       if (isEmpty(productId)) return;
@@ -121,7 +122,12 @@ export default function ProductList() {
   if (hasProducts && isListEmpty) return <EmptyList />;
 
   return (
-    <ProductListStyled onClick={handleDeselect} className={sectionClassName}>
+    <ProductListStyled
+      onClick={handleDeselect}
+      className={sectionClassName}
+      $isAdminMode={isAdminMode}
+    >
+      {/* additional div container to leave some top & bottom gap within the scrolling container */}
       <div className="container">
         {products.map((p) => (
           <ProductCard
@@ -143,15 +149,32 @@ export default function ProductList() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, spacing } = theme;
+const { breakpoints, shadows, spacing } = theme;
 
 const ProductListStyled = styled.section`
-  height: 100%;
-  padding: ${spacing.sm};
-  cursor: default;
-  overflow: auto;
+  padding: ${spacing['2xs']} ${spacing.sm};
+  max-height: 100%;
+  box-shadow: ${shadows.xl};
+  overflow: hidden;
   cursor: ${(props) =>
     (props.className ?? '').includes('is--clickable') ? 'pointer' : 'default'};
+
+  .container {
+    padding: ${spacing['sm']} 0;
+    padding-bottom: ${(props) =>
+      props.$isAdminMode ? spacing['2xl'] : spacing['sm']};
+
+    height: fit-content;
+    max-height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-auto-rows: min-content;
+    justify-items: center;
+    gap: ${spacing.sm};
+
+    overflow-y: auto;
+  }
 
   .loader {
     height: 100%;
@@ -162,29 +185,15 @@ const ProductListStyled = styled.section`
     gap: ${spacing.xs};
   }
 
-  .container {
-    display: grid;
-    grid-template-columns: minmax(240px, 1fr);
-    justify-items: center;
-    row-gap: ${spacing.sm};
-  }
-
   @media screen and (min-width: ${breakpoints.sm}) {
-    min-height: auto;
     .container {
-      grid-template-columns: repeat(auto-fill, 240px);
-      justify-content: center;
-      place-items: center;
-      column-gap: ${spacing.sm};
       row-gap: ${spacing.xl};
     }
   }
 
   @media screen and (min-width: ${breakpoints['xl']}) {
-    padding: ${spacing['2xl']} ${spacing.xl};
     .container {
-      column-gap: 85px;
-      row-gap: 60px;
+      padding: ${spacing.xl};
     }
   }
 `;

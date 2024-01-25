@@ -20,7 +20,7 @@ export default function RootLayout() {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { breakpoints, colors, spacing } = theme;
+const { borderRadius, breakpoints, colors, spacing } = theme;
 
 const ContainerStyled = styled.div`
   height: 100dvh;
@@ -50,15 +50,24 @@ const ContainerStyled = styled.div`
 const HeaderStyled = styled.header`
   margin-inline: auto;
   width: 100%;
-  max-width: ${breakpoints['2xl']};
+  max-width: ${breakpoints.xxl};
 `;
 
 const MainStyled = styled.main`
   margin-inline: auto;
   height: 100%;
   width: 100%;
-  max-width: ${breakpoints['2xl']};
+  max-width: ${breakpoints.xxl};
 
   background-color: ${colors.accent};
   overflow-y: auto;
+
+  @media screen and (min-width: ${breakpoints.md}) {
+    border-bottom-left-radius: ${borderRadius.rounded_lg};
+    border-bottom-right-radius: ${borderRadius.rounded_lg};
+  }
+
+  @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
+    border-radius: 0;
+  }
 `;

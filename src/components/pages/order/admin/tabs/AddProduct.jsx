@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useReducer, useRef } from 'react';
 
 import ProductForm from './form/ProductForm';
 import { PRODUCT as PRODUCT_DEFAULT } from '../../../../../enums/product';
@@ -21,7 +21,6 @@ import FormActions from './form/FormActions';
 
 export default function AddProduct({
   initialProduct,
-  products,
   addProduct,
   resetProduct,
   onEdit,
@@ -85,11 +84,6 @@ export default function AddProduct({
 
   const isSubmitting = form.status === STATUS.submitting;
   const isSubmitDisabled = isSubmitting || hasErrors(form.errors);
-
-  // Focus product name form's input on mount and after product addition or deletion
-  useEffect(() => {
-    inputRef.current.focus();
-  }, [products.length]);
 
   return (
     <ProductForm

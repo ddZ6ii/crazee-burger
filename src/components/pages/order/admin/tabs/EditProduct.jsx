@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useReducer } from 'react';
 import { HiCursorClick } from 'react-icons/hi';
 
 import FormInfo from './form/FormInfo';
@@ -14,25 +14,13 @@ export default function EditProduct({
   hasProductSelected,
   onEdit,
 }) {
-  const inputRef = useRef(null);
-
   const [form, dispatch] = useReducer(productFormReducer, {}, () =>
     initForm(initialProduct)
   );
 
-  // Focus product name form's input for currently selected product (if any)
-  useEffect(() => {
-    if (hasProductSelected) inputRef.current.focus();
-  }, [hasProductSelected]);
-
   if (hasProductSelected) {
     return (
-      <ProductForm
-        ref={inputRef}
-        form={form}
-        dispatch={dispatch}
-        onEdit={onEdit}
-      >
+      <ProductForm form={form} dispatch={dispatch} onEdit={onEdit}>
         <FormInfo>
           Select a product to start <i>live editing</i> (click outside to cancel
           selection)

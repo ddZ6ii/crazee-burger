@@ -74,6 +74,7 @@ const ProductForm = forwardRef(function ProductForm(
           inputProps={inputProps}
           Icon={Icon}
           disabled={isSubmitting}
+          autoFocus={index === 0}
           onChange={handleChange}
         />
       ))}

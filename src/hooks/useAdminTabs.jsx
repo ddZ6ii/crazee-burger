@@ -23,8 +23,9 @@ export const useAdminTabs = () => {
       navIcon: <HiPlus />,
       content: (
         <AddProduct
+          // Re-mount ProductForm on product addition and deletion (to autofocus the input, without the need of a useEffect)
+          key={products.length}
           initialProduct={product}
-          products={products}
           addProduct={addProduct}
           resetProduct={resetProduct}
           onEdit={updateProduct}
@@ -37,7 +38,8 @@ export const useAdminTabs = () => {
       navIcon: <MdModeEditOutline />,
       content: (
         <EditProduct
-          key={selectedProductId}
+          // Re-mount ProductForm on product selection change or product deletion (to reset and prefill form fields with newly selected product data, and to autofocus the input, without the need of a useEffect)
+          key={selectedProductId + products.length}
           initialProduct={selectedProduct}
           hasProductSelected={hasProductSelected}
           onEdit={(name, value) => editProduct(selectedProductId, name, value)}

@@ -37,6 +37,7 @@ export default function LoginForm() {
           placeholder="Enter your name"
           Icon={<BsPersonCircle className="input__icon" />}
           className="form__input"
+          autoFocus
         />
         <Button
           type="submit"

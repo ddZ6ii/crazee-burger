@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Logo from '../../common/Logo';
-import UserInfo from './info/UserInfo';
+import CartButton from './cart/CartButton';
 import ToggleButton from '../../common/ToggleButton';
+import UserInfo from './info/UserInfo';
 
 import { useAdmin } from '../../../hooks/useAdmin';
 import { notifyInfo } from '../../../utilities/notifications';
@@ -21,14 +22,23 @@ export default function Navbar() {
     <NavStyled>
       <Logo className="navbar__logo" onClick={() => window.location.reload()} />
 
-      <div className="navbar__info">
+      <div className="navbar__actions">
         <ToggleButton
           isChecked={isAdminMode}
-          onToggle={handleToggle}
           labelIfChecked="Disable Admin Mode"
           labelIfUnchecked="Enable Admin Mode"
           className={'navbar__toggleBtn'}
+          onToggle={handleToggle}
         />
+
+        <CartButton
+          cartItems={1}
+          isCartVisible={false}
+          onCartShow={() => {
+            alert('display cart');
+          }}
+        />
+
         <UserInfo />
       </div>
     </NavStyled>
@@ -67,7 +77,7 @@ const NavStyled = styled.nav`
     }
   }
 
-  .navbar__info {
+  .navbar__actions {
     display: flex;
     align-items: center;
     gap: clamp(${spacing.xs}, 4vw, ${spacing['4xl']});

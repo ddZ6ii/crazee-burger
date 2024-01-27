@@ -2,7 +2,7 @@ import { useReducer } from 'react';
 import { HiCursorClick } from 'react-icons/hi';
 
 import FormInfo from './form/FormInfo';
-import FormTooltip from './form/FormTooltip';
+import Message from '../../../../common/Message';
 import ProductForm from './form/ProductForm';
 import {
   initForm,
@@ -29,7 +29,7 @@ export default function EditProduct({
     );
   }
   return (
-    <FormTooltip
+    <Message
       message="Click a product to start editing"
       icon={<HiCursorClick />}
     />

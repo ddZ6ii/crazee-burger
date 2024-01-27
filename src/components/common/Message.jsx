@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-import { theme } from '../../../../../../themes/index';
+import { theme } from '../../themes/index';
 
-export default function FormTooltip({ message, icon }) {
+export default function Message({ message, icon, className }) {
   return (
-    <ContainerStyled>
-      <p>{message}</p>
+    <ContainerStyled className={className}>
+      <span>{message}</span>
       {icon && icon}
     </ContainerStyled>
   );
@@ -14,7 +14,7 @@ export default function FormTooltip({ message, icon }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { fonts, spacing } = theme;
+const { breakpoints, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
   height: 100%;
@@ -23,5 +23,12 @@ const ContainerStyled = styled.div`
   align-items: center;
   gap: ${spacing['sm']};
   font-family: ${fonts.family.headings};
-  font-size: ${fonts.size['2xl']};
+  font-size: ${fonts.size['xl']};
+  text-align: center;
+
+  ${(props) => props.className}
+
+  @media screen and (min-width: ${breakpoints.xl}) {
+    font-size: ${fonts.size['2xl']};
+  }
 `;

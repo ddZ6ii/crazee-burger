@@ -10,6 +10,7 @@ export default function Button({
   className = 'variantMinimalist',
   version = '',
   onClick = () => {},
+  children,
   ...restProps
 }) {
   return (
@@ -20,8 +21,9 @@ export default function Button({
       onClick={onClick}
       {...restProps}
     >
-      <span className="btn__label">{label}</span>
+      {label && <span className="btn__label">{label}</span>}
       {Icon && Icon}
+      {children}
     </ButtonStyled>
   );
 }

@@ -12,6 +12,8 @@ export default function TabNav() {
     useAdmin();
   const tabs = useAdminTabs();
 
+  const showCart = true;
+
   const isTabActive = (tabId) => tabId === activeTabId;
 
   const handleClickTab = (tabId) => {
@@ -20,7 +22,7 @@ export default function TabNav() {
   };
 
   return (
-    <TabNavStyled>
+    <TabNavStyled $showCart={showCart}>
       <Tab
         aria-label="toggle-panel"
         Icon={isPanelExpanded ? <FiChevronDown /> : <FiChevronUp />}
@@ -52,11 +54,12 @@ const { breakpoints, colors, fonts, shadows, spacing } = theme;
 const TabNavStyled = styled.nav`
   position: absolute;
   top: 0;
-  left: 0;
+  left: ${(props) => (props.$showCart ? 'initial' : '0')};
   right: 0;
   transform: translateY(-100%);
 
-  margin-inline: ${spacing['2xl']};
+  margin-inline: ${(props) => (props.$showCart ? '0' : spacing['2xs'])};
+
   display: flex;
   align-items: center;
   gap: ${spacing['3xs']};
@@ -85,6 +88,9 @@ const TabNavStyled = styled.nav`
       border-color: ${colors.accent};
       color: ${colors.accent};
     }
+    &:last-of-type {
+      border-right-width: 0;
+    }
   }
 
   .btn-togglePanel {
@@ -98,12 +104,22 @@ const TabNavStyled = styled.nav`
   }
 
   @media screen and (min-width: ${breakpoints.lg}) {
-    margin-inline: ${spacing['4xl']};
+    margin-inline: ${(props) => (props.$showCart ? 0 : spacing['2xs'])};
   }
 
   @media screen and (min-width: ${breakpoints.xl}) {
     .navitem__btn {
       font-size: ${fonts.size.base};
+    }
+  }
+
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.lg}) {
+    left: 0;
+    margin-inline: ${spacing['2xs']};
+    .navitem__btn {
+      &:last-of-type {
+        border-right-width: 2px;
+      }
     }
   }
 `;

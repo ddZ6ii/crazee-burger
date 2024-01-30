@@ -4,7 +4,7 @@ import { IoMdCloseCircle } from 'react-icons/io';
 import Button from '../../../../common/Button';
 import { theme } from '../../../../../themes';
 
-export default function CartHeader() {
+export default function CartHeader({ onCartClose }) {
   return (
     <CartHeaderStyled>
       <h2 className="header__title">Cart</h2>
@@ -12,6 +12,7 @@ export default function CartHeader() {
         Icon={<IoMdCloseCircle />}
         title="Close cart"
         className="header__btn"
+        onClick={onCartClose}
       />
     </CartHeaderStyled>
   );

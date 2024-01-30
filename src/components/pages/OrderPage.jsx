@@ -5,11 +5,14 @@ import Cart from './order/cart/Cart';
 import ProductList from './order/ProductList';
 import { AddProductProvider } from '../../contexts/AddProductContext';
 import { useAdmin } from '../../hooks/useAdmin';
+import { useCart } from '../../hooks/useCart';
 import { theme } from '../../themes';
 
 export default function OrderPage() {
-  const { isAdminMode } = useAdmin();
-  const showCart = true;
+  const { isAdminMode: showAdminPanel } = useAdmin();
+  const {
+    cart: { showCart },
+  } = useCart();
 
   return (
     <OrderPageLayout $showCart={showCart}>
@@ -17,7 +20,7 @@ export default function OrderPage() {
       <ProductList />
       {/* Hold the state for the AddProduct to retain product info when switching tabs in the admin panel  */}
       <AddProductProvider>
-        {isAdminMode && <AdminPanel className="admin__panel" />}
+        {showAdminPanel && <AdminPanel className="admin__panel" />}
       </AddProductProvider>
     </OrderPageLayout>
   );

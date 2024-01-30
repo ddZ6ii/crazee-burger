@@ -5,17 +5,17 @@ import Button from '../../../common/Button';
 import { theme } from '../../../../themes';
 import { isEmpty } from '../../../../utilities/checks';
 
-export default function CartButton({ cartItems, isCartVisible, onCartShow }) {
+export default function CartButton({ cartItems, showCart, onCartToggle }) {
   const showTag = !isEmpty(cartItems) && Number(cartItems) !== 0;
   const tag = cartItems > 9 ? '+9' : cartItems.toString();
 
   return (
-    <ContainerStyled $isCartVisible={isCartVisible}>
+    <ContainerStyled $showCart={showCart}>
       <Button
         Icon={<PiShoppingCartSimpleBold className="btn__icon" />}
         label="View Order"
         className="cart__btn"
-        onClick={onCartShow}
+        onClick={onCartToggle}
       >
         {showTag && <div className="cart_tag">{tag}</div>}
       </Button>
@@ -31,8 +31,7 @@ const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
 const ContainerStyled = styled.div`
   position: relative;
 
-  color: ${(props) =>
-    props.$isCartVisible ? colors.accent : colors.neutral_light};
+  color: ${(props) => (props.$showCart ? colors.accent : colors.neutral_light)};
   font-size: ${fonts.size.sm};
 
   .cart__btn {

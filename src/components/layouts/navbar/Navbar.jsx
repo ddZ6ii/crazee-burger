@@ -7,11 +7,13 @@ import ToggleButton from '../../common/ToggleButton';
 import UserInfo from './info/UserInfo';
 
 import { useAdmin } from '../../../hooks/useAdmin';
+import { useCart } from '../../../hooks/useCart';
 import { notifyInfo } from '../../../utilities/notifications';
 import { theme } from '../../../themes';
 
 export default function Navbar() {
   const { isAdminMode, showPanel } = useAdmin();
+  const { cart, toggleCart } = useCart();
 
   const handleToggle = () => {
     showPanel(!isAdminMode);
@@ -32,11 +34,9 @@ export default function Navbar() {
         />
 
         <CartButton
-          cartItems={1}
-          isCartVisible={false}
-          onCartShow={() => {
-            alert('display cart');
-          }}
+          cartItems={0}
+          showCart={cart.showCart}
+          onCartToggle={toggleCart}
         />
 
         <UserInfo />

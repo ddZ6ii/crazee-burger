@@ -3,16 +3,22 @@ import styled from 'styled-components';
 import CartContent from './content/CartContent';
 import CartFooter from './content/CartFooter';
 import CartHeader from './content/CartHeader';
+import { useCart } from '../../../../hooks/useCart';
 import { theme } from '../../../../themes';
+// import { useProducts } from '../../../../hooks/useProducts';
 
 export default function Cart({ className }) {
-  const cartTotal = 0;
+  const { toggleCart } = useCart();
+  // const { cartItems, toggleCart, getTotalPrice } = useCart();
+  // const { products } = useProducts();
+
   return (
     <CartLayout className={className}>
-      <CartHeader />
+      <CartHeader onCartClose={toggleCart} />
       <hr />
       <CartContent className="cart__content" />
-      <CartFooter amount={cartTotal} />
+      {/* <CartFooter amount={getTotalPrice(cartItems, products)} /> */}
+      <CartFooter amount={0} />
     </CartLayout>
   );
 }

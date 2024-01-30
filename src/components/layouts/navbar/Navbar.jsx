@@ -13,7 +13,7 @@ import { theme } from '../../../themes';
 
 export default function Navbar() {
   const { isAdminMode, showPanel } = useAdmin();
-  const { cart, toggleCart } = useCart();
+  const { cart, getCount, toggleCart } = useCart();
 
   const handleToggle = () => {
     showPanel(!isAdminMode);
@@ -34,7 +34,7 @@ export default function Navbar() {
         />
 
         <CartButton
-          cartItems={0}
+          cartItems={getCount(cart.items)}
           showCart={cart.showCart}
           onCartToggle={toggleCart}
         />

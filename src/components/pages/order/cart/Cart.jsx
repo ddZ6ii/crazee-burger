@@ -5,20 +5,18 @@ import CartFooter from './content/CartFooter';
 import CartHeader from './content/CartHeader';
 import { useCart } from '../../../../hooks/useCart';
 import { theme } from '../../../../themes';
-// import { useProducts } from '../../../../hooks/useProducts';
+import { useProducts } from '../../../../hooks/useProducts';
 
 export default function Cart({ className }) {
-  const { toggleCart } = useCart();
-  // const { cartItems, toggleCart, getTotalPrice } = useCart();
-  // const { products } = useProducts();
+  const { cart, toggleCart, getTotalPrice } = useCart();
+  const { products } = useProducts();
 
   return (
     <CartLayout className={className}>
       <CartHeader onCartClose={toggleCart} />
       <hr />
       <CartContent className="cart__content" />
-      {/* <CartFooter amount={getTotalPrice(cartItems, products)} /> */}
-      <CartFooter amount={0} />
+      <CartFooter amount={getTotalPrice(cart.items, products)} />
     </CartLayout>
   );
 }

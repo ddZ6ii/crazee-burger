@@ -17,7 +17,6 @@ export default function Message({ message, icon, className }) {
 const { breakpoints, fonts, spacing } = theme;
 
 const ContainerStyled = styled.div`
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,8 +24,6 @@ const ContainerStyled = styled.div`
   font-family: ${fonts.family.headings};
   font-size: ${fonts.size['xl']};
   text-align: center;
-
-  ${(props) => props.className}
 
   @media screen and (min-width: ${breakpoints.xl}) {
     font-size: ${fonts.size['2xl']};

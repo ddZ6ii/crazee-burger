@@ -84,7 +84,7 @@ const clickableStyle = css`
   transform: ${(props) => props.$isClickable && `scale(${SCALING})`};
 `;
 
-const ProductStyled = styled.div`
+const ProductStyled = styled.li`
   position: relative;
 
   padding: ${spacing.sm};

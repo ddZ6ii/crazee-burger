@@ -128,7 +128,7 @@ export default function ProductList() {
       $isAdminMode={isAdminMode}
     >
       {/* additional div container to leave some top & bottom gap within the scrolling container */}
-      <div className="container">
+      <ul className="container">
         {products.map((p) => (
           <ProductCard
             key={p.id}
@@ -141,7 +141,7 @@ export default function ProductList() {
             onDelete={(e) => handleDelete(e, p.id)}
           />
         ))}
-      </div>
+      </ul>
     </ProductListStyled>
   );
 }

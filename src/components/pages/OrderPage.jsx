@@ -42,6 +42,7 @@ const OrderPageLayout = styled.div`
     z-index: 1;
     width: 100%;
     height: 100%;
+    overflow: hidden;
   }
   .admin__panel {
     display: none;
@@ -49,7 +50,7 @@ const OrderPageLayout = styled.div`
 
   @media screen and (min-width: ${breakpoints.md}) {
     grid-template-columns: ${(props) =>
-      props.$showCart ? '1fr 1.6fr' : '1fr'};
+      props.$showCart ? '1fr 1.2fr' : '1fr'};
     grid-template-rows: 1fr auto;
 
     .cart__panel {
@@ -62,10 +63,15 @@ const OrderPageLayout = styled.div`
     }
   }
 
+  @media screen and (min-width: ${breakpoints.lg}) {
+    grid-template-columns: ${(props) =>
+      props.$showCart ? '1fr 1.6fr' : '1fr'};
+  }
+
   @media screen and (orientation: landscape) and (max-width: ${breakpoints.lg}) {
     border-radius: 0;
-    grid-template-columns: ${(props) =>
-      props.$showCart ? '1fr 1.5fr' : '1fr'};
+    grid-template-columns: ${(props) => (props.$showCart ? '1fr 1fr' : '1fr')};
+
     .cart__panel {
       position: relative;
     }
@@ -76,7 +82,7 @@ const OrderPageLayout = styled.div`
 
   @media screen and (orientation: landscape) and (min-width: ${breakpoints.lg}) {
     grid-template-columns: ${(props) =>
-      props.$showCart ? '1fr 2.5fr' : '1fr'};
+      props.$showCart ? '1fr 2.6fr' : '1fr'};
     .cart__panel {
       grid-row: 1 / -1;
     }

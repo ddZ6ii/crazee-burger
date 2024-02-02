@@ -114,21 +114,21 @@ export default function ProductList() {
 
   if (!hasProducts)
     return (
-      <ProductListStyled>
+      <SectionStyled>
         <Loader message="Loading products..." className="loader" />
-      </ProductListStyled>
+      </SectionStyled>
     );
 
   if (hasProducts && isListEmpty) return <EmptyList />;
 
   return (
-    <ProductListStyled
+    <SectionStyled
       onClick={handleDeselect}
       className={sectionClassName}
       $isAdminMode={isAdminMode}
     >
       {/* additional div container to leave some top & bottom gap within the scrolling container */}
-      <ul className="container">
+      <ProductListStyled>
         {products.map((p) => (
           <ProductCard
             key={p.id}
@@ -141,8 +141,8 @@ export default function ProductList() {
             onDelete={(e) => handleDelete(e, p.id)}
           />
         ))}
-      </ul>
-    </ProductListStyled>
+      </ProductListStyled>
+    </SectionStyled>
   );
 }
 
@@ -151,30 +151,11 @@ export default function ProductList() {
 /* __________________________________________________________________________ */
 const { breakpoints, shadows, spacing } = theme;
 
-const ProductListStyled = styled.section`
+const SectionStyled = styled.section`
   padding: ${spacing['2xs']} ${spacing.sm};
   max-height: 100%;
   box-shadow: ${shadows.xl};
   overflow: hidden;
-  cursor: ${(props) =>
-    (props.className ?? '').includes('is--clickable') ? 'pointer' : 'default'};
-
-  .container {
-    padding: ${spacing['sm']} 0;
-    padding-bottom: ${(props) =>
-      props.$isAdminMode ? spacing['2xl'] : spacing['sm']};
-
-    height: fit-content;
-    max-height: 100%;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    grid-auto-rows: min-content;
-    justify-items: center;
-    gap: ${spacing.sm};
-
-    overflow-y: auto;
-  }
 
   .loader {
     height: 100%;
@@ -184,16 +165,32 @@ const ProductListStyled = styled.section`
     align-items: center;
     gap: ${spacing.xs};
   }
+`;
+
+const ProductListStyled = styled.ul`
+  padding: ${spacing['sm']} 0;
+  padding-bottom: ${(props) =>
+    props.$isAdminMode ? spacing['2xl'] : spacing['sm']};
+
+  height: fit-content;
+  max-height: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-auto-rows: min-content;
+  justify-items: center;
+  gap: ${spacing.sm};
+
+  overflow-y: auto;
+
+  cursor: ${(props) =>
+    (props.className ?? '').includes('is--clickable') ? 'pointer' : 'default'};
 
   @media screen and (min-width: ${breakpoints.sm}) {
-    .container {
-      row-gap: ${spacing.xl};
-    }
+    row-gap: ${spacing.xl};
   }
 
   @media screen and (min-width: ${breakpoints['xl']}) {
-    .container {
-      padding: ${spacing.xl};
-    }
+    padding: ${spacing.xl};
   }
 `;

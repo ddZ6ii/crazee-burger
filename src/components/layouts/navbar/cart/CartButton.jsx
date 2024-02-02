@@ -61,8 +61,8 @@ const ContainerStyled = styled.div`
     top: -4px;
     right: -4px;
 
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
 
     display: flex;
     justify-content: center;

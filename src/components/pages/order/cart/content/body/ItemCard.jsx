@@ -12,7 +12,7 @@ import { theme } from '../../../../../../themes';
 
 export default function ItemCard({ item, qty, isLastItem }) {
   const formattedPrice = formatPrice(item.price);
-  const { addToCart } = useCart();
+  const { addToCart, removeFromCart, deleteFromCart } = useCart();
 
   return (
     <CardStyled $isLastItem={isLastItem}>
@@ -28,7 +28,7 @@ export default function ItemCard({ item, qty, isLastItem }) {
               Icon={qty === 0 ? <LuTrash /> : <IoRemoveOutline />}
               title="Decrease item's quantity by one"
               className="btn btn__qty"
-              onClick={() => alert('Remove item from cart')}
+              onClick={() => removeFromCart(item.id)}
             />
             <Input
               value={qty}
@@ -53,9 +53,7 @@ export default function ItemCard({ item, qty, isLastItem }) {
             Icon={<IoTrashBinSharp />}
             title="Remove item from cart"
             className="btn btn__remove"
-            onClick={() => {
-              alert(`Delete ${item.title} from cart`);
-            }}
+            onClick={() => deleteFromCart(item.id)}
           />
         </ActionStyled>
       </InfoStyled>

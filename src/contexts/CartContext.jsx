@@ -44,10 +44,36 @@ export const CartProvider = ({ children }) => {
     [cart]
   );
 
+  const deleteFromCart = useCallback(
+    (productId) => {
+      if (!(productId in cart.items)) return;
+      const nextCartItems = { ...cart.items };
+      delete nextCartItems[productId];
+      setCart({ ...cart, items: nextCartItems });
+    },
+    [cart]
+  );
+
+  const removeFromCart = useCallback(
+    (productId, qty = 1) => {
+      if (!(productId in cart.items)) return;
+      const nextCartItems = { ...cart.items };
+      if (nextCartItems[productId] > 1) {
+        nextCartItems[productId] -= qty;
+      } else {
+        delete nextCartItems[productId];
+      }
+      setCart({ ...cart, items: nextCartItems });
+    },
+    [cart]
+  );
+
   const contextValue = {
     cart,
     toggleCart,
     addToCart,
+    removeFromCart,
+    deleteFromCart,
   };
 
   return (

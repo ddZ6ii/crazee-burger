@@ -20,7 +20,7 @@ const SCROLL_SETTINGS = {
 export default function ProductList() {
   const cardsRef = useRef(null);
   const { products, deleteProduct } = useProducts();
-  const { addToCart } = useCart();
+  const { addToCart, deleteFromCart } = useCart();
   const {
     activeTabId,
     isAdminMode,
@@ -83,11 +83,9 @@ export default function ProductList() {
 
   const handleDelete = (e, productId) => {
     e.stopPropagation();
-
+    deleteFromCart(productId);
     deleteProduct(productId);
-
     if (productId === selectedProductId) selectProduct(null);
-
     const productTitle =
       products.find((p) => p.id === productId).title || 'Product';
     notifySuccess(`${productTitle} deleted!`);

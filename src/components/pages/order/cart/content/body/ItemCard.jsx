@@ -6,11 +6,13 @@ import { LuTrash } from 'react-icons/lu';
 
 import Button from '../../../../../common/Button';
 import Input from '../../../../../common/Input';
+import { useCart } from '../../../../../../hooks/useCart';
 import { formatPrice } from '../../../../../../utilities/maths';
 import { theme } from '../../../../../../themes';
 
 export default function ItemCard({ item, qty, isLastItem }) {
   const formattedPrice = formatPrice(item.price);
+  const { addToCart } = useCart();
 
   return (
     <CardStyled $isLastItem={isLastItem}>
@@ -26,7 +28,7 @@ export default function ItemCard({ item, qty, isLastItem }) {
               Icon={qty === 0 ? <LuTrash /> : <IoRemoveOutline />}
               title="Decrease item's quantity by one"
               className="btn btn__qty"
-              onClick={() => alert('Decrement item qty or remove from cart')}
+              onClick={() => alert('Remove item from cart')}
             />
             <Input
               value={qty}
@@ -44,7 +46,7 @@ export default function ItemCard({ item, qty, isLastItem }) {
               Icon={<IoAddOutline />}
               title="Increase item's quantity by one"
               className="btn btn__qty"
-              onClick={() => alert('Increment item qty')}
+              onClick={() => addToCart(item.id)}
             />
           </QuantityStyled>
           <Button

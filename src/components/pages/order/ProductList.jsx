@@ -5,6 +5,7 @@ import EmptyList from './products/EmptyList';
 import Loader from '../../common/Loader';
 import ProductCard from './products/ProductCard';
 import { useAdmin } from '../../../hooks/useAdmin';
+import { useCart } from '../../../hooks/useCart';
 import { useProducts } from '../../../hooks/useProducts';
 import { isEmpty } from '../../../utilities/checks';
 import { notifySuccess } from '../../../utilities/notifications';
@@ -19,6 +20,7 @@ const SCROLL_SETTINGS = {
 export default function ProductList() {
   const cardsRef = useRef(null);
   const { products, deleteProduct } = useProducts();
+  const { addToCart } = useCart();
   const {
     activeTabId,
     isAdminMode,
@@ -72,6 +74,11 @@ export default function ProductList() {
   const handleDeselect = () => {
     if (!isAdminMode) return;
     if (hasProductSelected) deselectProduct();
+  };
+
+  const handleAdd = (e, productId) => {
+    e.stopPropagation();
+    addToCart(productId);
   };
 
   const handleDelete = (e, productId) => {
@@ -138,6 +145,7 @@ export default function ProductList() {
             isClickable={isAdminMode}
             isSelected={checkIsProductSelected(p.id)}
             onSelect={(e) => handleSelect(e, p.id)}
+            onAdd={(e) => handleAdd(e, p.id)}
             onDelete={(e) => handleDelete(e, p.id)}
           />
         ))}

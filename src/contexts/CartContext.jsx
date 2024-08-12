@@ -31,38 +31,23 @@ export const CartProvider = ({ children }) => {
     [cart]
   );
 
-  // const addProductToCart = useCallback(
-  //   (productId, qty = 1) => {
-  //     const nextCartItems = { ...cart.items };
-  //     if (productId in cart.items) {
-  //       nextCartItems[productId] += qty;
-  //     } else {
-  //       nextCartItems[productId] = qty;
-  //     }
-  //     setCart({ ...cart, items: nextCartItems });
-  //   },
-  //   [cart]
-  // );
-
-  // const removeProductFromCart = useCallback(
-  //   (productId, qty = 1) => {
-  //     if (!(productId in cart.items)) return;
-  //     const nextCartItems = { ...cart.items };
-  //     if (nextCartItems[productId] > 1) {
-  //       nextCartItems[productId] -= qty;
-  //     } else {
-  //       delete nextCartItems[productId];
-  //     }
-  //     setCart({ ...cart, cartItems: nextCartItems });
-  //   },
-  //   [cart]
-  // );
+  const addToCart = useCallback(
+    (productId, qty = 1) => {
+      const nextCartItems = { ...cart.items };
+      if (productId in cart.items) {
+        nextCartItems[productId] += qty;
+      } else {
+        nextCartItems[productId] = qty;
+      }
+      setCart({ ...cart, items: nextCartItems });
+    },
+    [cart]
+  );
 
   const contextValue = {
     cart,
     toggleCart,
-    // addProductToCart,
-    // removeProductFromCart,
+    addToCart,
   };
 
   return (

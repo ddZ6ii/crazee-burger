@@ -53,7 +53,7 @@ export default function AddProduct({
       ...PRODUCT_DEFAULT,
       title: capitalizeString(form.data.title),
       imageSource: form.data.imageSource || PRODUCT_DEFAULT.imageSource,
-      price: form.data.price,
+      price: Number(form.data.price),
     };
     try {
       e.preventDefault();

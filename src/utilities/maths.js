@@ -14,3 +14,7 @@ export function formatPrice(priceToFormat) {
 
   return formattedPrice;
 }
+
+export function roundPrice(price, decimals = 2) {
+  return Number(price.toFixed(decimals));
+}

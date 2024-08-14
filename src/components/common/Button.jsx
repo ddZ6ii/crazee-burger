@@ -38,7 +38,7 @@ const VARIANT_PRIMARY = css`
   background-color: ${colors.accent};
   color: ${colors.white};
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: ${colors.white};
     color: ${colors.accent};
     outline-color: ${colors.accent};
@@ -52,7 +52,7 @@ const VARIANT_PRIMARY_INVERTED = css`
   background-color: ${colors.white};
   color: ${colors.accent};
   &:hover,
-  &:focus {
+  &:focus-visible {
     background-color: ${colors.accent};
     color: ${colors.white};
     outline-color: ${colors.white};
@@ -67,7 +67,7 @@ const VARIANT_INFO = css`
   color: ${colors.neutral_lightest};
 
   &:not(:disabled):hover,
-  &:focus {
+  &:focus-visible {
     background-color: ${colors.white};
     color: ${colors.neutral};
     outline-color: ${colors.neutral};
@@ -84,7 +84,7 @@ const VARIANT_INFO = css`
 const VARIANT_SUCCESS = css`
   background-color: ${colors.status.success};
   color: ${colors.white};
-  &:focus,
+  &:focus-visible,
   &:not(:disabled):hover {
     background-color: ${colors.white};
     color: ${colors.status.success};
@@ -103,7 +103,7 @@ const VARIANT_DANGER = css`
   &:hover {
     color: ${colors.status.danger};
   }
-  &:focus {
+  &:focus-visible {
     color: ${colors.status.danger};
     outline-color: ${colors.status.danger};
   }
@@ -113,7 +113,7 @@ const VARIANT_DANGER_INVERTED = css`
   &:hover {
     color: ${colors.status.danger};
   }
-  &:focus {
+  &:focus-visible {
     color: ${colors.status.danger};
     outline-color: ${colors.status.danger};
   }

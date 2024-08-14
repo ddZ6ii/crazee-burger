@@ -56,6 +56,7 @@ const TabContentStyled = styled.div`
   font-size: ${fonts.size.sm};
 
   @media screen and (min-width: ${breakpoints.lg}) {
-    padding-inline: ${spacing['4xl']};
+    /* padding-inline: ${spacing['4xl']}; */
+    padding-inline: ${spacing['2xl']};
   }
 `;

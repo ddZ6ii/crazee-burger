@@ -7,6 +7,7 @@ import RootLayout from './components/layouts/RootLayout';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { AdminProvider } from './contexts/AdminContext';
+import { CartProvider } from './contexts/CartContext';
 import { ProductsProvider } from './contexts/ProductsContext';
 
 import './App.css';
@@ -21,7 +22,9 @@ export default function App() {
             path="/"
             element={
               <AdminProvider>
-                <RootLayout />
+                <CartProvider>
+                  <RootLayout />
+                </CartProvider>
               </AdminProvider>
             }
           >

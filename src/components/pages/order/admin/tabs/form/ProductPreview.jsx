@@ -25,8 +25,9 @@ export default function ProductPreview({
 const { borderRadius, colors } = theme;
 
 const PreviewStyled = styled.div`
-  width: 215px;
+  /* width: 215px; */
   max-height: 136px;
+  width: 100%;
 
   display: flex;
   justify-content: center;

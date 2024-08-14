@@ -9,7 +9,15 @@ import { formatPrice } from '../../../../utilities/maths';
 import { theme } from '../../../../themes';
 
 const ProductCard = forwardRef(function ProductCard(
-  { product, isClickable, isSelected, showDeleteButton, onSelect, onDelete },
+  {
+    product,
+    isClickable,
+    isSelected,
+    showDeleteButton,
+    onSelect,
+    onAdd,
+    onDelete,
+  },
   ref
 ) {
   const formattedPrice = formatPrice(product.price);
@@ -17,11 +25,6 @@ const ProductCard = forwardRef(function ProductCard(
     'product__price',
     isSelected && 'is--selected'
   );
-
-  const handleAdd = (e) => {
-    e.stopPropagation();
-    alert('Add button clicked');
-  };
 
   return (
     // Pass in transient props ($) to fix React warning "not valid HTML attribute"
@@ -48,7 +51,7 @@ const ProductCard = forwardRef(function ProductCard(
             label="Add"
             className="product__btn-add"
             version={isSelected ? 'primaryInverted' : 'primary'}
-            onClick={handleAdd}
+            onClick={onAdd}
           />
         </div>
       </div>
@@ -84,7 +87,7 @@ const clickableStyle = css`
   transform: ${(props) => props.$isClickable && `scale(${SCALING})`};
 `;
 
-const ProductStyled = styled.div`
+const ProductStyled = styled.li`
   position: relative;
 
   padding: ${spacing.sm};

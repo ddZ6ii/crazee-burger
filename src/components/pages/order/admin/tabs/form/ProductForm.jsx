@@ -62,7 +62,7 @@ const ProductForm = forwardRef(function ProductForm(
       <ProductPreview
         imageUrl={form.data.imageSource}
         showPreview={showPreview}
-        className="form__preview"
+        className="product__preview"
       />
 
       {Object.entries(INPUTS).map(([key, { inputProps, Icon }], index) => (
@@ -94,7 +94,8 @@ const { breakpoints, spacing } = theme;
 const FormStyled = styled.form`
   width: 100%;
   display: grid;
-  grid-template-columns: auto repeat(3, 1fr);
+  /* grid-template-columns: auto repeat(3, 1fr); */
+  grid-template-columns: 35% repeat(3, 1fr);
   grid-template-rows: repeat(4, auto);
   column-gap: ${spacing.md};
   row-gap: ${spacing['2xs']};
@@ -103,7 +104,7 @@ const FormStyled = styled.form`
     column-gap: ${spacing['2xl']};
   }
 
-  .form__preview {
+  .product__preview {
     grid-area: 1 / 1 / span 3 / span 1;
   }
 `;

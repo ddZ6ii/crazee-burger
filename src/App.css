@@ -44,8 +44,35 @@
   padding: 0;
 }
 
+a,
+button,
+h1,
+h2,
+h3,
+input,
+textarea,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: inherit;
+  font: inherit;
+}
+
+/* ______________________________________________________________________ *\
+  Global Styling
+\* ______________________________________________________________________ */
+html {
+  font-size: 1em;
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  font:
+    1rem/1.5 'Open Sans',
+    sans-serif;
+  /* font-family: 'Open Sans', sans-serif; */
 }
 
 h1,
@@ -54,14 +81,14 @@ h3 {
   font-family: 'Amatic SC', cursive;
 }
 
-a {
-  display: inline-block;
+a,
+button {
   cursor: pointer;
-  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-button {
-  font-family: Arial, Helvetica, sans-serif;
+a {
+  text-decoration: none;
 }
 
 img {
@@ -69,10 +96,7 @@ img {
   display: block;
 }
 
-input,
-button,
-textarea {
-  color: inherit;
-  font: inherit;
-  border: none;
+ul {
+  list-style-position: inside;
+  list-style-type: none;
 }

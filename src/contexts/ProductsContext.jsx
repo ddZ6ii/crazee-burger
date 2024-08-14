@@ -32,7 +32,8 @@ export const ProductsProvider = ({ children }) => {
   );
 
   const editProduct = useCallback((productId, fieldName, fieldValue) => {
-    dispatch(Actions.editProduct(productId, fieldName, fieldValue));
+    const value = fieldName === 'price' ? parseFloat(fieldValue) : fieldValue;
+    dispatch(Actions.editProduct(productId, fieldName, value));
   }, []);
 
   const deleteProduct = useCallback(

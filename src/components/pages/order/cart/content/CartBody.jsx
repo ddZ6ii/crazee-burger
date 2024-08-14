@@ -11,21 +11,21 @@ export default function CartBody({ cartItems, className }) {
   const { products } = useProducts();
 
   const emptyCart = isEmpty(cartItems);
-  const items = Object.entries(cartItems);
-  const itemsCount = items.length - 1;
+  const itemsCount = cartItems.length - 1;
 
-  const getItemInfo = (productId) => products.find((p) => p.id === productId);
+  const getItemInfo = (productId) =>
+    products.find((product) => product.id === productId);
 
   if (emptyCart)
     return <Message message="Your order is empty" className={className} />;
 
   return (
     <CartBodyLayout className={className}>
-      {items.map(([itemId, qty], index) => (
-        <Fragment key={itemId}>
+      {cartItems.map((cartItem, index) => (
+        <Fragment key={cartItem.id}>
           <ItemCard
-            item={getItemInfo(itemId)}
-            qty={qty}
+            item={getItemInfo(cartItem.id)}
+            qty={cartItem.qty}
             isLastItem={index === itemsCount}
           />
           {index < itemsCount && <hr />}

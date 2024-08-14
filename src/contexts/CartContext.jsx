@@ -1,20 +1,20 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
-
 import { deepClone } from '../utilities/deepClone';
-
-export const CartContext = createContext(null);
+import { getProductQty, isProductInCart } from '../utilities/cart';
 
 const STORAGE_KEY = 'cart';
 
 const initialCartInfo = {
   showCart: false,
-  items: {},
+  items: [],
 };
 
 const initCart = () => {
   const cartInfo = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
   return cartInfo ?? initialCartInfo;
 };
+
+export const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState(initCart);
@@ -33,22 +33,23 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = useCallback(
     (productId, qty = 1) => {
-      const nextCartItems = { ...cart.items };
-      if (productId in cart.items) {
-        nextCartItems[productId] += qty;
+      if (isProductInCart(productId, cart.items)) {
+        const nextCartItems = cart.items.map((item) =>
+          item.id === productId ? { ...item, qty: item.qty + qty } : { ...item }
+        );
+        setCart({ ...cart, items: nextCartItems });
       } else {
-        nextCartItems[productId] = qty;
+        const nextCartItem = { id: productId, qty };
+        setCart({ ...cart, items: [nextCartItem, ...deepClone(cart.items)] });
       }
-      setCart({ ...cart, items: nextCartItems });
     },
     [cart]
   );
 
   const deleteFromCart = useCallback(
     (productId) => {
-      if (!(productId in cart.items)) return;
-      const nextCartItems = { ...cart.items };
-      delete nextCartItems[productId];
+      if (!isProductInCart(productId, cart.items)) return;
+      const nextCartItems = cart.items.filter((item) => item.id !== productId);
       setCart({ ...cart, items: nextCartItems });
     },
     [cart]
@@ -56,13 +57,16 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = useCallback(
     (productId, qty = 1) => {
-      if (!(productId in cart.items)) return;
-      const nextCartItems = { ...cart.items };
-      if (nextCartItems[productId] > 1) {
-        nextCartItems[productId] -= qty;
-      } else {
-        delete nextCartItems[productId];
+      if (!isProductInCart(productId, cart.items)) return;
+
+      if (getProductQty(productId, cart.items) > 1) {
+        const nextCartItems = cart.items.map((item) =>
+          item.id === productId ? { ...item, qty: item.qty - qty } : { ...item }
+        );
+        setCart({ ...cart, items: nextCartItems });
+        return;
       }
+      const nextCartItems = cart.items.filter((item) => item.id !== productId);
       setCart({ ...cart, items: nextCartItems });
     },
     [cart]

@@ -12,22 +12,18 @@ export const useCart = () => {
   // Additionnal utilities functions that have nothing to do with CartContext state update logic
   const getCount = useCallback((cartItems) => {
     if (isEmpty(cartItems)) return 0;
-    return Object.keys(cartItems).reduce(
-      (total, [productId]) => total + cartItems[productId],
-      0
-    );
+    return cartItems.reduce((total, cartItem) => total + cartItem.qty, 0);
   }, []);
 
   const getTotalPrice = useCallback((cartItems, products) => {
-    return Object.entries(cartItems).reduce(
-      (total, [productId, productQty]) => {
-        const currentProduct = products.find((p) => p.id === productId);
-        if (isEmpty(currentProduct)) return 0;
-        const totalProduct = productQty * roundPrice(currentProduct.price);
-        return total + roundPrice(totalProduct);
-      },
-      0
-    );
+    return cartItems.reduce((total, cartItem) => {
+      const currentProduct = products.find(
+        (product) => product.id === cartItem.id
+      );
+      if (isEmpty(currentProduct)) return 0;
+      const totalProduct = cartItem.qty * roundPrice(currentProduct.price);
+      return total + roundPrice(totalProduct);
+    }, 0);
   }, []);
 
   return { ...cartInfo, getCount, getTotalPrice };

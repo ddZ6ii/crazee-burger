@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IoAddOutline } from 'react-icons/io5';
 import { IoRemoveOutline } from 'react-icons/io5';
 import { IoTrashBinSharp } from 'react-icons/io5';
@@ -10,25 +10,40 @@ import { useCart } from '../../../../../../hooks/useCart';
 import { formatPrice } from '../../../../../../utilities/maths';
 import { theme } from '../../../../../../themes';
 
-export default function ItemCard({ item, qty, isLastItem }) {
+export default function ItemCard({
+  item,
+  qty,
+  isLastItem,
+  isClickable,
+  isSelected,
+  onSelect,
+}) {
   const formattedPrice = formatPrice(item.price);
-  const { addToCart, removeFromCart, deleteFromCart } = useCart();
+  const { addToCart, removeFromCart, deleteFromCart, setItemQty } = useCart();
 
   return (
-    <CardStyled $isLastItem={isLastItem}>
+    <CardStyled
+      $isLastItem={isLastItem}
+      $isClickable={isClickable}
+      $isSelected={isSelected}
+      onClick={onSelect}
+    >
       <img src={item.imageSource} alt={item.title} className="thumbnail" />
-      <InfoStyled>
+      <InfoStyled $isSelected={isSelected}>
         <div className="info">
           <h3 className="title">{item.title}</h3>
           <p className="price">{formattedPrice}</p>
         </div>
-        <ActionStyled>
-          <QuantityStyled>
+        <ActionStyled $isSelected={isSelected}>
+          <QuantityStyled $isSelected={isSelected}>
             <Button
               Icon={qty === 0 ? <LuTrash /> : <IoRemoveOutline />}
               title="Decrease item's quantity by one"
-              className="btn btn__qty"
-              onClick={() => removeFromCart(item.id)}
+              className="btn btn__qty btn__remove"
+              onClick={(e) => {
+                e.stopPropagation();
+                removeFromCart(item.id);
+              }}
             />
             <Input
               value={qty}
@@ -40,20 +55,30 @@ export default function ItemCard({ item, qty, isLastItem }) {
               step={1}
               title="Enter the desired item quantity"
               className="input__wrapper"
-              onChange={() => alert('Update item qty')}
+              onChange={(e) => {
+                e.stopPropagation();
+                const itemQty = e.target.value;
+                setItemQty(item.id, itemQty);
+              }}
             />
             <Button
               Icon={<IoAddOutline />}
               title="Increase item's quantity by one"
-              className="btn btn__qty"
-              onClick={() => addToCart(item.id)}
+              className="btn btn__qty btn__add"
+              onClick={(e) => {
+                e.stopPropagation();
+                addToCart(item.id);
+              }}
             />
           </QuantityStyled>
           <Button
             Icon={<IoTrashBinSharp />}
             title="Remove item from cart"
-            className="btn btn__remove"
-            onClick={() => deleteFromCart(item.id)}
+            className="btn btn__delete"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteFromCart(item.id);
+            }}
           />
         </ActionStyled>
       </InfoStyled>
@@ -63,21 +88,43 @@ export default function ItemCard({ item, qty, isLastItem }) {
 /* __________________________________________________________________________ *\
  ** Style
 /* __________________________________________________________________________ */
-const { borderRadius, breakpoints, colors, fonts, spacing } = theme;
+const { borderRadius, breakpoints, colors, fonts, shadows, spacing } = theme;
 
 const GAP_SPACING = spacing['2xs'];
 
+const clickableStyle = css`
+  cursor: ${(props) => props.$isClickable && 'pointer'};
+  &:hover {
+    box-shadow: ${shadows.md};
+  }
+`;
+
+const selectedStyle = css`
+  background-color: ${colors.accent};
+  &:hover {
+    outline-color: ${colors.neutral_lightest};
+    box-shadow: ${shadows.md};
+  }
+`;
+
 const CardStyled = styled.li`
-  padding-bottom: ${spacing['sm']};
-  width: 100%;
+  padding: ${spacing['xs']};
+  margin-bottom: ${spacing['xs']};
 
   display: grid;
-  grid-template-columns: minmax(80px, 25%) 1fr;
-  grid-template-rows: minmax(80px, auto);
-  column-gap: ${spacing.sm};
+  grid-template-columns: 80px 1fr;
+  grid-auto-rows: minmax(80px, auto);
+  column-gap: ${spacing.xs};
+
+  outline: 2px solid transparent;
+  border-radius: ${borderRadius.rounded_lg};
 
   color: ${colors.neutral_darkest};
   font: ${fonts.size.md} ${fonts.family.cta};
+
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-property: outline-color, box-shadow, transform;
 
   .btn {
     padding: 0;
@@ -86,16 +133,18 @@ const CardStyled = styled.li`
 
   .thumbnail {
     margin-inline: auto;
-    width: 100%;
     height: 100%;
     max-height: 80px;
+    width: 100%;
     object-fit: contain;
   }
+
+  ${(props) => props.$isClickable && clickableStyle}
+  ${(props) => props.$isSelected && selectedStyle}
 `;
 
 const InfoStyled = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
   align-items: center;
   gap: ${GAP_SPACING};
 
@@ -103,18 +152,20 @@ const InfoStyled = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: ${GAP_SPACING};
   }
 
   .title {
-    font: ${fonts.size.lg} ${fonts.family.body};
-    font-weight: ${fonts.weight.bold};
+    font: 28px ${fonts.family.headings};
+    flex-basis: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .price {
-    color: ${colors.accent};
-    font: ${fonts.size['xl']} ${fonts.family.headings};
-    font-weight: ${fonts.weight.bold};
+    color: ${(props) =>
+      props.$isSelected ? colors.neutral_lightest : colors.accent};
+    font: ${fonts.size['md']} ${fonts.family.body};
   }
 `;
 
@@ -126,39 +177,79 @@ const ActionStyled = styled.div`
   align-items: center;
   gap: ${GAP_SPACING};
 
-  .btn__remove {
+  .btn__delete {
     width: fit-content;
-    color: ${colors.white};
-    color: ${colors.status.danger};
+    color: ${(props) =>
+      props.$isSelected ? colors.neutral_darkest : colors.neutral};
     font-size: ${fonts.size.lg};
-
-    &:hover {
-      background-color: ${colors.white};
+    &:is(:hover, :focus-visible) {
       color: ${colors.status.danger};
     }
+    &:hover {
+      color: ${colors.status.danger};
+      animation: tilt-shaking 200ms infinite;
+    }
     &:focus-visible {
-      border-color: ${colors.accent};
+      outline-color: ${colors.status.danger};
+      animation: tilt-shaking 200ms infinite;
+    }
+    @keyframes tilt-shaking {
+      0% {
+        transform: rotate(0deg);
+      }
+      25% {
+        transform: rotate(10deg);
+      }
+      50% {
+        transform: rotate(0eg);
+      }
+      75% {
+        transform: rotate(-10deg);
+      }
+      100% {
+        transform: rotate(0deg);
+      }
     }
   }
 `;
 
 const QuantityStyled = styled.div`
-  padding: ${spacing['4xs']} ${spacing['xs']};
   width: fit-content;
   display: flex;
   align-items: center;
-  gap: ${GAP_SPACING};
-  border: 1px solid ${colors.neutral_light};
+  outline: 1px solid
+    ${(props) => (props.$isSelected ? colors.neutral : colors.neutral)};
+  background-color: ${(props) =>
+    props.$isSelected ? colors.neutral_lightest : 'transparent'};
   border-radius: ${borderRadius.rounded_full};
-  font-size: ${fonts.size.sm};
+  color: ${(props) =>
+    props.$isSelected ? colors.neutral_darkest : colors.neutral};
+  font-size: ${fonts.size.xs};
+  overflow: hidden;
+
+  &:is(:hover, :has(.btn__qty:focus-visible), :has(.input:focus-visible)) {
+    outline-color: ${colors.accent};
+  }
+
   .btn__qty {
-    &:focus-visible {
-      color: ${colors.accent};
+    padding: ${spacing['3xs']} ${spacing['2xs']};
+    &.btn__remove {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
-    &:hover {
-      color: ${colors.accent};
+    &.btn__add {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &:is(:hover, :focus-visible) {
+      background-color: ${(props) =>
+        props.$isSelected ? colors.neutral_darkest : colors.accent};
+      color: ${(props) =>
+        props.$isSelected ? colors.neutral_lightest : colors.neutral_lightest};
+      font-weight: ${fonts.weight.bold};
     }
   }
+
   .input__wrapper {
     width: fit-content;
     & .container {
@@ -171,6 +262,7 @@ const QuantityStyled = styled.div`
       }
     }
   }
+
   @media screen and (min-width: ${breakpoints.base}) {
     .input__wrapper {
       & .container {

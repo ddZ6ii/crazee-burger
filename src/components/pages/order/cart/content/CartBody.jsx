@@ -74,7 +74,7 @@ const CartBodyLayout = styled.ul`
   overflow-y: auto;
 
   hr {
-    margin-bottom: ${spacing.sm};
+    margin-bottom: ${spacing['xs']};
     border: none;
     border-top: 1px solid ${colors.neutral_light};
   }

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IoAddOutline } from 'react-icons/io5';
 import { IoRemoveOutline } from 'react-icons/io5';
 import { IoTrashBinSharp } from 'react-icons/io5';
@@ -10,25 +10,40 @@ import { useCart } from '../../../../../../hooks/useCart';
 import { formatPrice } from '../../../../../../utilities/maths';
 import { theme } from '../../../../../../themes';
 
-export default function ItemCard({ item, qty, isLastItem }) {
+export default function ItemCard({
+  item,
+  qty,
+  isLastItem,
+  isClickable,
+  isSelected,
+  onSelect,
+}) {
   const formattedPrice = formatPrice(item.price);
-  const { addToCart, removeFromCart, deleteFromCart } = useCart();
+  const { addToCart, removeFromCart, deleteFromCart, setItemQty } = useCart();
 
   return (
-    <CardStyled $isLastItem={isLastItem}>
+    <CardStyled
+      $isLastItem={isLastItem}
+      $isClickable={isClickable}
+      $isSelected={isSelected}
+      onClick={onSelect}
+    >
       <img src={item.imageSource} alt={item.title} className="thumbnail" />
-      <InfoStyled>
+      <InfoStyled $isSelected={isSelected}>
         <div className="info">
           <h3 className="title">{item.title}</h3>
           <p className="price">{formattedPrice}</p>
         </div>
-        <ActionStyled>
-          <QuantityStyled>
+        <ActionStyled $isSelected={isSelected}>
+          <QuantityStyled $isSelected={isSelected}>
             <Button
               Icon={qty === 0 ? <LuTrash /> : <IoRemoveOutline />}
               title="Decrease item's quantity by one"
               className="btn btn__qty"
-              onClick={() => removeFromCart(item.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                removeFromCart(item.id);
+              }}
             />
             <Input
               value={qty}
@@ -40,20 +55,30 @@ export default function ItemCard({ item, qty, isLastItem }) {
               step={1}
               title="Enter the desired item quantity"
               className="input__wrapper"
-              onChange={() => addToCart(item.id)}
+              onChange={(e) => {
+                e.stopPropagation();
+                const itemQty = e.target.value;
+                setItemQty(item.id, itemQty);
+              }}
             />
             <Button
               Icon={<IoAddOutline />}
               title="Increase item's quantity by one"
               className="btn btn__qty"
-              onClick={() => addToCart(item.id)}
+              onClick={(e) => {
+                e.stopPropagation();
+                addToCart(item.id);
+              }}
             />
           </QuantityStyled>
           <Button
             Icon={<IoTrashBinSharp />}
             title="Remove item from cart"
             className="btn btn__remove"
-            onClick={() => deleteFromCart(item.id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteFromCart(item.id);
+            }}
           />
         </ActionStyled>
       </InfoStyled>

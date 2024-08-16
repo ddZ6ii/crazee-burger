@@ -58,10 +58,25 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = useCallback(
     (productId, qty = 1) => {
       if (!isProductInCart(productId, cart.items)) return;
-
       if (getProductQty(productId, cart.items) > 1) {
         const nextCartItems = cart.items.map((item) =>
           item.id === productId ? { ...item, qty: item.qty - qty } : { ...item }
+        );
+        setCart({ ...cart, items: nextCartItems });
+        return;
+      }
+      const nextCartItems = cart.items.filter((item) => item.id !== productId);
+      setCart({ ...cart, items: nextCartItems });
+    },
+    [cart]
+  );
+
+  const setItemQty = useCallback(
+    (productId, qty = 1) => {
+      if (!isProductInCart(productId, cart.items)) return;
+      if (qty >= 1) {
+        const nextCartItems = cart.items.map((item) =>
+          item.id === productId ? { ...item, qty } : { ...item }
         );
         setCart({ ...cart, items: nextCartItems });
         return;
@@ -78,6 +93,7 @@ export const CartProvider = ({ children }) => {
     addToCart,
     removeFromCart,
     deleteFromCart,
+    setItemQty,
   };
 
   return (

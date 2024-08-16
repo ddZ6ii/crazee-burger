@@ -40,7 +40,7 @@ export default function ItemCard({ item, qty, isLastItem }) {
               step={1}
               title="Enter the desired item quantity"
               className="input__wrapper"
-              onChange={() => alert('Update item qty')}
+              onChange={() => addToCart(item.id)}
             />
             <Button
               Icon={<IoAddOutline />}
